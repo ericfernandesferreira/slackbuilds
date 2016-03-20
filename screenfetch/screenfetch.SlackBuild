@@ -40,13 +40,13 @@
 #                   Updated changelog formating. Updated tar extraction line
 #                   to eliminate (harmless but annoying) extraction errors.
 
-# Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com>
-
 PRGNAM=screenfetch
 SRCNAM=screenFetch
 VERSION=${VERSION:-3.7.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
+
+wget -c https://github.com/KittyKatt/screenFetch/archive/v$VERSION.tar.gz
 
 ARCH=noarch
 
@@ -55,23 +55,22 @@ TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
-DOCS="CHANGELOG COPYING README.mkdn TODO"
-
 set -e
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $SRCNAM
-git clone https://github.com/KittyKatt/screenFetch.git
-cd $SRCNAM
-git checkout
-chmod 644 $DOCS
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/v$VERSION.tar.gz
+cd $SRCNAM-$VERSION
 
 install -m 755 -D $PRGNAM-dev $PKG/usr/bin/$PRGNAM
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a $DOCS $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a CHANGELOG COPYING README* TODO $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+find $PKG/usr/doc/$PRGNAM-$VERSION/ -type f -exec chmod 644 {} \;
+chown -R root:root $PKG/usr/doc/$PRGNAM-$VERSION
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
