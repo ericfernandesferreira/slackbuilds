@@ -1,0 +1,682 @@
+#!/bin/sh
+
+# Slackware build script for LibreOffice
+
+# Copyright 2015-2016 Hunter Sezen California, USA
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+PRGNAM=libreoffice
+VERSION=${VERSION:-5.1.1.3}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_SBo}
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i586 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+if [ "$ARCH" = "i586" ]; then
+  SLKCFLAGS="-O2 -march=i586 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2 -fPIC"
+  LIBDIRSUFFIX="64"
+else
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
+fi
+
+set -e
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
+cd $PRGNAM-$VERSION
+chown -R root:root .
+find -L . \
+ \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
+  -o -perm 511 \) -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
+  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+
+# install libreoffice in opt instead of usr
+OPT=${OPT:-no}
+if [ "${OPT:-yes}" = "yes" ]; then
+  LO_PREFIX=${LO_PREFIX:-/opt/$PRGNAM-$VERSION}
+else
+  LO_PREFIX=${LO_PREFIX:-/usr}
+fi
+
+# build the local help
+HELP=${HELP:-no}
+if [ "${HELP:-yes}" = "yes" ]; then
+  help="--with-help"
+elif [ "${HELP:-common}" = "common" ]; then
+  help="--with-help=common"
+else
+  help="--without-help"
+fi
+
+# this leaves room for more languages
+LANGUAGES=${LANGUAGES:-""}
+LANGUAGES="$LANGUAGES en-US"
+if [ "${LANGUAGES}" = "ALL en-US" ]; then
+  LANGUAGES="ALL"
+fi
+
+# this allows choosing themes
+THEME=${THEME:-""}
+THEME="$THEME"
+
+# disable or use an internal python provided by libreoffice
+PYTHON=${PYTHON:-yes}
+if [ "${PYTHON:-no}" = "no" ]; then
+  python="--enable-python=no"
+elif [ "${PYTHON:-internal}" = "internal" ]; then
+  python="--enable-python=internal"
+elif [ "${PYTHON:-full}" = "full" ]; then
+  python="--enable-python=fully-internal"
+else
+  if pkg-config --exists python-3.5; then
+    python="--enable-python=system"
+  else
+    python="--enable-python=internal"
+  fi
+fi
+
+# checks if gstreamer-1 is installed and uses gstreamer-0 if not
+GSTREAMER=${GSTREAMER:-no} GSTREAMER1=${GSTREAMER1:-yes}
+if pkg-config --exists gstreamer-1.0; then
+  if [ "${GSTREAMER:-yes}" = "yes" ]; then gstreamer="--enable-gstreamer-0-10";   else gstreamer="";  fi
+  if [ "${GSTREAMER1:-no}" = "no" ];  then nogstreamer="--disable-gstreamer-1-0"; else nogstreamer=""; fi
+else
+  gstreamer="--enable-gstreamer-0-10"
+  nogstreamer="--disable-gstreamer-1-0"
+fi
+
+# build the office development kit (ODK)
+ODK=${ODK:-no}
+if [ "${ODK:-yes}" = "yes" ]; then
+  odk=""
+  # generate the doxygen ODK C/C++ documentation
+  DOXYGEN=${DOXYGEN:-no}
+  if [ "${DOXYGEN:-yes}" = "yes" ]; then
+     if [ -x /usr/bin/doxygen ]; then
+       doxygen="--with-doxygen=/usr/bin/doxygen"
+     else
+       doxygen="--without-doxygen"
+     fi
+  else
+     doxygen="--without-doxygen"
+  fi
+else
+  odk="--disable-odk"
+  doxygen=""
+fi
+
+# build debug
+DEBUG=${DEBUG:-no}
+if [ "${DEBUG:-yes}" = "yes" ]; then
+  debug="--enable-debug"
+elif [ "${DEBUG:-dbg}" = "dbg" ]; then
+  debug="--enable-dbgutil"
+elif [ "${DEBUG:-symbols}" = "symbols" ]; then
+  debug="--enable-symbols"
+else
+  debug=""
+fi
+
+# build introspection
+INTROSPECTION=${INTROSPECTION:-no}
+if [ "${INTROSPECTION:-auto}" = "auto" ]; then
+  introspection="--enable-introspection=auto"
+elif [ "${INTROSPECTION:-yes}" = "yes" ]; then
+  introspection="--enable-introspection=yes"
+else
+  introspection="--enable-introspection=no"
+fi
+
+AVMEDIA=${AVMEDIA:-yes} CHART=${CHART:-no} DATABASE=${DATABASE:-yes} EXTENSION=${EXTENSION:-yes}
+EXPORT=${EXPORT:-yes} GTK3=${GTK3:-yes} ICECREAM=${ICECREAM:-no} LOADING=${LOADING:-yes}
+MERGELIB=${MERGELIB:-no} OPENSSL=${OPENSSL:-yes} SCRIPT=${SCRIPT:-yes} VLC=${VLC:-no}
+
+# experimental features
+if [ "${AVMEDIA:-no}" = "no" ];    then avmedia="--disable-avmedia";                else avmedia="";   fi
+if [ "${CHART:-yes}" = "yes" ];    then chart="--enable-chart-tests";               else chart="";     fi
+if [ "${DATABASE:-no}" = "no" ];   then database="--disable-database-connectivity"; else database="";  fi
+if [ "${EXTENSION:-no}" = "no" ];  then extension="--disable-extensions";           else extension=""; fi
+if [ "${EXPORT:-no}" = "no" ];     then export="--disable-export";                  else export="";    fi
+if [ "${GTK3:-no}" = "no" ];       then gtk="--disable-gtk3";                       else gtk="";       fi
+if [ "${ICECREAM:-yes}" = "yes" ]; then icecream="--enable-icecream";               else icecream="";  fi
+if [ "${LOADING:-no}" = "no" ];    then loading="--disable-dynamic-loading";        else loading="";   fi
+if [ "${MERGELIB:-yes}" = "yes" ]; then mergelib="--enable-mergelibs";              else mergelib="";  fi
+if [ "${OPENSSL:-no}" = "no" ];    then noopenssl="--disable-openssl";              else noopenssl=""; fi
+if [ "${SCRIPT:-no}" = "no" ];     then script="--disable-scripting";               else script="";    fi
+if [ "${VLC:-yes}" = "yes" ];      then vlc="--enable-vlc";                         else vlc="";       fi
+
+AVAHI=${AVAHI:-no} BARCODE=${BARCODE:-no} COMPILER=${COMPILER:-no} CRASH=${CRASH:-no} CT2N=${CT2N:-no}
+DIAGRAM=${DIAGRAM:-no} DICT=${DICT:-no} EOT=${EOT:-no} EPM=${EPM:-no} EXTRAFONT=${EXTRAFONT:-no}
+GALLERY=${GALLERY:-no} GOOGLEDOC=${GOOGLEDOC:-no} HARDLINK=${HARDLINK:-no} HUNART=${HUNART}:-no}
+KDE=${KDE:-no} LANGUAGETOOL=${LANGUAGETOOL:-no} LTO=${LTO:-no} MARIADB=${MARIADB:-no}
+MPL=${MPL:-no} NLPSOLVER=${NLPSOLVER:-no} NUMBERTEXT=${NUMBERTEXT:-no} ORCUS=${ORCUS:-no}
+PCH=${PCH:-no} SAL=${SAL:-no} SAMPLE=${SAMPLE:-no} TEMPLATE=${TEMPLATE:-no} TYPO=${TYPO:-no}
+VALIDATOR=${VALIDATOR:-no} WATCH=${WATCH:-no} WERROR=${WERROR:-no} WIKI=${WIKI:-no}
+
+# build features
+if [ "${AVAHI:-yes}" = "yes" ];        then avahi="--enable-avahi";                   else avahi="";        fi
+if [ "${BARCODE:-yes}" = "yes" ];      then barcode="--enable-ext-barcode";           else barcode="";      fi
+if [ "${COMPILER:-yes}" = "yes" ];     then compiler="--enable-compiler-plugins";     else compiler="";     fi
+if [ "${CRASH:-yes}" = "yes" ];        then crash="--enable-crashdump";               else crash="";        fi
+if [ "${CT2N:-yes}" = "yes" ];         then ct2n="--enable-ext-ct2n";                 else ct2n="";         fi
+if [ "${DIAGRAM:-yes}" = "yes" ];      then diagram="--enable-ext-diagram";           else diagram="";      fi
+if [ "${DICT:-yes}" = "yes" ];         then dict="--with-myspell-dicts";              else dict="";         fi
+if [ "${EOT:-yes}" = "yes" ];          then eot="--enable-eot";                       else eot="";          fi
+if [ "${EPM:-yes}" = "yes" ];          then epm="--with-epm";                         else epm="";          fi
+if [ "${EXTRAFONT:-yes}" = "yes" ];    then extrafont="--enable-extra-font";          else extrafont="";    fi
+if [ "${GALLERY:-yes}" = "yes" ];      then gallery="--enable-extra-gallery";         else gallery="";      fi
+if [ "${GOOGLEDOC:-yes}" = "yes" ];    then googledoc="--enable-ext-google-docs";     else googledoc="";    fi
+if [ "${HARDLINK:-yes}" = "yes" ];     then hardlink="--enable-hardlink-deliver";     else hardlink="";     fi
+if [ "${HUNART}:-yes}" = "yes" ];      then hunart="--enable-ext-hunart";             else hunart="";       fi
+if [ "${KDE:-yes}" = "yes" ];          then kde="--enable-kde4";                      else kde="";          fi
+if [ "${LANGUAGETOOL:-yes}" = "yes" ]; then languagetool="--enable-ext-languagetool"; else languagetool=""; fi
+if [ "${LTO:-yes}" = "yes" ];          then lto="--enable-lto";                       else lto="";          fi
+if [ "${MARIADB:-yes}" = "yes" ];      then mdbext="--enable-ext-mariadb-connector";  else mdbext="";       fi
+if [ "${MPL:-yes}" = "yes" ];          then mpl="--enable-mpl-subset";                else mpl="";          fi
+if [ "${NLPSOLVER:-yes}" = "yes" ];    then nlpsolver="--enable-ext-nlpsolver";       else nlpsolver="";    fi
+if [ "${NUMBERTEXT:-yes}" = "yes" ];   then numbertext="--enable-ext-numbertext";     else numbertext="";   fi
+if [ "${ORCUS:-yes}" = "yes" ];        then orcus="--enable-orcus";                   else orcus="";        fi
+if [ "${PCH:-yes}" = "yes" ];          then pch="--enable-pch";                       else pch="";          fi
+if [ "${SAL:-yes}" = "yes" ];          then sal="--enable-sal-log";                   else sal="";          fi
+if [ "${SAMPLE:-yes}" = "yes" ];       then sample="--enable-extra-sample";           else sample="";       fi
+if [ "${TEMPLATE:-yes}" = "yes" ];     then template="--enable-extra-template";       else template="";     fi
+if [ "${TYPO:-yes}" = "yes" ];         then typo="--enable-ext-typo";                 else typo="";         fi
+if [ "${VALIDATOR}" = "yes" ];         then validator="--enable-ext-validator";       else validator="";    fi
+if [ "${WATCH:-yes}" = "yes" ];        then watch="--enable-ext-watch-window";        else watch="";        fi
+if [ "${WERROR:-yes}" = "yes" ];       then werror="--enable-werror";                 else werror="";       fi
+if [ "${WIKI:-yes}" = "yes" ];         then wiki="--enable-ext-wiki-publisher";       else wiki="";         fi
+
+CANVAS=${CANVAS:-yes} CCACHE=${CCACHE:-yes} COLLADA=${COLLADA:-yes} CUPS=${CUPS:-yes}
+CVE=${CVE:-yes} COINMP=${COINMP:-yes} DBUS=${DBUS:-yes} FIREBIRD=${FIREBIRD:-yes}
+FONT=${FONT:-yes} GIO=${GIO:-yes} GLTF=${GLTF:-yes} GRAPHITE=${GRAPHITE:-yes} GTK=${GTK:-yes}
+LANGTAG=${LANGTAG:-yes} LARGEFILE=${LARGEFILE:-yes} LOTUSWORDPRO=${LOTUSWORDPRO:-yes}
+LPSOLVE=${LPSOLVE:-yes} NEON=${NEON:-yes} OOENV=${OOENV:-yes} PDF=${PDF:-yes}
+POSTGRESQL=${POSTGRESQL:-yes} RANDR=${RANDR:-yes} RANDRLINK=${RANDRLINK:-yes} REPORT=${REPORT:-yes}
+RUNTIME=${RUNTIME:-yes} SDREMOTE=${SDREMOTE:-yes} SYSTRAY=${SYSTRAY:-yes} XORG=${XORG:-yes}
+
+# disable features
+if [ "${CANVAS:-no}" = "no" ];       then canvas="--disable-cairo-canvas";           else canvas="";       fi
+if [ "${CCACHE:-no}" = "no" ];       then ccache="--disable-ccache";                 else ccache="";       fi
+if [ "${COLLADA:-no}" = "no" ];      then collada="--disable-collada";               else collada="";      fi
+if [ "${CUPS:-no}" = "no" ];         then cups="--disable-cups";                     else cups="";         fi
+if [ "${CVE:-no}" = "no" ];          then cve="--disable-cve-tests";                 else cve="";          fi
+if [ "${COINMP:-no}" = "no" ];       then nocoinmp="--disable-coinmp";               else nocoinmp="";     fi
+if [ "${DCONF:-no}" = "no" ];        then dconf="--disable-dconf";                   else dconf="";        fi
+if [ "${DBUS:-no}" = "no" ];         then dbus="--disable-dbus";                     else dbus="";         fi
+if [ "${FIREBIRD:-no}" = "no" ];     then firebird="--disable-firebird-sdbc";        else firebird="";     fi
+if [ "${FONT:-no}" = "no" ];         then font="--without-fonts";                    else font="";         fi
+if [ "${LANGTAG:-no}" = "no" ];      then langtag="--disable-liblangtag";            else langtag="";      fi
+if [ "${LARGEFILE:-no}" = "no" ];    then largefile="--disable-largefile";           else largefile="";    fi
+if [ "${LOTUSWORDPRO:-no}" = "no" ]; then lotuswordpro="--disable-lotuswordpro";     else lotuswordpro=""; fi
+if [ "${LPSOLVE:-no}" = "no" ];      then lpsolver="--disable-lpsolve";              else lpsolver="";     fi
+if [ "${GIO:-no}" = "no" ];          then gio="--disable-gio";                       else gio="";          fi
+if [ "${GLTF:-no}" = "no" ];         then gltf="--disable-gltf";                     else gltf="";         fi
+if [ "${GRAPHITE:-no}" = "no" ];     then graphite="--disable-graphite";             else graphite="";     fi
+if [ "${GTK:-no}" = "no" ];          then nogtk="--disable-gtk";                     else nogtk="";        fi
+if [ "${NEON:-no}" = "no" ];         then noneon="--disable-neon";                   else noneon="";       fi
+if [ "${OOENV:-no}" = "no" ];        then ooenv="--disable-ooenv";                   else ooenv="";        fi
+if [ "${PDF:-no}" = "no" ];          then pdfimport="--disable-pdfimport";           else pdfimport="";    fi
+if [ "${POSTGRESQL:-no}" = "no" ];   then pgsqlsdbc="--disable-postgresql-sdbc";     else pgsqlsdbc="";    fi
+if [ "${RANDR:-no}" = "no" ];        then randr="--disable-randr";                   else randr="";        fi
+if [ "${RANDRLINK:-no}" = "no" ];    then randrlink="--disable-randr-link";          else randrlink="";    fi
+if [ "${REPORT:-no}" = "no" ];       then report="--disable-report-builder";         else report="";       fi
+if [ "${RUNTIME:-no}" = "no" ];      then runtime="--disable-runtime-optimizations"; else runtime="";      fi
+if [ "${SDREMOTE:-no}" = "no" ];     then sdremote="--disable-sdremote";             else sdremote="";     fi
+if [ "${SYSTRAY:-no}" = "no" ];      then systray="--disable-systray";               else systray="";      fi
+if [ "${XORG:-no}" != "no" ];        then xorg="--with-x";                           else xorg="";         fi
+
+# autodetect dependencies so libreoffice doesn't download binaries for already installed packages
+if [ -d /usr/include/boost ];            then boost="--with-system-boost";              else boost="";       fi
+if [ -x /bin/bzip2 ];                    then bzip2="--with-system-bzip2";              else bzip2="";       fi
+if [ -x /usr/bin/mysql ];                then mariadb="--with-system-mariadb";          else mariadb="";     fi
+if [ -x /usr/bin/ldapurl ];              then openldap="--with-system-openldap";        else openldap="";    fi
+if pkg-config --exists apr-1;            then apr="--with-system-apr";                  else apr="";         fi
+if pkg-config --exists bluez;            then bluez="--with-system-bluez";              else bluez="";       fi
+if pkg-config --exists cairo;            then cairo="--with-system-cairo";              else cairo="";       fi
+if pkg-config --exists libclucene-core;  then clucene="--with-system-clucene";          else clucene="";     fi
+if pkg-config --exists libcurl;          then curl="--with-system-curl";                else curl="";        fi
+if pkg-config --exists expat;            then expat="--with-system-expat";              else expat="";       fi
+if pkg-config --exists glewmx;           then glew="--with-system-glew";                else glew="";        fi
+if pkg-config --exists harfbuzz;         then harfbuzz="--with-system-harfbuzz";        else harfbuzz="";    fi
+if pkg-config --exists hunspell;         then hunspell="--with-system-hunspell";        else hunspell="";    fi
+if pkg-config --exists icu-i18n;         then icu="--with-system-icu";                  else icu="";         fi
+if pkg-config --exists lcms2;            then lcms2="--with-system-lcms2";              else lcms2="";       fi
+if pkg-config --exists libiodbc;         then libiobdc="--with-system-obdc";            else libiobdc="";    fi
+if pkg-config --exists libodfgen-0.1;    then libodfgen="--with-system-libodfgen";      else libodfgen="";   fi
+if pkg-config --exists libpng16;         then libpng="--with-system-libpng";            else libpng="";      fi
+if pkg-config --exists librevenge-0.0;   then librevenge="--with-system-librevenge";    else librevenge="";  fi
+if pkg-config --exists libwpd-0.10;      then libwpd="--with-system-libwpd";            else libwpd="";      fi
+if pkg-config --exists libxml-2.0;       then libxml="--with-system-libxml";            else libxml="";      fi
+if pkg-config --exists mozilla-nss;      then mozilla="--with-system-nss";              else mozilla="";     fi
+if pkg-config --exists neon;             then neon="--with-system-neon";                else neon="";        fi
+if pkg-config --exists libopenjp2;       then openjpeg="--with-system-jpeg";            else openjpeg="";    fi
+if pkg-config --exists openssl;          then openssl="--with-system-openssl";          else openssl="";     fi
+if pkg-config --exists poppler;          then poppler="--with-system-poppler";          else poppler="";     fi
+if pkg-config --exists redland;          then redland="--with-system-redland";          else redland="";     fi
+if pkg-config --exists sane-backends;    then sane="--with-system-sane";                else sane="";        fi
+if pkg-config --exists zlib;             then zlib="--with-system-zlib";                else zlib="";        fi
+if [ -d /usr/include/glm ];              then glm="--with-system-glm";                  else glm="";         fi
+if [ -d /usr/include/cppconn ];          then mysql="--with-system-mysql-cppconn";      else mysql="";       fi
+if [ -d /usr/include/opencollada ];      then opencollada="--with-system-opencollada";  else opencollada=""; fi
+if [ -x /usr/bin/lp_solve ];             then lpsolve="--with-system-lpsolve";          else lpsolve="";     fi
+if [ -x /usr/bin/vigra-config ];         then vigra="--with-system-vigra";              else vigra="";       fi
+if pkg-config --exists coinmp;           then coinmp="--with-system-coinmp";            else coinmp="";      fi
+if pkg-config --exists cppunit;          then cppunit="--with-system-cppunit";          else cppunit="";     fi
+if pkg-config --exists graphite2;        then graphite2="--with-system-graphite";       else graphite2="";   fi
+if pkg-config --exists libabw-0.1;       then libabw="--with-system-libabw";            else libabw="";      fi
+if pkg-config --exists atomic_ops;       then libatomic="--with-system-libatomic_ops";  else libatomic="";   fi
+if pkg-config --exists libcdr-0.1;       then libcdr="--with-system-libcdr";            else libcdr="";      fi
+if pkg-config --exists libcmis-0.5;      then libcmis="--with-system-libcmis";          else libcmis="";     fi
+if pkg-config --exists libe-book-0.1;    then libebook="--with-system-libebook";        else libebook="";    fi
+if pkg-config --exists libeot;           then libeot="--with-system-libeot";            else libeot="";      fi
+if pkg-config --exists libetonyek-0.1;   then libetonyek="--with-system-libetonyek";    else libetonyek="";  fi
+if pkg-config --exists libexttextcat;    then libexttext="--with-system-libexttextcat"; else libexttext="";  fi
+if pkg-config --exists libfreehand-0.1;  then libfreehand="--with-system-libfreehand";  else libfreehand=""; fi
+if pkg-config --exists libgltf-0.0;      then libgltf="--with-system-libgltf";          else libgltf="";     fi
+if pkg-config --exists liblangtag;       then liblangtag="--with-system-liblangtag";    else liblangtag="";  fi
+if pkg-config --exists libmspub-0.1;     then libmspub="--with-system-libmspub";        else libmspub="";    fi
+if pkg-config --exists libmwaw-0.3;      then libmwaw="--with-system-libmwaw";          else libmwaw="";     fi
+if pkg-config --exists liborcus-0.10;    then liborcus="--with-system-orcus";           else liborcus="";    fi
+if pkg-config --exists libvisio-0.1;     then libvisio="--with-system-libvisio";        else libvisio="";    fi
+if pkg-config --exists libwpg-0.3;       then libwpg="--with-system-libwpg";            else libwpg="";      fi
+if pkg-config --exists libwps-0.4;       then libwps="--with-system-libwps";            else libwps="";      fi
+if pkg-config --exists mdds-1.0;         then mdds="--with-system-mdds";                else mdds="";        fi
+if pkg-config --exists mythes;           then mythes="--with-system-mythes";            else mythes="";      fi
+if pkg-config --exists npapi-sdk;        then npapi="--with-system-npapi-headers";      else npapi="";       fi
+if pkg-config --exists libpagemaker-0.0; then pagemaker="--with-system-libpagemaker";   else pagemaker="";   fi
+if pkg-config --exists libpq;            then postgresql="--with-system-postgresql";    else postgresql="";  fi
+if pkg-config --exists serf-1;           then serf="--with-system-serf";                else serf="";        fi
+if pkg-config --exists libucpp;          then ucpp="--with-system-ucpp";                else ucpp="";        fi
+
+# check if $BUNDLE is relevent
+if [ "$mdbext" = "--enable-ext-mariadb-connector" ] && [ "$mariadb" = "--with-system-mariadb" ]; then
+  BUNDLE=${BUNDLE:-no}
+  if [ "${BUNDLE:-yes}" = "yes" ]; then
+    mdbbundle="--enable-bundle-mariadb"
+  else
+    mdbbundle=""
+  fi
+else
+  mdbbundle=""
+fi
+
+# check if $SDRBLUETOOTH is relevent
+if [ "$dbus" = "--disable-dbus" ] || [ "$sdremote" = "--disable-sdremote" ]; then
+  sdrbluetooth="--disable-sdremote-bluetooth"
+else
+  SDRBLUETOOTH=${SDRBLUETOOTH:-yes}
+  if [ "${SDRBLUETOOTH:-no}" = "no" ]; then
+    sdrbluetooth="--disable-sdremote-bluetooth"
+  else
+    sdrbluetooth=""
+  fi
+fi
+
+# check if $TLS is relevent
+if [ "$noopenssl" != "--disable-openssl" ]; then
+  TLS=${TLS:-no}
+  if [ "${TLS:-openssl}" = "openssl" ]; then
+    tls="--with-tls=openssl"
+  elif [ "${TLS:-nss}" = "nss" ]; then
+    tls="--with-tls=nss"
+  else
+    tls=""
+  fi
+else
+  tls=""
+fi
+
+# prevent redownloading of tarballs (from lfs)
+install -dm0755 external/tarballs
+for SRC in dictionaries help translations; do
+  if [ -f $CWD/$PRGNAM-$SRC-$VERSION.tar.xz ]; then
+    ln -sf $CWD/$PRGNAM-$SRC-$VERSION.tar.xz external/tarballs/
+  fi
+done
+
+# from lfs
+sed -e "/gzip -f/d" \
+    -e "s|.1.gz|.1|g" \
+    -i bin/distro-install-desktop-integration
+sed -e "/distro-install-file-lists/d" -i Makefile.in
+sed -e "/ustrbuf/a #include <algorithm>" \
+    -i svl/source/misc/gridprinter.cxx
+chmod +x bin/unpack-sources
+
+# Fix build with mdds 1.0
+if pkg-config --exists mdds-1.0; then
+  sed -i "s:\[mdds >= 0.12.0\]:\[mdds-1.0 >= 1.0.0\]:" configure.ac
+fi
+
+# Use rtl::math::isNan()
+# https://cgit.freedesktop.org/libreoffice/core/commit/?id=b009252f78d5106c11c0eed601a0889dd3366bb1
+zcat $CWD/rtl_math_isNan.diff.gz | patch -p1
+
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./autogen.sh --prefix=$LO_PREFIX \
+  --libdir=$LO_PREFIX/lib${LIBDIRSUFFIX} \
+  --sysconfdir=/etc \
+  --mandir=$LO_PREFIX/man \
+  --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --with-lang="$LANGUAGES" \
+  --with-theme="$THEME" \
+  --with-build-version="Built on $(cat /etc/slackware-version)" \
+  --with-vendor="$(grep MAINTAINER $CWD/$PRGNAM.info | cut -c13- | tr -d '\"')" \
+  --with-alloc=system \
+  --enable-release-build \
+  --without-krb5 \
+  --without-gssapi \
+  --without-system-dicts \
+  --without-java \
+  --without-junit \
+  --with-parallelism=$NUMJOBS \
+  --build=$ARCH-slackware-linux \
+  $dict \
+  $font \
+  $help \
+  $apr \
+  $bluez \
+  $boost \
+  $bzip2 \
+  $cairo \
+  $coinmp \
+  $cppunit \
+  $clucene \
+  $curl \
+  $expat \
+  $glew \
+  $glm \
+  $graphite2 \
+  $harfbuzz \
+  $hunspell \
+  $icu \
+  $lcms2 \
+  $libabw \
+  $libatomic \
+  $libcdr \
+  $libcmis \
+  $libebook \
+  $libeot \
+  $libetonyek \
+  $libexttext \
+  $libfreehand \
+  $libgltf \
+  $libiodbc \
+  $liblangtag \
+  $libmspub \
+  $libmwaw \
+  $libodfgen \
+  $liborcus \
+  $libpng \
+  $librevenge \
+  $libvisio \
+  $libwpd \
+  $libwpg \
+  $libwps \
+  $libxml \
+  $lpsolve \
+  $mariadb \
+  $mdds \
+  $mozilla \
+  $mysql \
+  $mythes \
+  $neon \
+  $npapi \
+  $opencollada \
+  $openjpeg \
+  $openldap \
+  $openssl \
+  $pagemaker \
+  $poppler \
+  $postgresql \
+  $redland \
+  $sane \
+  $serf \
+  $ucpp \
+  $vigra \
+  $zlib \
+  $debug \
+  $doxygen \
+  $introspection \
+  $odk \
+  $python \
+  $canvas \
+  $ccache \
+  $collada \
+  $cups \
+  $cve \
+  $dbus \
+  $dconf \
+  $firebird \
+  $gio \
+  $gltf \
+  $graphite \
+  $langtag \
+  $largefile \
+  $lotuswordpro \
+  $lpsolver \
+  $nocoinmp \
+  $nogstreamer \
+  $nogtk \
+  $noneon \
+  $ooenv \
+  $pdfimport \
+  $pgsqlsdbc \
+  $randr \
+  $randrlink \
+  $report \
+  $runtime \
+  $sdremote \
+  $sdrbluetooth \
+  $systray \
+  $xorg \
+  $avahi \
+  $barcode \
+  $compiler \
+  $crash \
+  $ct2n \
+  $diagram \
+  $eot \
+  $epm \
+  $extrafont \
+  $gallery \
+  $googledoc \
+  $gstreamer \
+  $gtk \
+  $hardlink \
+  $hunart \
+  $kde \
+  $languagetool \
+  $lto \
+  $mdbext \
+  $mdbbundle \
+  $mpl \
+  $nlpsolver \
+  $numbertext \
+  $orcus \
+  $pch \
+  $sal \
+  $sample \
+  $template \
+  $typo \
+  $validator \
+  $watch \
+  $werror \
+  $wiki \
+  $avmedia \
+  $chart \
+  $database \
+  $export \
+  $extension \
+  $icecream \
+  $loading \
+  $mergelib \
+  $noopenssl \
+  $script \
+  $vlc
+
+make GMAKE_OPTIONS='VERBOSE=1'
+make DESTDIR=$PKG distro-pack-install
+
+install -dm0755 $PKG$LO_PREFIX/share/appdata
+install -m0644 sysui/desktop/appstream-appdata/*.xml $PKG$LO_PREFIX/share/appdata
+
+# don't need these (from alienbob)
+rm -f $PKG/gid_Module*
+rm -rf $PKG$LO_PREFIX/share/icons/{gnome,locolor}
+
+# Replace redundant fonts with symlinks to save space (from alienbob)
+if [ "$FONT" = "yes" ]; then
+  ( cd $PKG$LO_PREFIX/lib${LIBDIRSUFFIX}/$PRGNAM/share/fonts/truetype/
+    for FONTS in DejaVu*.ttf Liberation*.ttf ; do
+      rm -f $FONTS
+      ln -sf /usr/share/fonts/TTF/$FONTS
+    done
+  )
+fi
+
+# Create aliases for locales that have matching languages in LibreOffice
+# This enables people with these locales to use the autocorrect function
+# (taken from Fedora's libreoffice.spec and alienbob)
+cd $PKG$LO_PREFIX/lib${LIBDIRSUFFIX}/$PRGNAM/share/autocorr
+  en_GB_aliases="en-AG en-AU en-BS en-BW en-BZ en-CA en-DK en-GH en-HK en-IE en-IN en-JM en-NG en-NZ en-SG en-TT"
+  for lang in $en_GB_aliases; do
+    ln -sf acor_en-GB.dat acor_$lang.dat
+  done
+  en_US_aliases="en-PH"
+  for lang in $en_US_aliases; do
+    ln -sf acor_en-US.dat acor_$lang.dat
+  done
+  # en-ZA exists and has a good autocorrect file with two or three extras
+  # that make sense for neighbouring english speaking territories
+  en_ZA_aliases="en-NA en-ZW"
+  for lang in $en_ZA_aliases; do
+    ln -sf acor_en-ZA.dat acor_$lang.dat
+  done
+  if ! test $LANGUAGES = en-US; then
+    af_ZA_aliases="af-NA"
+    for lang in $af_ZA_aliases; do
+      ln -sf acor_af-ZA.dat acor_$lang.dat
+    done
+    de_DE_aliases="de-AT de-BE de-CH de-LI de-LU"
+    for lang in $de_DE_aliases; do
+      ln -sf acor_de-DE.dat acor_$lang.dat
+    done
+    es_ES_aliases="es-AR es-BO es-CL es-CO es-CR es-CU es-DO es-EC es-GT es-HN es-MX es-NI es-PA es-PE es-PR es-PY es-SV es-US es-UY es-VE"
+    for lang in $es_ES_aliases; do
+      ln -sf acor_es-ES.dat acor_$lang.dat
+    done
+    fr_FR_aliases="fr-BE fr-CA fr-CH fr-LU fr-MC"
+    for lang in $fr_FR_aliases; do
+      ln -sf acor_fr-FR.dat acor_$lang.dat
+    done
+    it_IT_aliases="it-CH"
+    for lang in $it_IT_aliases; do
+      ln -sf acor_it-IT.dat acor_$lang.dat
+    done
+    nl_BE_aliases="nl-AW"
+    for lang in $nl_BE_aliases; do
+      ln -sf acor_nl-BE.dat acor_$lang.dat
+    done
+    sv_SE_aliases="sv-FI"
+    for lang in $sv_SE_aliases; do
+      ln -sf acor_sv-SE.dat acor_$lang.dat
+    done
+    [ -f acor_lt_LT.dat ] && mv acor_lt_LT.dat acor_lt-LT.dat
+  else
+    rm -f acor_[a-df-z]*.dat acor_e[su]*.dat
+  fi
+cd -
+
+if [ "${DEBUG:-no}" = "no" ]; then
+  find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
+    | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+fi
+
+find $PKG$LO_PREFIX/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/$LO_PREFIX/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
+# if installed in /opt or some other location (from lfs)
+if [ "$LO_PREFIX" != "/usr" ]; then
+  # Adds symlinks to the user's path
+  mkdir -p $PKG/usr/bin
+  cd $PKG/usr/bin
+  ln -sf ../..$LO_PREFIX/lib${LIBDIRSUFFIX}/$PRGNAM/program/soffice $PRGNAM
+  for i in ../..$LO_PREFIX/lib${LIBDIRSUFFIX}/$PRGNAM/program \
+      sbase scalc sdraw simpress smath soffice swriter unopkg ; do   
+    ln -sf ../..$LO_PREFIX/lib${LIBDIRSUFFIX}/$PRGNAM/program/$i
+  done
+  cd -
+  # Icons
+  mkdir -p $PKG/usr/share/pixmaps
+  cd $PKG/usr/share/pixmaps
+  for i in ../../..$LO_PREFIX/share/icons/hicolor/32x32/apps/*; do
+    ln -sf $i
+  done
+  cd -
+  # Desktop menu entries
+  mkdir -p $PKG/usr/share/applications
+  cd $PKG/usr/share/applications
+  for i in ../../..$LO_PREFIX/lib${LIBDIRSUFFIX}/$PRGNAM/share/xdg/*; do
+    ln -sf $i $PRGNAM-$(basename $i)
+  done
+  cd -
+  # Man pages
+  mkdir -p $PKG/usr/man/man1
+  cd $PKG/usr/man/man1
+  for i in ../../..$LO_PREFIX/man/man1/*; do
+    ln -sf $i
+  done
+  cd -
+fi
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a COPYING* ChangeLog README.* $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
