@@ -1,0 +1,101 @@
+#!/bin/sh
+
+# Slackware build script for snes9x
+
+# Written by B. Watson (yalhcru@gmail.com)
+
+# Licensed under the WTFPL. See http://www.wtfpl.net/txt/copying/ for details.
+
+PRGNAM=snes9x
+VERSION=${VERSION:-1.53}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_SBo}
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i586 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+wget -c http://files.ipherswipsite.com/snes9x/$PRGNAM-$VERSION-src.tar.bz2
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+if [ "$ARCH" = "i586" ]; then
+  SLKCFLAGS="-O2 -march=i586 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-O2 -fPIC"
+  LIBDIRSUFFIX="64"
+else
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
+fi
+
+set -e
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+rm -rf $PRGNAM-$VERSION-src
+tar xvf $CWD/$PRGNAM-$VERSION-src.tar.bz2
+cd $PRGNAM-$VERSION-src
+chown -R root:root .
+find -L . \
+ \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
+  -o -perm 511 \) -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
+  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+
+patch -p1 < $CWD/snes9x-fix-crash.patch
+
+cd gtk
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --bindir=/usr/games \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
+  --with-netplay \
+  --with-opengl \
+  --build=$ARCH-slackware-linux
+
+make
+make install-strip DESTDIR=$PKG
+
+mkdir -p $PKG/usr/man/man6
+gzip -9c $CWD/snes9x-gtk.6 > $PKG/usr/man/man6/snes9x-gtk.6.gz
+
+cd $PKG/usr/man/man6
+  ln -s $PRGNAM-gtk.6.gz $PRGNAM.gz
+cd -
+
+cd $PKG/usr/games
+  ln -s $PRGNAM-gtk $PRGNAM
+cd -
+
+cat data/$PRGNAM.desktop > $PKG/usr/share/applications/$PRGNAM.desktop
+cd ..
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a docs/* $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+find $PKG/usr/doc/$PRGNAM-$VERSION/ -type f -exec chmod 644 {} \;
+chown -R root:root $PKG/usr/doc/$PRGNAM-$VERSION
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
