@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Icon=ppsspp
+Exec=ppsspp
+Terminal=false
+Type=Application
+Categories=Game;Emulator;
+Name=ppsspp
+GenericName=A PSP Emulator
+Comment=A PSP Emulator
