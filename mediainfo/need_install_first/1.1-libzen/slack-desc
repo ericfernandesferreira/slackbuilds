@@ -6,14 +6,14 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
       |-----handy-ruler------------------------------------------------------|
-glxosd: glxosd (on-screen display)
-glxosd:
-glxosd: GLXOSD is an on-screen display (OSD)/overlay for OpenGL applications
-glxosd: running on Linux with X11. It can show FPS, the temperature of your
-glxosd: CPU, and if you have an NVIDIA graphics card (with proprietary
-glxosd: drivers), it will also show the temperature of the GPU. Also, it can
-glxosd: log frame timings, which is useful for benchmarking.
-glxosd:
-glxosd:
-glxosd: Homepage : http://glxosd.nickguletskii.com/
-glxosd:
+libzen: libzen (mandatory library for libmediainfo)
+libzen:
+libzen: This package includes the shared library and the development support
+libzen: files.
+libzen:
+libzen: Homepage: http://mediainfo.sourceforge.net/
+libzen:
+libzen:
+libzen:
+libzen:
+libzen:
