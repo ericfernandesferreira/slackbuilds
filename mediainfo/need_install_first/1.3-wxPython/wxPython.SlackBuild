@@ -3,7 +3,7 @@
 # Written by Thomas Bourdon <thomas dot bourdon at halpanet dot org>
 # Copyright: See COPYING file at <http://ftp.halpanet.org/slackware/slackbuilds/COPYING>.
 
-# Modified again by Eric Fernandes Ferreira
+# Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=wxPython
 VERSION=${VERSION:-3.0.2.0}

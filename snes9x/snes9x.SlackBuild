@@ -6,6 +6,8 @@
 
 # Licensed under the WTFPL. See http://www.wtfpl.net/txt/copying/ for details.
 
+# Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
+
 PRGNAM=snes9x
 VERSION=${VERSION:-1.53}
 BUILD=${BUILD:-1}

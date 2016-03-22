@@ -26,6 +26,8 @@
 
 # revision date 2011/08/31
 
+# Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
+
 PRGNAM=GeoIP
 VERSION=${VERSION:-1.6.9}
 BUILD=${BUILD:-1}

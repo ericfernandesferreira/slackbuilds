@@ -3,6 +3,8 @@
 #
 # Michales (clavisound) Michaloudes korgie@gmail.com <2014>
 
+# Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
+
 PRGNAM=f2fs-tools
 VERSION=${VERSION:-1.6.0}
 BUILD=${BUILD:-1}
