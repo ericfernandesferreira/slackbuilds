@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+     |-----handy-ruler------------------------------------------------------|
+i-nex: I-Nex is an application that gathers information for hardware
+i-nex: components available on your system and displays it using an user
+i-nex: interface similar to the popular Windows tool CPU-Z.
+i-nex: I-Nex can display information for the following components:
+i-nex: CPU, GPU, Motherboard, Sound, Hard disks, RAM, Network and USB as well
+i-nex: some system info like the hostname, Linux distribution and version,
+i-nex: Xorg, GCC, GLX versions and Linux Kernel info.
+i-nex:
+i-nex:
+i-nex: Homepage: http://i-nex.linux.pl/
+i-nex:
