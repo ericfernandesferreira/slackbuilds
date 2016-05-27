@@ -78,6 +78,7 @@ cd build
   cmake -G "Unix Makefiles" \
     -DCMAKE_INSTALL_PREFIX:PATH=/usr \
     -Dbindir=/usr/games \
+    -Dmandir=/usr/man \
     -DDOLPHIN_WC_REVISION=Slackware \
     -DDOLPHIN_WC_BRANCH=master \
     -DLIB_INSTALL_DIR=lib${LIBDIRSUFFIX} \
