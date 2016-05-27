@@ -23,7 +23,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=audacious
-VERSION=${VERSION:-3.7.1}
+VERSION=${VERSION:-3.7.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -34,6 +34,8 @@ if [ -z "$ARCH" ]; then
        *) ARCH=$( uname -m ) ;;
   esac
 fi
+
+wget -c http://distfiles.audacious-media-player.org/$PRGNAM-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -111,7 +113,7 @@ if [ -d $PKG/usr/info ]; then
 fi
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a AUTHORS COPYING INSTALL Mercurial-Access NEWS README doc/* $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS COPYING INSTALL $PKG/usr/doc/$PRGNAM-$VERSION
 
 if [ -r ChangeLog ]; then
   DOCSDIR=$(echo $PKG/usr/doc/*-$VERSION)
