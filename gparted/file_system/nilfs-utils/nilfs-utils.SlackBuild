@@ -25,7 +25,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=nilfs-utils
-VERSION=${VERSION:-2.2.3}
+VERSION=${VERSION:-2.2.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
