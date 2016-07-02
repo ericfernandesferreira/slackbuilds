@@ -24,7 +24,7 @@
 
 PRGNAM=dolphin-emu
 SRCNAM=dolphin
-VERSION=${VERSION:-git}
+VERSION=${VERSION:-5.0.119}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -35,6 +35,8 @@ if [ -z "$ARCH" ]; then
        *) ARCH=$( uname -m ) ;;
   esac
 fi
+
+# wget -c https://github.com/dolphin-emu/dolphin/archive/$VERSION.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -61,6 +63,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $SRCNAM
+# tar xvf $CWD/$VERSION.tar.gz
 git clone https://github.com/dolphin-emu/dolphin.git
 cd $SRCNAM
 git checkout
@@ -71,20 +74,17 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
 mkdir build
 cd build
-  cmake -G "Unix Makefiles" \
-    -DCMAKE_INSTALL_PREFIX:PATH=/usr \
-    -Dbindir=/usr/games \
-    -Dmandir=/usr/man \
-    -DDOLPHIN_WC_REVISION=Slackware \
-    -DDOLPHIN_WC_BRANCH=master \
-    -DLIB_INSTALL_DIR=lib${LIBDIRSUFFIX} \
-    -DINSTALL_LIB_DIR=/usr/lib${LIBDIRSUFFIX} \
+  cmake .. \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -Dmandir=/usr/man \
+    -DDOLPHIN_WC_REVISION="Slackware - Somente para os fortes"  \
+    -DDOLPHIN_WC_BRANCH=5.0.119-master \
+    -DLIB_INSTALL_DIR=lib${LIBDIRSUFFIX} \
+    -DUSE_SHARED_ENET='TRUE' \
     -DCMAKE_BUILD_TYPE=Release ..
 
   make VERBOSE=1
@@ -110,10 +110,6 @@ if [ -d $PKG/usr/man ]; then
     done
   )
 fi
-
-# Remove unnecessary files/directories.
-rm -rf $PKG/usr/lib${LIBDIRSUFFIX}/libpolarssl.a
-find $PKG -type d -empty -delete
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a license.txt Readme.md $PKG/usr/doc/$PRGNAM-$VERSION
