@@ -85,6 +85,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
+  --datadir=/usr/share \
   --localstatedir=/var \
   --mandir=/usr/man \
   --disable-static \
