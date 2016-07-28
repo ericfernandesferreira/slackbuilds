@@ -24,7 +24,7 @@
 
 PRGNAM=dolphin-emu
 SRCNAM=dolphin
-VERSION=${VERSION:-5.0.129}
+VERSION=${VERSION:-5.0.310}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -82,7 +82,7 @@ cd build
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Dmandir=/usr/man \
     -DDOLPHIN_WC_REVISION="Slackware"  \
-    -DDOLPHIN_WC_BRANCH=5.0.120-master \
+    -DDOLPHIN_WC_BRANCH=$VERSION-master \
     -DLIB_INSTALL_DIR=lib${LIBDIRSUFFIX} \
     -DUSE_SHARED_ENET='TRUE' \
     -DCMAKE_BUILD_TYPE=Release ..
