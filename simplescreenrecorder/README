@@ -1,6 +1,8 @@
 Alguns profiles
 
-nvenc_hevc - Alta Qualidade - preset=hp
-nvenc_hevc - Boa Qualidade - 6000 - preset=hq
-nvenc_hevc - Qualidade Padrão - 4000 - preset=hq
+h264_nvenc
+Qualidade Alta - 0 - preset=hp
+Qualidade Boa - 6000 - preset=hq
+Qualidade Padrão - 4000 - preset=hq
+
 

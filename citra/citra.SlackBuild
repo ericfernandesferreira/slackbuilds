@@ -71,7 +71,7 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 # Patch to build against QT5 version 5.7.0
-patch -p0 CMakeLists.txt < $CWD/citra.patch
+# patch -p0 CMakeLists.txt < $CWD/citra.patch
 
 mkdir build
 cd build
