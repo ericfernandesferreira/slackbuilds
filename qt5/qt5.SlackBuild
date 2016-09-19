@@ -58,7 +58,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-# wget -c http://download.qt.io/official_releases/qt/5.7/$VERSION/single/qt-everywhere-opensource-src-5.7.0.tar.xz
+wget -c http://download.qt.io/official_releases/qt/5.7/$VERSION/single/qt-everywhere-opensource-src-5.7.0.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
