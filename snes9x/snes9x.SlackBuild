@@ -9,7 +9,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=snes9x
-VERSION=${VERSION:-1.53}
+VERSION=${VERSION:-1.54.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -21,7 +21,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://files.ipherswipsite.com/snes9x/$PRGNAM-$VERSION-src.tar.bz2
+wget -c https://github.com/snes9xgit/snes9x/archive/$VERSION.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -47,9 +47,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$VERSION-src
-tar xvf $CWD/$PRGNAM-$VERSION-src.tar.bz2
-cd $PRGNAM-$VERSION-src
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$VERSION.tar.gz
+cd $PRGNAM-$VERSION
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -57,9 +57,9 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-patch -p1 < $CWD/snes9x-fix-crash.patch
-
 cd gtk
+./autogen.sh
+
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
