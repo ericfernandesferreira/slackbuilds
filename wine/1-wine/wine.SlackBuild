@@ -3,7 +3,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=wine
-VERSION=${VERSION:-1.9.21}
+VERSION=${VERSION:-1.9.22}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
