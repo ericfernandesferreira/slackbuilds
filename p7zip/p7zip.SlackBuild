@@ -59,7 +59,7 @@ else
 fi
 
 # building the GUI
-GUI=${GUI:-no}
+GUI=${GUI:-yes}
 
 set -e
 
@@ -118,10 +118,6 @@ if ! [ "$GUI" = "no" ]; then
   cp -r GUI/Lang $PKG/usr/lib$LIBDIRSUFFIX/p7zip/Lang
   find $PKG/usr/lib$LIBDIRSUFFIX/p7zip/Lang -type d -exec chmod 555 {} \;
   find $PKG/usr/lib$LIBDIRSUFFIX/p7zip/Lang -type f -exec chmod 444 {} \;
-
-  cp -r GUI/help $PKG/usr/lib$LIBDIRSUFFIX/p7zip/help
-  find $PKG/usr/lib$LIBDIRSUFFIX/p7zip/help -type d -exec chmod 555 {} \;
-  find $PKG/usr/lib$LIBDIRSUFFIX/p7zip/help -type f -exec chmod 444 {} \;
 
   install -m 555 GUI/p7zipForFilemanager  $PKG/usr/bin/p7zipForFilemanager
 
