@@ -7,11 +7,13 @@ sudo pluma /usr/share/fonts/TTF/fonts.dir
 
 Para criar uma configuração específica para seu jogo
 
-mkdir -p /home/games/wine-games
+mkdir -p /home/games/lol
 
 WINEARCH=win32 WINEPREFIX=/home/games/lol winecfg
 WINEARCH=win32 WINEPREFIX=/home/games/gw2 winecfg
 WINEARCH=win32 WINEPREFIX=/home/games/quakelive winecfg
+
+WINEARCH=win64 WINEPREFIX=/home/games/cemu winecfg
 
 Para instalar os apps básicos do windows na configuração criada acima
 
@@ -25,3 +27,4 @@ Entre na pasta do executável
 WINEARCH=win32 WINEPREFIX=/home/games/lol wine lol.launcher.admin.exe
 WINEARCH=win32 WINEPREFIX=/home/games/gw2 wine Gw2.exe -dx9single
 WINEARCH=win32 WINEPREFIX=/home/games/quakelive wine Launcher.exe
+WINEARCH=win64 WINEPREFIX=/home/games/cemu wine64 Cemu.exe
