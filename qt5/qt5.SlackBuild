@@ -46,7 +46,7 @@
 # tailored to Qt 5. Modified by Larry Hajali.
 
 PRGNAM=qt5
-VERSION=${VERSION:-5.7.0}
+VERSION=${VERSION:-5.7.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -58,7 +58,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://download.qt.io/official_releases/qt/5.7/$VERSION/single/qt-everywhere-opensource-src-5.7.0.tar.xz
+wget -c http://download.qt.io/official_releases/qt/5.7/$VERSION/single/qt-everywhere-opensource-src-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -143,7 +143,7 @@ export CXXFLAGS="$SLKCFLAGS"
   -reduce-relocations \
   -nomake examples
 
-make -j5
+make
 make install INSTALL_ROOT=$PKG
 
 # Install documentation. Default is not to install documentation.
