@@ -3,7 +3,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=wine
-VERSION=${VERSION:-2.0}
+VERSION=${VERSION:-2.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -15,7 +15,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://mirrors.ibiblio.org/wine/source/2.0/$PRGNAM-$VERSION.tar.bz2
+wget -c http://mirrors.ibiblio.org/wine/source/2.x/$PRGNAM-$VERSION.tar.xz
 wget -c https://github.com/wine-compholio/wine-staging/archive/v$VERSION.tar.gz
 wget -c https://github.com/sarnex/wine-d3d9-patches/archive/$PRGNAM-d3d9-$VERSION.tar.gz
 
@@ -44,7 +44,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 tar xvf $CWD/v$VERSION.tar.gz
 tar xvf $CWD/$PRGNAM-d3d9-$VERSION.tar.gz
 
