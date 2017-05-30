@@ -3,7 +3,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=wine
-VERSION=${VERSION:-2.3}
+VERSION=${VERSION:-2.9}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -17,7 +17,7 @@ fi
 
 wget -c http://mirrors.ibiblio.org/wine/source/2.x/$PRGNAM-$VERSION.tar.xz
 wget -c https://github.com/wine-compholio/wine-staging/archive/v$VERSION.tar.gz
-#wget -c https://github.com/sarnex/wine-d3d9-patches/archive/$PRGNAM-d3d9-$VERSION.tar.gz
+wget -c https://github.com/sarnex/wine-d3d9-patches/archive/$PRGNAM-d3d9-$VERSION.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -46,7 +46,7 @@ cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
 tar xvf $CWD/v$VERSION.tar.gz
-#tar xvf $CWD/$PRGNAM-d3d9-$VERSION.tar.gz
+tar xvf $CWD/$PRGNAM-d3d9-$VERSION.tar.gz
 
 # Wine Staging Patches
 cd wine-staging-$VERSION/patches
@@ -62,11 +62,11 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 # D3D9 Nine Patches
-#patch -p1 -i $TMP/wine-d3d9-patches-wine-d3d9-$VERSION/staging-helper.patch
-#patch -p1 -i $TMP/wine-d3d9-patches-wine-d3d9-$VERSION/wine-d3d9.patch
+patch -p1 -i $TMP/wine-d3d9-patches-wine-d3d9-$VERSION/staging-helper.patch
+patch -p1 -i $TMP/wine-d3d9-patches-wine-d3d9-$VERSION/wine-d3d9.patch
 
 # Patch to fix League of Legends Store
-patch -p1 -i $CWD/wine-lol.patch
+# patch -p1 -i $CWD/wine-lol.patch
 
 autoreconf -i
 
