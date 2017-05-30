@@ -23,7 +23,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=gimp
-VERSION=${VERSION:-2.8.20}
+VERSION=${VERSION:-2.8.22}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
