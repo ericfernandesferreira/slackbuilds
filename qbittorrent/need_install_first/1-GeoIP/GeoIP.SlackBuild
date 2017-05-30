@@ -29,7 +29,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=GeoIP
-VERSION=${VERSION:-1.6.9}
+VERSION=${VERSION:-1.6.11}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
