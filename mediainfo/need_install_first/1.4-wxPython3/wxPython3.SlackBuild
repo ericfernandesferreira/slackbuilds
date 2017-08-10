@@ -1,14 +1,34 @@
 #!/bin/sh
 
-# Written by Thomas Bourdon <thomas dot bourdon at halpanet dot org>
-# Copyright: See COPYING file at <http://ftp.halpanet.org/slackware/slackbuilds/COPYING>.
+# Slackware build script for wxPython3
+
+# Copyright 2007-2014 Heinz Wiesinger, Amsterdam, The Netherlands
+# Copyright 2016 Willy Sudiarto Raharjo <willysr@slackbuilds.org>
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=wxPython3
 SRCNAM=wxPython
 VERSION=${VERSION:-3.0.2.0}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_SBo}
 
 if [ -z "$ARCH" ]; then
@@ -18,8 +38,6 @@ if [ -z "$ARCH" ]; then
        *) ARCH=$( uname -m ) ;;
   esac
 fi
-
-wget -c https://sourceforge.net/projects/wxpython/files/$SRCNAM/$VERSION/$SRCNAM-src-$VERSION.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -59,11 +77,9 @@ CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
-  --libdir=/usr/lib$LIBDIRSUFFIX \
   --sysconfdir=/etc \
   --localstatedir=/var \
   --disable-static \
-  --disable-precomp-headers \
   --with-gtk=2 \
   --with-sdl \
   --with-opengl \
@@ -72,10 +88,12 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-display \
   --enable-mediactrl \
   --enable-sound \
+  --disable-webview \
+  --disable-precomp-headers \
+  --libdir=/usr/lib$LIBDIRSUFFIX \
   --build=$ARCH-slackware-linux
 
 make -j5
-# make install DESTDIR=$PKG
 
 cd wxPython
   python setup.py \
@@ -105,7 +123,6 @@ cd wxPython
 
     rm -rf $PKG/usr/bin/editra
     rm -rf $PKG/usr/lib$LIBDIRSUFFIX/python2.7/site-packages/wx-3.0-gtk2/wx/tools/Editra
-
 cd -
 
 # install wxPython includes
@@ -119,13 +136,13 @@ mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/wxPython
 cp -a README.1st.txt docs* $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a wxPython/docs/* $PKG/usr/doc/$PRGNAM-$VERSION/wxPython
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-
+# Remove unnecessary docs
 cd $PKG/usr/doc/$PRGNAM-$VERSION/docs
 rm -rf cocoa latex mac metrowerks microwin msw palmos word
 
 mkdir -p $PKG/install
-cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
+cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
