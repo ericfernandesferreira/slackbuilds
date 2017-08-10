@@ -27,7 +27,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=winetricks
-VERSION=${VERSION:-20170517}
+VERSION=${VERSION:-20170614}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
