@@ -24,7 +24,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=qt5
-VERSION=${VERSION:-5.8.0}
+VERSION=${VERSION:-5.9.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -36,7 +36,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://download.qt.io/official_releases/qt/5.8/$VERSION/single/qt-everywhere-opensource-src-$VERSION.tar.xz
+wget -c http://download.qt.io/official_releases/qt/5.9/$VERSION/single/qt-everywhere-opensource-src-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -72,12 +72,10 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-# Slackware patch to build against MySQL/MariaDB.
-# patch -p1 < $CWD/patches/qt5.mysql.h.diff
+sed '/qsqlresult_p.h>/a#include <mysql/mysql_version.h>' \
+    -i qtbase/src/plugins/sqldrivers/mysql/qsql_mysql.cpp
 
-# Patch for the newer mozilla-nss
-# patch -p1 < $CWD/patches/nss-update-sslv3-nonce.patch
-
+sed -i "s|-O2|$SLKCFLAGS|" qtbase/mkspecs/common/g++-base.conf
 sed -i "s|-O2|$SLKCFLAGS|" qtbase/mkspecs/common/gcc-base.conf
 
 # Enable h.264 codec support:
@@ -100,13 +98,14 @@ export CXXFLAGS="$SLKCFLAGS"
   -system-libjpeg \
   -system-zlib \
   -system-sqlite \
-  -system-pcre \
   -plugin-sql-sqlite \
+  -plugin-sql-mysql \
   -icu \
   -openssl \
+  -opengl \
   -verbose \
   -optimized-qmake \
-  -dbus-linked \
+  -dbus \
   -openssl-linked \
   -qpa xcb \
   -xcb \
@@ -126,23 +125,12 @@ export CXXFLAGS="$SLKCFLAGS"
 make -j5
 make install INSTALL_ROOT=$PKG
 
-# Install documentation. Default is not to install documentation.
-if [ "${DOCS:-no}" == "yes" ]; then
-  # Recreate Makefiles in order to use the just compiled qdoc.
-  for doc in $(find . -name "Makefile*" | xargs egrep "^\s/usr/lib${LIBDIRSUFFIX}/qt5/bin/" \
-    | cut -d':' -f1 | uniq)
-  do
-    rm -fv $doc
-  done
-  make docs
-  make install_docs INSTALL_ROOT=$PKG
-fi
-
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 ln -s $PRGNAM $PKG/usr/lib${LIBDIRSUFFIX}/qt-$VERSION
 
+# Install symlinks to the Qt5 binaries in the $PATH:
 mkdir -p $PKG/usr/bin
 for BIN in $PKG/usr/lib${LIBDIRSUFFIX}/$PRGNAM/bin/*; do
   TMP_FILE=$(echo $BIN | sed -e "s|$PKG||")
@@ -156,6 +144,24 @@ for BIN in $PKG/usr/lib${LIBDIRSUFFIX}/$PRGNAM/bin/*; do
   esac
 done
 
+# Fix internal linking for Qt5WebEngineCore.pc.
+sed -i \
+  -e 's|-Wl,--start-group.* -Wl,--end-group||' \
+  -e "s|-L${PWD}/qtwebengine/src/core/api/Release||" \
+  $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/Qt5WebEngineCore.pc
+
+# While we are at it, there isn't any reason to keep references to $PKG in the *.prl files.
+for PRL in $(find $PKG -name "*\.prl"); do
+  sed -i '/^QMAKE_PRL_BUILD_DIR/d' $PRL
+done
+
+# One more for the road.
+sed -i "s|$PWD/qtbase|/usr/lib${LIBDIRSUFFIX}/$PRGNAM|" \
+  $PKG/usr/lib${LIBDIRSUFFIX}/$PRGNAM/mkspecs/modules/qt_lib_bootstrap_private.pri
+
+sed -i "s|-L${PWD}/\w*/lib ||g" \
+  $PKG/usr/lib${LIBDIRSUFFIX}/libqgsttools_p.prl
+
 # Create Environment variables
 mkdir -p $PKG/etc/profile.d
 sed -e "s|@LIBDIRSUFFIX@|${LIBDIRSUFFIX}|g" $CWD/profile.d/$PRGNAM.sh \
@@ -164,6 +170,7 @@ sed -e "s|@LIBDIRSUFFIX@|${LIBDIRSUFFIX}|g" $CWD/profile.d/$PRGNAM.csh \
   > $PKG/etc/profile.d/$PRGNAM.csh
 chmod 0755 $PKG/etc/profile.d/*
 
+# Create Icons and Shortcuts
 cat > $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/Qt5.pc << EOF
 prefix=/usr/lib${LIBDIRSUFFIX}/$PRGNAM
 bindir=\${prefix}/bin
@@ -187,24 +194,6 @@ Description: Qt5 Configuration
 Version: $VERSION
 EOF
 
-# Fix internal linking for Qt5WebEngineCore.pc.
-sed -i \
-  -e 's|-Wl,--start-group.* -Wl,--end-group||' \
-  -e "s|-L${PWD}/qtwebengine/src/core/api/Release||" \
-  $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/Qt5WebEngineCore.pc
-
-# While we are at it, there isn't any reason to keep references to $PKG in the *.prl files.
-for PRL in $(find $PKG -name "*\.prl"); do
-  sed -i '/^QMAKE_PRL_BUILD_DIR/d' $PRL
-done
-
-# One more for the road.
-sed -i "s|$PWD/qtbase|/usr/lib${LIBDIRSUFFIX}/$PRGNAM|" \
-  $PKG/usr/lib${LIBDIRSUFFIX}/$PRGNAM/mkspecs/modules/qt_lib_bootstrap_private.pri
-
-sed -i "s|-L${PWD}/\w*/lib ||g" \
-  $PKG/usr/lib${LIBDIRSUFFIX}/libqgsttools_p.prl
-
 for i in $CWD/desktop/*.desktop; do
   install -D -m 0644 $i $PKG/usr/share/applications/$(basename $i)
 done
@@ -220,9 +209,6 @@ for i in 16 32 48 64 128; do
   install -D -m 0644 qttools/src/linguist/linguist/images/icons/linguist-${i}-32.png \
     $PKG/usr/share/icons/hicolor/${i}x${i}/apps/linguist-qt5.png
 done
-
-# Remove executable bits from files.
-find $PKG \( -name "*.qml" -o -name "*.app" \) -perm 755 -exec chmod 644 '{}' \;
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a README qtbase/{header*,LGPL_EXCEPTION.txt,LICENSE.*L} $PKG/usr/doc/$PRGNAM-$VERSION

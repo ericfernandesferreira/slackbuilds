@@ -21,7 +21,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PKGNAM=qt5
-VERSION=${VERSION:-5.8.0}
+VERSION=${VERSION:-5.9.1}
 PKGSRC=$(echo $VERSION |cut -d- -f1)
 PKGVER=$(echo $VERSION |tr - _)
 BUILD=${BUILD:-1}
@@ -81,24 +81,22 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-# Fix dangling symlinks, thanks Larry Hajali:
-rm -f qtwebengine/src/3rdparty/chromium/third_party/mesa/src/src/gallium/state_trackers/d3d1x/w32api
-rm -f qtwebengine/src/3rdparty/chromium/third_party/webrtc/tools/e2e_quality/audio/perf
-ln -s ../../../../../tools/perf \
-  qtwebengine/src/3rdparty/chromium/third_party/webrtc/tools/e2e_quality/audio/
-
 # Fix path to mysql header:
-# cat $CWD/patches/qt5.mysql.h.diff | patch -p1 --verbose
+cat $CWD/patches/qt5.mysql.h.diff | patch -p1 --verbose || exit 1
 
-# Don't unload plugins in QPluginLoader (segfault in LXQT):
-#cd qtbase
-#  cat $CWD/patches/qt5.qtbug-49061.patch | patch -p1 --verbose
-#cd -
+# Fix missing private includes: QTBUG-37417
+sed -e '/CMAKE_NO_PRIVATE_INCLUDES\ \=\ true/d' \
+  -i qtbase/mkspecs/features/create_cmake.prf
 
-# Fix file chooser segfault on Gnome/Wayland:
-#cd qtbase
-#  cat $CWD/patches/qt5.qtbug-55583.patch | patch -p1 --verbose
-#cd -
+# Don't destroy foreign windows, QTBUG-61140:
+cd qtbase
+  cat $CWD/patches/qt5.qtbug-61140.patch | patch -p1 --verbose || exit 1
+cd -
+
+# Fix crashes with QtCurve, QTBUG-60558:
+cd qtbase
+  cat $CWD/patches/qt5.qtbug-60558.patch | patch -p1 --verbose || exit 1
+cd -
 
 sed -i -e "s/-O2/$SLKCFLAGS/" qtbase/mkspecs/common/g++-base.conf
 sed -i -e "s/-O2/$SLKCFLAGS/" qtbase/mkspecs/common/gcc-base.conf
@@ -129,14 +127,13 @@ export QT_PLUGIN_PATH="${QTDIR}/qtbase/plugins"
   -system-libjpeg \
   -system-zlib \
   -system-sqlite \
-  -system-pcre \
   -plugin-sql-sqlite \
   -plugin-sql-mysql \
   -icu \
   -openssl \
   -verbose \
   -optimized-qmake \
-  -dbus-linked \
+  -dbus \
   -openssl-linked \
   -qpa xcb \
   -xcb \
@@ -163,14 +160,9 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
 
 # Fix internal linking for Qt5WebKit.pc , thanks to Larry Hajali's SBo script:
 sed -i \
-  -e "s|-Wl,-whole-archive -lWebKit1 -Wl,-no-whole-archive -L${PWD}/qtwebkit/Source/WebKit[^ ]* ||" \
-  -e "s|-Wl,-whole-archive -lWebKit2 -Wl,-no-whole-archive -L${PWD}/qtwebkit/Source/WebKit2[^ ]* ||" \
-  -e "s|-Wl,-whole-archive -lWebCore -Wl,-no-whole-archive -L${PWD}/qtwebkit/Source/WebCore[^ ]* ||" \
-  -e "s|-Wl,-whole-archive -lANGLE -Wl,-no-whole-archive -L${PWD}/qtwebkit/Source/ThirdParty/ANGLE[^ ]* ||" \
-  -e "s|-Wl,-whole-archive -lJavaScriptCore -Wl,-no-whole-archive -L${PWD}/qtwebkit/Source/JavaScriptCore[^ ]* ||" \
-  -e "s|-Wl,-whole-archive -lWTF -Wl,-no-whole-archive -L${PWD}/qtwebkit/Source/WTF[^ ]* ||" \
-  -e "s|-Wl,-whole-archive -lleveldb -Wl,-no-whole-archive -L${PWD}/qtwebkit/Source/ThirdParty/leveldb[^ ]* ||" \
-  $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/Qt5WebKit.pc
+  -e 's|-Wl,--start-group.* -Wl,--end-group||' \
+  -e "s|-L${PWD}/qtwebengine/src/core/api/Release||" \
+  $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/Qt5WebEngineCore.pc
 
 # Fix the path in prl files:
 find "$PKG/usr/lib${LIBDIRSUFFIX}" -type f -name '*.prl' \
