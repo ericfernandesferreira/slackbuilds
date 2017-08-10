@@ -2,7 +2,7 @@
 
 # Slackware build script for wxGTK3
 
-# Copyright 2013-2015 Willy Sudiarto Raharjo <willysr@slackbuilds.org>
+# Copyright 2013-2017 Willy Sudiarto Raharjo <willysr@slackbuilds.org>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -22,13 +22,12 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
-
 PRGNAM=wxGTK3
-SRCNAM=wxWidgets
-VERSION=${VERSION:-3.0.2}
+VERSION=${VERSION:-3.0.3.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
+
+SRCNAM=wxWidgets
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -38,7 +37,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://github.com/wxWidgets/wxWidgets/releases/download/v$VERSION/$SRCNAM-$VERSION.tar.bz2
+wget -c https://github.com/wxWidgets/wxWidgets/archive/v3.0.3.1/wxWidgets-$VERSION.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -61,18 +60,11 @@ fi
 
 set -e
 
-# Check for STL
-if [ "${STL:-no}" = "yes" ]; then
-  stl="--enable-stl"
-else
-  stl=""
-fi
-
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $SRCNAM-$VERSION
-tar xvf $CWD/$SRCNAM-$VERSION.tar.bz2
+tar xvf $CWD/$SRCNAM-$VERSION.tar.gz
 cd $SRCNAM-$VERSION
 chown -R root:root .
 find -L . \
@@ -87,16 +79,16 @@ CXXFLAGS="$SLKCFLAGS" \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
-  --enable-shared \
   --enable-mediactrl \
   --with-opengl \
   --enable-graphics_ctx \
   --with-gtk=2 \
+  --with-sdl \
   --enable-unicode \
   --enable-plugins \
   --enable-ipv6 \
-  --with-sdl \
-  $stl \
+  --enable-webview \
+  --disable-static \
   --build=$ARCH-slackware-linux
 
 make -j5
