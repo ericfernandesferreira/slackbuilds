@@ -25,7 +25,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=unrar
-VERSION=${VERSION:-5.5.7}
+VERSION=${VERSION:-5.5.8}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
