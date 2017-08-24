@@ -23,7 +23,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=audacious
-VERSION=${VERSION:-3.8.2}
+VERSION=${VERSION:-3.9}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
