@@ -24,7 +24,7 @@
 
 PRGNAM=dolphin-emu
 SRCNAM=dolphin
-VERSION=${VERSION:-5.0.5077}
+VERSION=${VERSION:-5.0.5310}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
