@@ -74,14 +74,14 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 patch -p1 < $CWD/unrar-5.3.4-soname.patch
-cp -a $TMP/$PRGNAM/ $TMP/libunrar
+cp -a $TMP/unrar $TMP/libunrar
 
-make -C $TMP/libunrar lib libversion=$VERSION CXXFLAGS="$SLKCFLAGS"
+make CXXFLAGS="$SLKCFLAGS" -C $TMP/libunrar lib libversion=$VERSION
 make CXXFLAGS="$SLKCFLAGS" -f makefile unrar lib
 
-install -D -m 755 unrar $PKG/usr/bin/unrar
-install -D -m 755 $TMP/libunrar/libunrar.so.$VERSION $PKG/usr/lib${LIBDIRSUFFIX}/libunrar.so.$VERSION
-install -D -m 644 dll.hpp "$PKG/usr/include/unrar/dll.hpp"
+install -Dm755 unrar $PKG/usr/bin/unrar
+install -Dm755 $TMP/libunrar/libunrar.so.$VERSION $PKG/usr/lib${LIBDIRSUFFIX}/libunrar.so.$VERSION
+install -Dm644 dll.hpp $PKG/usr/include/unrar/dll.hpp
 
 (
   cd /usr/lib${LIBDIRSUFFIX}
@@ -93,7 +93,9 @@ find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | gr
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/man/man1
-gzip -9c $CWD/unrar.1 > $PKG/usr/man/man1/unrar.1.gz
+cp -a $CWD/$PRGNAM.1 $PKG/usr/man/man1
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/include/unrar
 cp -a *.cpp *.hpp $PKG/usr/include/unrar

@@ -22,6 +22,8 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
+
 PRGNAM=wxGTK3
 VERSION=${VERSION:-3.0.3.1}
 BUILD=${BUILD:-1}
@@ -79,6 +81,8 @@ CXXFLAGS="$SLKCFLAGS" \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
+  --localstatedir=/var \
+  --docdir=/usr/doc/$PRGNAM-$VERSION \
   --with-opengl \
   --with-gtk=3 \
   --with-sdl \
@@ -103,7 +107,7 @@ ln -fs /usr/lib${LIBDIRSUFFIX}/wx/config/gtk3-unicode-3.0 \
        $PKG/usr/bin/wx-config
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a docs/* $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a BuildGit.txt docs/* $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install

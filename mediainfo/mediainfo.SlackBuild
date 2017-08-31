@@ -80,8 +80,13 @@ if [ -d $TMP/MediaInfoLib ]; then
   rm -rf $TMP/MediaInfoLib
 fi
 
+# We do not want builtin libmediainfo
+if [ -d $TMP/ZenLib ]; then
+  rm -rf $TMP/ZenLib
+fi
+
 cd Project/GNU/CLI
-sh ./autogen.sh
+./autogen.sh
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -90,12 +95,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
   --localstatedir=/var \
-  --mandir=/usr/man \
-  --infodir=/usr/info \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localedir=/usr/share/locale \
   --disable-static \
-  --enable-shared \
   --build=$ARCH-slackware-linux
 
 make
@@ -103,7 +105,7 @@ make install DESTDIR=$PKG
 cd -
 
 cd Project/GNU/GUI
-sh ./autogen.sh
+./autogen.sh
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -112,12 +114,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
   --localstatedir=/var \
-  --mandir=/usr/man \
-  --infodir=/usr/info \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localedir=/usr/share/locale \
   --disable-static \
-  --enable-shared \
   --build=$ARCH-slackware-linux
 
 make
@@ -134,9 +133,8 @@ install -D -m 0644 Source/Resource/Image/MediaInfo.png $PKG/usr/share/pixmaps/me
 install -D -m 0644 Project/GNU/GUI/mediainfo-gui.desktop $PKG/usr/share/applications/mediainfo-gui.desktop
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a History_GUI.txt *.html $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a History* LICENSE* README* $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-chmod 0644 $PKG/usr/doc/$PRGNAM-$VERSION/*
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc

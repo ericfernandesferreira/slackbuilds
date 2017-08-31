@@ -68,7 +68,7 @@ patch -p1 -i $TMP/wine-d3d9-patches-wine-d3d9-$VERSION/wine-d3d9.patch
 # Patch to fix League of Legends Store
 # patch -p1 -i $CWD/wine-lol.patch
 
-autoreconf -i
+autoreconf -vif
 
 # Wine64
 if [ "$ARCH" = "x86_64" ]; then

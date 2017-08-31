@@ -57,7 +57,21 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-cd gtk
+cd unix
+
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
+  --enable-netplay \
+  --build=$ARCH-slackware-linux
+
+make
+
+cd ../gtk
 ./autogen.sh
 
 CFLAGS="$SLKCFLAGS" \
@@ -73,27 +87,24 @@ CXXFLAGS="$SLKCFLAGS" \
   --build=$ARCH-slackware-linux
 
 make
-make install-strip DESTDIR=$PKG
 
-mkdir -p $PKG/usr/man/man6
-gzip -9c $CWD/snes9x-gtk.6 > $PKG/usr/man/man6/snes9x-gtk.6.gz
+cd ../unix
+install -Dm0755 snes9x $PKG/usr/games/snes9x
 
-cd $PKG/usr/man/man6
-  ln -s $PRGNAM-gtk.6.gz $PRGNAM.gz
-cd -
-
-cd $PKG/usr/games
-  ln -s $PRGNAM-gtk $PRGNAM
-cd -
+cd ../gtk
+make install DESTDIR=$PKG
 
 cat data/$PRGNAM.desktop > $PKG/usr/share/applications/$PRGNAM.desktop
 cd ..
 
+mkdir -p $PKG/usr/man/man6
+cp $CWD/snes9x-gtk.6 $PKG/usr/man/man6
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a docs/* $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a docs/* gtk/doc/* unix/docs/* $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-find $PKG/usr/doc/$PRGNAM-$VERSION/ -type f -exec chmod 644 {} \;
-chown -R root:root $PKG/usr/doc/$PRGNAM-$VERSION
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc

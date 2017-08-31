@@ -76,7 +76,7 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 cd Project/GNU/Library
-sh ./autogen.sh
+./autogen.sh
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -85,12 +85,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
   --localstatedir=/var \
-  --mandir=/usr/man \
-  --infodir=/usr/info \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --localedir=/usr/share/locale \
   --disable-static \
-  --enable-shared \
   --enable-visibility \
   --with-libcurl \
   --without-libmms \
@@ -99,6 +96,9 @@ CXXFLAGS="$SLKCFLAGS" \
 make
 make install DESTDIR=$PKG
 cd -
+
+# Don't package .la files:
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/*.la
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
@@ -116,9 +116,9 @@ done
 ( cd Source/Doc && doxygen Doxyfile )
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a *.txt *.html Doc/ Source/Doc/Documentation.html $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a LICENSE README.md *.txt *.html Doc/ Source/Doc/Documentation.html \
+$PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-find $PKG/usr/doc/$PRGNAM-$VERSION -type f -exec chmod 644 {} \;
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc

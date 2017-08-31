@@ -23,8 +23,10 @@
 
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
-PKGNAM=google-chrome
+PRGNAM=google-chrome
 RELEASE=${RELEASE:-stable}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_SBo}
 
 ARCH=${ARCH:-$(uname -m)}
 
@@ -35,19 +37,9 @@ case "$ARCH" in
   x86_64) DEBARCH="amd64" ; LIBDIRSUFFIX="64" ; ARCH=x86_64 ;;
   *) echo "Package for $(uname -m) architecture is not available." ; exit 1 ;;
 esac
+
 # Get the version from the Debian/Ubuntu .deb (thanks to Fred Richards):
 VERSION=$(ar p google-chrome-${RELEASE}_current_${DEBARCH}.deb control.tar.gz 2> /dev/null | tar zxO ./control 2> /dev/null | grep Version | awk '{print $2}' | cut -d- -f1)
-BUILD=${BUILD:-1}
-
-
-if [ ! $UID = 0 ]; then
-  cat << EOF
-
-This script must be run as root.
-
-EOF
-  exit 1
-fi
 
 if ! /bin/ls google-chrome-*.deb 1> /dev/null 2> /dev/null ; then
   cat << EOF
@@ -67,8 +59,8 @@ EOF
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp}
-PKG=$TMP/package-$PKGNAM
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
 rm -rf $PKG
@@ -94,22 +86,19 @@ sed -i 's,libnss3.so.1d,libnss3.so\x00\x00\x00,g;
         s,libplc4.so.0d,libplc4.so\x00\x00\x00,g;
         s,libnspr4.so.0d,libnspr4.so\x00\x00\x00,g;' opt/google/chrome/chrome
 
-# --mandir=/usr/man:
-mv $PKG/usr/share/man $PKG/usr/man
-# Compress manual pages:
-find $PKG/usr/man -type f -exec gzip -9 {} \;
-for i in $( find $PKG/usr/man -type l ) ; do
-  ln -s $( readlink $i ).gz $i.gz
-  rm $i
-done
-
 # Install a .desktop launcher:
 sed -i -e "s#Icon=google-chrome#Icon=/opt/google/chrome/product_logo_256.png#" \
   $PKG/usr/share/applications/google-chrome.desktop
+
+mv $PKG/usr/share/man $PKG/usr/man
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
-
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

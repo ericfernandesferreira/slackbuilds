@@ -73,26 +73,26 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-mkdir build
+mkdir -p build
 cd build
   cmake .. \
-    -DCMAKE_C_FLAGS="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_INSTALL_PREFIX=/usr -G "Unix Makefiles" \
     -DINSTALLATION_SUFFIX_32=lib${LIBDIRSUFFIX} \
     -DINSTALLATION_SUFFIX_64=lib${LIBDIRSUFFIX} \
-    -DCMAKE_INSTALL_PREFIX=/usr -G "Unix Makefiles"
+    -DCMAKE_BUILD_TYPE=Release ..
+  make all
+  make install DESTDIR=$PKG
+cd ..
 
-make all
-make install DESTDIR=$PKG
-cd -
-
-#sed -i 's+/usr//lib/x86_64-linux-gnu//glxosd/+/usr/lib${LIBDIRSUFFIX}/glxosd+g' $PKG/usr/bin/glxosd
-#sed -i 's+/usr//lib/i386-linux-gnu//glxosd+/usr/lib${LIBDIRSUFFIX}/glxosd+g' $PKG/usr/bin/glxosd
+# Don't package the static libraries:
+rm -f $PKG/usr/lib${LIBDIRSUFFIX}/*.a
 
 chmod 0555 $PKG/usr/bin/glxosd
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a README* LICENSE AUTHORS $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS LICENSE README* $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install

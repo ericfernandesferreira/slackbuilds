@@ -94,7 +94,8 @@ install -Dm0644 $CWD/com.slackware.pkexec.gparted.policy \
 
 install -Dm0755 $CWD/gparted_polkit $PKG/usr/sbin/gparted_polkit
 
-gzip -9 $PKG/usr/man/man?/*.?
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a AUTHORS COPYING ChangeLog INSTALL NEWS README $PKG/usr/doc/$PRGNAM-$VERSION

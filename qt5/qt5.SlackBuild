@@ -120,7 +120,8 @@ export CXXFLAGS="$SLKCFLAGS"
   -proprietary-codecs \
   -reduce-relocations \
   -nomake examples \
-  -nomake tests
+  -nomake tests \
+  -ffmpeg
 
 make -j5
 make install INSTALL_ROOT=$PKG

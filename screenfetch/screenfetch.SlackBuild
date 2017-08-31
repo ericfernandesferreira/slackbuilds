@@ -47,13 +47,16 @@ rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/v$VERSION.tar.gz
 cd $SRCNAM-$VERSION
 
-install -m 755 -D $PRGNAM-dev $PKG/usr/bin/$PRGNAM
+install -Dm0755 $PRGNAM-dev $PKG/usr/bin/$PRGNAM
+
+mkdir -p $PKG/usr/man/man1
+cp -a $PRGNAM.1 $PKG/usr/man/man1
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a CHANGELOG COPYING README* TODO $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-find $PKG/usr/doc/$PRGNAM-$VERSION/ -type f -exec chmod 644 {} \;
-chown -R root:root $PKG/usr/doc/$PRGNAM-$VERSION
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc

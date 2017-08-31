@@ -89,6 +89,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --disable-static \
   --build=$ARCH-slackware-linux
 
+make
 make install DESTDIR=$PKG
 
 # Don't package the static libraries:
