@@ -1,4 +1,4 @@
-are made using/for Slackware64 14.2
+are made using/for Slackware 14.2
 highly recommended install "audio package" before any slackbuild.
 
 -----------------------------------------------------
