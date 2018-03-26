@@ -9,7 +9,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=snes9x
-VERSION=${VERSION:-1.54.1}
+VERSION=${VERSION:-1.55}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -84,6 +84,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var \
   --with-netplay \
   --with-opengl \
+  --without-system-zip \
   --build=$ARCH-slackware-linux
 
 make
