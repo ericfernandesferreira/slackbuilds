@@ -1,13 +1,15 @@
 Alguns profiles
 
 h264
-Qualidade Alta : -crf 10 -preset superfast
-Qualidade boa : -crf 18 -preset superfast
-Qialidade Padrão : -crf 23 -preset veryfast
+Qualidade Excelente : crf=10, preset=superfast
+Qualidade Boa : crf=18, preset=superfast
+Qialidade Padrão : crf=23, preset=veryfast
 
+h265
+Qualidade Padrão : crf=28, preset=veryfast
 
 h264_nvenc
-Qualidade Alta - 0 - preset=hp
+Qualidade Excelente - 0 - preset=hp
 Qualidade Boa - 8000 - preset=hq
 Qualidade Padrão - 4000 - preset=hq
 
