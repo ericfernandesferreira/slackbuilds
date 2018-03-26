@@ -28,7 +28,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=teamviewer
-VERSION=${VERSION:-12.0.85001}
+VERSION=${VERSION:-13.1.3026}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -40,7 +40,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://download.teamviewer.com/download/teamviewer_amd64.deb
+wget -c https://dl.tvcdn.de/download/linux/version_13x/${PRGNAM}_${VERSION}_amd64.deb
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -61,26 +61,12 @@ else
   LIBDIRSUFFIX=""
 fi
 
-DEBARCH="amd64"
-
-set -eu
+set -e
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $PKG
-
-if [ -f $CWD/teamviewer_${DEBARCH}.deb ]; then
-  # Get the real version
-  REAL_VER=$(ar p $CWD/teamviewer_${DEBARCH}.deb control.tar.gz | tar xzO ./control | grep Version | cut -d\  -f2 | cut -d- -f1)
-  if [ "$VERSION" != "$REAL_VER" ]; then
-    echo "Version of downloaded source [$REAL_VER] does not match version of SlackBuild [$VERSION]"
-    exit 1
-  fi
-  ar p $CWD/teamviewer_${DEBARCH}.deb data.tar.bz2 | tar xjv
-else
-  ar p $CWD/teamviewer_${VERSION}_${DEBARCH}.deb data.tar.bz2 | tar xjv
-fi
-
+ar p $CWD/${PRGNAM}_${VERSION}_amd64.deb data.tar.xz | tar xJv
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -90,13 +76,6 @@ find -L . \
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
-
-# Make a .desktop file
-mkdir -p $PKG/usr/share/applications
-cat $PKG/opt/teamviewer/tv_bin/desktop/com.teamviewer.TeamViewer.desktop \
-  | sed -e 's/EXEC/teamviewer/' -e 's/ICON/teamviewer/' \
-  > $PKG/usr/share/applications/teamviewer.desktop
-rm $PKG/usr/share/applications/com.teamviewer.TeamViewer.desktop
 
 # Remove the dangling symlink first
 rm -f $PKG/usr/bin/teamviewer
@@ -108,15 +87,16 @@ rm -f $PKG/usr/bin/teamviewer
 mkdir -p $PKG/usr/share/pixmaps
 ( ln -sf /opt/teamviewer/tv_bin/desktop/teamviewer.png  $PKG/usr/share/pixmaps/teamviewer.png )
 
+# We don't need apt
+rm -rf $PKG/etc/apt/
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-
-# Move docs to official place
 mv $PKG/opt/teamviewer/doc/*.txt $PKG/usr/doc/$PRGNAM-$VERSION
 rm -rf $PKG/opt/teamviewer/doc/
 
 mkdir -p $PKG/etc/rc.d/
-install -m 0744 $CWD/rc.teamviewerd $PKG/etc/rc.d/rc.teamviewerd.new
+install -m 0644 $CWD/rc.teamviewerd $PKG/etc/rc.d/rc.teamviewerd.new
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
