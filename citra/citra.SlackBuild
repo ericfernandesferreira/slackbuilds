@@ -76,8 +76,6 @@ cd build
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
-    -DMAN_INSTALL_DIR=/usr/man \
     -DUSE_SYSTEM_CURL=1 \
     -DCMAKE_BUILD_TYPE=Release ..
   make VERBOSE=1
@@ -94,6 +92,7 @@ for size in $(find /usr/share/icons/hicolor -type d -mindepth 1 -maxdepth 1 -exe
     fi
 done
 
+mv $PKG/usr/share/man $PKG/usr/
 find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
