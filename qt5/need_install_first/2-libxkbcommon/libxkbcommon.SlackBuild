@@ -25,7 +25,8 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=libxkbcommon
-VERSION=${VERSION:-0.7.2}
+SRCNAM=xkbcommon
+VERSION=${VERSION:-0.8.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -37,7 +38,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://xkbcommon.org/download/$PRGNAM-$VERSION.tar.xz
+wget -c https://github.com/xkbcommon/$PRGNAM/archive/$SRCNAM-$VERSION.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -63,9 +64,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
-cd $PRGNAM-$VERSION
+rm -rf $PRGNAM-$SRCNAM-$VERSION
+tar xvf $CWD/$SRCNAM-$VERSION.tar.gz
+cd $PRGNAM-$SRCNAM-$VERSION
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -73,9 +74,11 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
+./autogen.sh
+
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-./configure \
+./configure $XORG_CONFIG \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
