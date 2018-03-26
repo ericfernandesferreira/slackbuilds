@@ -79,7 +79,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc \
   --program-prefix= \
   --program-suffix= \
-  --enable-qt \
   --build=$ARCH-slackware-linux
 
 make
