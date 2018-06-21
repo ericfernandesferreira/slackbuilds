@@ -26,7 +26,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=qt5
-VERSION=${VERSION:-5.10.1}
+VERSION=${VERSION:-5.11.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://download.qt.io/official_releases/qt/5.10/$VERSION/single/qt-everywhere-src-$VERSION.tar.xz
+wget -c http://download.qt.io/official_releases/qt/5.11/$VERSION/single/qt-everywhere-src-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -190,6 +190,8 @@ done
 for file in moc uic rcc qmake lconvert lrelease lupdate; do
   ln -sfrvn $PKG/usr/lib${LIBDIRSUFFIX}/$PRGNAM/bin/$file $PKG/usr/lib${LIBDIRSUFFIX}/$PRGNAM/bin/$file-qt5
 done
+
+ln -s $PKG/usr/lib${LIBDIRSUFFIX}/$PRGNAM/bin/qmake $PKG/usr/bin/qmake-qt5
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a README qtbase/{header*,LGPL_EXCEPTION.txt,LICENSE.*L} $PKG/usr/doc/$PRGNAM-$VERSION
