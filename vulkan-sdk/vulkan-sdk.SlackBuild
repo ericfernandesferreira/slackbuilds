@@ -24,7 +24,7 @@
 
 PRGNAM=vulkan-sdk
 SRCNAM=vulkansdk
-VERSION=${VERSION:-1.1.73.0}
+VERSION=${VERSION:-1.1.77.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -36,7 +36,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://vulkan.lunarg.com/sdk/download/$VERSION/linux/$SRCNAM-linux-x86_64-$VERSION.run
+wget -c https://vulkan.lunarg.com/sdk/download/$VERSION/linux/$SRCNAM-linux-x86_64-$VERSION.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -62,11 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf VulkanSDK $SRCNAM-linux-$ARCH-$VERSION.run
-cp $CWD/$SRCNAM-linux-$ARCH-$VERSION.run .
-chmod +x $SRCNAM-linux-$ARCH-$VERSION.run
-./$SRCNAM-linux-$ARCH-$VERSION.run
-cd VulkanSDK
+rm -rf $VERSION
+tar xvf $CWD/$SRCNAM-linux-$ARCH-$VERSION.tar.gz
+cd $VERSION
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -76,13 +74,13 @@ find -L . \
 
 mkdir -p $PKG/usr/lib$LIBDIRSUFFIX
 mkdir -p $PKG/{usr/bin,etc,usr/include}
-cp -r $VERSION/$ARCH/lib/* $PKG/usr/lib$LIBDIRSUFFIX
-cp -r $VERSION/$ARCH/bin/* $PKG/usr/bin
-cp -r $VERSION/$ARCH/etc/* $PKG/etc
-cp -r $VERSION/$ARCH/include/* $PKG/usr/include
+cp -r $ARCH/lib/* $PKG/usr/lib$LIBDIRSUFFIX
+cp -r $ARCH/bin/* $PKG/usr/bin
+cp -r $ARCH/etc/* $PKG/etc
+cp -r $ARCH/include/* $PKG/usr/include
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a $VERSION/{*.html,doc/,samples/,examples} $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a {*.html,doc/,samples/,examples} LICENSE.txt $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
