@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Intel Undervolt
+Comment=A GUI interface to undervolt your intel cpu
+Icon=iuvui
+Exec=sudo iuvui
+Terminal=true
+Type=Application
+Categories=System;

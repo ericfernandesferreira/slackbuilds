@@ -1,0 +1,16 @@
+diff -ruN RetroArch/retroarch.cfg RetroArch-patched/retroarch.cfg
+--- RetroArch/retroarch.cfg	2021-04-25 20:41:46.341004080 -0300
++++ RetroArch-patched/retroarch.cfg	2021-04-25 20:57:18.009037579 -0300
+@@ -807,10 +807,10 @@
+ # cheat_database_path =
+ 
+ # Defines a directory where CPU-based video filters are kept.
+-# video_filter_dir =
++video_filter_dir = /usr/lib64/retroarch/filters/video
+ 
+ # Directory where DSP plugins are kept.
+-# audio_filter_dir =
++audio_filter_dir = /usr/lib64/retroarch/filters/audio
+ 
+ # Defines a directory where shaders (Cg, CGP, GLSL) are kept for easy access.
+ # video_shader_dir =

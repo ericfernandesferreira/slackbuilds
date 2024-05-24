@@ -1,0 +1,3 @@
+Versão limite = 22.08
+Dependências necessárias = SDL 2.24.0
+Dependência atual = gegl 0.4.34

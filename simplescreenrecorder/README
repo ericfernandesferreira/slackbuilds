@@ -3,7 +3,7 @@ Alguns profiles
 h264
 Qualidade Excelente : crf=10, preset=superfast
 Qualidade Boa : crf=18, preset=superfast
-Qialidade Padrão : crf=23, preset=veryfast
+Qualidade Padrão : crf=23, preset=veryfast
 
 h265
 Qualidade Padrão : crf=28, preset=veryfast

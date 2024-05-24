@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Postman
+GenericName=Postman
+Comment=The All-In-One Toolkit for Working Remotely.
+Icon=postman
+Exec=postman %u
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Development;

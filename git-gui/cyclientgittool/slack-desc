@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+                |-----handy-ruler------------------------------------------------------|
+cycligentgittool: Git Horizon makes seeing and acting on the state of a Git repository
+cycligentgittool: visually easier for all levels of Git users across all platforms.
+cycligentgittool: Work with complex Git repositories, especially those containing
+cycligentgittool: numerous submodules or microservices, or smaller projects is made
+cycligentgittool: simple with CyGit.
+cycligentgittool:
+cycligentgittool:
+cycligentgittool:
+cycligentgittool:
+cycligentgittool: Homepage : https://www.cycligent.com/git-tool/git-i3i.html
+cycligentgittool:

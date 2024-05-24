@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+vkquake2: This is the official Quake 2 code v3.21 with Vulkan support and mission
+vkquake2: packs included. The goal of this project is to maintain as much
+vkquake2: compatibility as possible with the original game - just pure, vanilla
+vkquake2: Quake 2 experience as we knew it back in 1997. 
+vkquake2:
+vkquake2:
+vkquake2:
+vkquake2:
+vkquake2:
+vkquake2: Homepage: https://github.com/kondrak/vkQuake2
+vkquake2:

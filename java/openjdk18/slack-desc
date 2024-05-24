@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+   |-----handy-ruler------------------------------------------------------|
+jdk: OpenJDK16 (open implementation of JDK 16)
+jdk:
+jdk: OpenJDK16 is an open source implementation of version 16 of the
+jdk: Java Development Kit, Standard Edition. It includes tools for
+jdk: developing, testing, and running programs written in Java.
+jdk:
+jdk:
+jdk:
+jdk:
+jdk: homepage: https://OpenJDK.java.net/
+jdk:

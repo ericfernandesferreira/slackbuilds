@@ -10,17 +10,23 @@ Para criar uma configuração específica para seu jogo
 mkdir -p /home/backup/games/lol
 
 WINEARCH=win32 WINEPREFIX=/home/backup/games/lol winecfg
-WINEARCH=win32 WINEPREFIX=/home/games/quakelive winecfg
-WINEARCH=win64 WINEPREFIX=/home/games/cemu winecfg
+WINEARCH=win32 WINEPREFIX=/home/backup/games/swtor winecfg
+WINEARCH=win32 WINEPREFIX=/home/backup/games/quakelive winecfg
+WINEARCH=win64 WINEPREFIX=/home/backup/games/cemu winecfg
 
 Para instalar os apps básicos do windows na configuração criada acima
 
-WINEARCH=win32 WINEPREFIX=/home/games/lol winetricks vcrun2008 d3dx9 corefonts dotnet20
-WINEARCH=win32 WINEPREFIX=/home/games/quakelive winetricks vcrun2005 corefonts dotnet20
+WINEARCH=win32 WINEPREFIX=/home/backup/games/lol winetricks vcrun2008 d3dx9 corefonts dotnet20
+WINEARCH=win32 WINEPREFIX=/home/backup/games/swtor winetricks vcrun2008 d3dx9 corefonts dotnet20
+WINEARCH=win32 WINEPREFIX=/home/backup/games/quakelive winetricks vcrun2005 corefonts dotnet20
 
 Para executar o Programa usando a configuração
 
 Entre na pasta do executável
+WINEARCH=win32 WINEPREFIX=/home/backup/games/swtor wine launcher.exe
 WINEARCH=win32 WINEPREFIX=/home/backup/games/lol wine LeagueClient.exe
-WINEARCH=win32 WINEPREFIX=/home/games/quakelive wine Launcher.exe
-WINEARCH=win64 WINEPREFIX=/home/games/cemu wine64 Cemu.exe
+WINEARCH=win32 WINEPREFIX=/home/backup/games/quakelive wine Launcher.exe
+WINEARCH=win64 WINEPREFIX=/home/backup/games/cemu wine64 Cemu.exe
+
+Para forçar o uso do DXVK
+--force setup_dxvk.verb

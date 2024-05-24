@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+            |-----handy-ruler------------------------------------------------------|
+spotify-tray: Adds a tray icon to the Spotify Linux client application.
+spotify-tray:
+spotify-tray: Features:
+spotify-tray:  - Basic playback control through right-click menu
+spotify-tray:  - Hiding the main client window ("minimize to tray")
+spotify-tray:
+spotify-tray:
+spotify-tray:
+spotify-tray:
+spotify-tray: Homepage : https://github.com/tsmetana/spotify-tray
+spotify-tray:

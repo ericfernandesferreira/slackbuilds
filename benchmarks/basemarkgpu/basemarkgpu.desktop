@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Basemark GPU
+Comment=The ultimate graphics performance benchmark
+Comment[pt_BR]=O melhor benchmark de desempenho gráfico
+Exec=basemarkgpu
+Icon=basemarkgpu
+Terminal=false
+Type=Application
+Categories=Utility;
+StartupNotify=true

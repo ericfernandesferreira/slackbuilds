@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Trello
+GenericName=Internet
+Comment=Trello Desktop Cards Client
+Icon=trello
+Exec=trello -- %u
+Terminal=false
+Type=Application
+Categories=Network;

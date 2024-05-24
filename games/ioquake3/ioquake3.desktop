@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=ioQuake3
+GenericName=ioQuake3
+Comment=One of the most popular Quake3 Clients for Linux/BSD/OSX/Win32
+Exec=ioquake3
+Icon=ioquake3
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Game

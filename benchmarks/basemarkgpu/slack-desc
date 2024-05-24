@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+           |-----handy-ruler------------------------------------------------------|
+basemarkgpu: Basemark GPU is a professional evaluation tool to evaluate and compare
+basemarkgpu: graphics performance across mobile and desktop platforms. Uniquely, it
+basemarkgpu: supports all major graphics APIs and operating systems.
+basemarkgpu:
+basemarkgpu:
+basemarkgpu:
+basemarkgpu:
+basemarkgpu:
+basemarkgpu:
+basemarkgpu: Homepage : https://www.basemark.com/benchmarks/basemark-gpu/
+basemarkgpu:

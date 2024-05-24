@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Wine Configuration
+Name[pt_br]=Carregador das configurações do Wine
+Comment=Configure Wine
+Exec=winecfg
+Icon=winecfg
+Terminal=false
+Categories=System;

@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+# Start/stop/restart linux-gpu-manager
+#
+
+service_start() {
+  if [ -x /usr/bin/linux-gpu-manager/service ]; then
+    echo "Starting linux-gpu-manager service"
+    nohup /usr/bin/linux-gpu-manager/service -d 2> /dev/null &
+  fi
+}
+
+service_stop() {
+  killall service 2> /dev/null &
+}
+
+service_restart() {
+  service_stop
+  sleep 3
+  service_start
+}
+
+case "$1" in
+'start')
+ service_start
+  ;;
+'stop')
+  service_stop
+  ;;
+'restart')
+ service_restart
+  ;;
+*)
+  echo "usage $0 start|stop|restart"
+esac

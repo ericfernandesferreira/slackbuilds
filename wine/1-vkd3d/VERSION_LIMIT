@@ -1,0 +1,3 @@
+Versão limite = 1.10 
+Dependências necessárias = vulkan-headers 1.3.228
+Dependência atual = vulkan-sdk 1.2.176.1

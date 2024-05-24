@@ -1,3 +1,0 @@
-Para funcionar você tem que ir na pasta /usr/lib64 e criar um symlink
-
-sudo ln -s libncurses.so.5 libtinfo.so.5

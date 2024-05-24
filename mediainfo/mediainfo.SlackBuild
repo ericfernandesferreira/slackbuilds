@@ -27,7 +27,8 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=mediainfo
-VERSION=${VERSION:-18.05}
+SRCNAM=MediaInfo
+VERSION=${VERSION:-24.04}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -39,7 +40,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://mediaarea.net/download/source/mediainfo/$VERSION/${PRGNAM}_$VERSION.tar.bz2
+wget -c http://mediaarea.net/download/source/mediainfo/$VERSION/${PRGNAM}_${VERSION}.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -65,9 +66,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf MediaInfo
-tar xvf $CWD/${PRGNAM}_${VERSION}.tar.bz2
-cd MediaInfo
+rm -rf $SRCNAM
+tar xvf $CWD/${PRGNAM}_${VERSION}.tar.xz
+cd $SRCNAM
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -75,15 +76,7 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-# We do not want builtin libmediainfo
-if [ -d $TMP/MediaInfoLib ]; then
-  rm -rf $TMP/MediaInfoLib
-fi
-
-# We do not want builtin libmediainfo
-if [ -d $TMP/ZenLib ]; then
-  rm -rf $TMP/ZenLib
-fi
+patch -p1 < $CWD/remove-static-libzen.patch
 
 cd Project/GNU/CLI
 ./autogen.sh
@@ -96,8 +89,11 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc \
   --localstatedir=/var \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localedir=/usr/share/locale \
+  --with-dll \
+  --enable-shared \
+  --disable-debug \
   --disable-static \
+  --disable-staticlibs \
   --build=$ARCH-slackware-linux
 
 make
@@ -115,8 +111,11 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc \
   --localstatedir=/var \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localedir=/usr/share/locale \
+  --disable-debug \
   --disable-static \
+  --disable-staticlibs \
+  --enable-shared \
+  --with-dll \
   --build=$ARCH-slackware-linux
 
 make
@@ -126,15 +125,12 @@ cd -
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-# We need an icon file
-install -D -m 0644 Source/Resource/Image/MediaInfo.png $PKG/usr/share/pixmaps/mediainfo.png
-
-# Manually install the .desktop file
-install -D -m 0644 Project/GNU/GUI/mediainfo-gui.desktop $PKG/usr/share/applications/mediainfo-gui.desktop
-
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a History* LICENSE* README* $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a History* LICENSE License* README* $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+# Don't need these:
+rm -rf $PKG/usr/share/kde4
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc

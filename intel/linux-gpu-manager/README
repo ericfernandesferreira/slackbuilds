@@ -1,0 +1,13 @@
+To use linux-gpu-manager (intel)
+
+First need to start service
+/etc/rc.d/rc.linuxgpumanager start
+
+and then
+linuxgpumanager powersave
+linuxgpumanager normal
+linuxgpumanager performance
+
+To check the clocks applied you can use intel-power-control
+https://gitlab.com/grinder/slackbuilds/-/tree/master/intel/intel-power-control
+

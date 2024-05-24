@@ -1,0 +1,14 @@
+diff -ruN winetricks-20210206/Makefile winetricks-20210206-patched/Makefile
+--- winetricks-20210206/Makefile	2021-02-06 17:45:09.000000000 -0300
++++ winetricks-20210206-patched/Makefile	2021-05-03 01:14:20.689588042 -0300
+@@ -52,8 +52,8 @@
+ install:
+ 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/bin
+ 	$(INSTALL_PROGRAM) src/winetricks $(DESTDIR)$(PREFIX)/bin/winetricks
+-	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/man/man1
+-	$(INSTALL_DATA) src/winetricks.1 $(DESTDIR)$(PREFIX)/share/man/man1/winetricks.1
++	$(INSTALL) -d $(DESTDIR)$(PREFIX)/man/man1
++	$(INSTALL_DATA) src/winetricks.1 $(DESTDIR)$(PREFIX)/man/man1/winetricks.1
+ 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/applications
+ 	$(INSTALL_DATA) src/winetricks.desktop $(DESTDIR)$(PREFIX)/share/applications/winetricks.desktop
+ 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/metainfo

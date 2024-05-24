@@ -1,0 +1,12 @@
+diff -ruN unrar/makefile unrar-patched/makefile
+--- unrar/makefile	2020-05-21 06:13:21.000000000 -0300
++++ unrar-patched/makefile	2021-04-26 05:14:51.114110992 -0300
+@@ -157,7 +157,7 @@
+ lib:	CXXFLAGS+=$(LIBFLAGS)
+ lib:	clean $(OBJECTS) $(LIB_OBJ)
+ 	@rm -f libunrar.*
+-	$(LINK) -shared -o libunrar.so $(LDFLAGS) $(OBJECTS) $(LIB_OBJ)
++	$(LINK) -shared -Wl,-soname,libunrar.so.$(libversion) -o libunrar.so.$(libversion) $(LDFLAGS) $(OBJECTS) $(LIB_OBJ)
+ 	$(AR) rcs libunrar.a $(OBJECTS) $(LIB_OBJ)
+ 
+ install-unrar:

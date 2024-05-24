@@ -1,0 +1,21 @@
+diff -ruN aqemu/meson.build aqemu-patched/meson.build
+--- aqemu/meson.build	2021-06-14 23:59:37.750257187 -0300
++++ aqemu-patched/meson.build	2021-06-15 00:05:42.697270310 -0300
+@@ -173,12 +173,12 @@
+ 
+ install_subdir('resources/os_icons/', install_dir : 'share/aqemu')
+ install_subdir('resources/os_templates/', install_dir : 'share/aqemu')
+-install_subdir('resources/docs/', install_dir : 'share/aqemu')
++install_subdir('resources/docs/', install_dir : 'doc/aqemu-0.9.6')
+ 
+-install_data('TODO', install_dir : 'share/doc/aqemu')
+-install_data('CHANGELOG', install_dir : 'share/doc/aqemu')
+-install_data('AUTHORS', install_dir : 'share/doc/aqemu')
+-install_data('README', install_dir : 'share/doc/aqemu')
++install_data('TODO', install_dir : 'doc/aqemu-0.9.6')
++install_data('CHANGELOG', install_dir : 'doc/aqemu-0.9.6')
++install_data('AUTHORS', install_dir : 'doc/aqemu-0.9.6')
++install_data('README', install_dir : 'doc/aqemu-0.9.6')
+ 
+ install_data('resources/menu_data/aqemu.png', install_dir : 'share/pixmaps')
+ install_data('resources/menu_data/aqemu.desktop', install_dir : 'share/applications')

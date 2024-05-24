@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=vkQuake2
+GenericName=vkQuake2
+Comment=Quake2 Client using vulkan for Linux
+Exec=vkquake2
+Icon=vkquake2
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Game

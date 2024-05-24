@@ -1,0 +1,11 @@
+diff -ruN ReplaySorcery/src/audio/pulsedev.c ReplaySorcery-patched/src/audio/pulsedev.c
+--- ReplaySorcery/src/audio/pulsedev.c	2022-04-21 21:41:33.957890287 -0300
++++ ReplaySorcery-patched/src/audio/pulsedev.c	2022-04-21 21:42:46.079884935 -0300
+@@ -25,6 +25,7 @@
+ #include <libavutil/avutil.h>
+ #include <libavutil/bprint.h>
+ #include <libavutil/time.h>
++#include <libavutil/channel_layout.h>
+ 
+ #ifdef RS_BUILD_PULSE_FOUND
+ #include <pulse/pulseaudio.h>

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+                     |-----handy-ruler------------------------------------------------------|
+evolution-data-server: The Evolution Data Server package provides a unified backend for
+evolution-data-server: programs that work with contacts, tasks, and calendar information. It
+evolution-data-server: was originally developed for Evolution (hence the name), but is now
+evolution-data-server: used by other packages as well.
+evolution-data-server:
+evolution-data-server: The Evolution Data Server provides a single database for common,
+evolution-data-server: desktop-wide information, such as a user's address book or calendar
+evolution-data-server: events.
+evolution-data-server:
+evolution-data-server: Homepage : https://github.com/GNOME/evolution-data-server
+evolution-data-server:

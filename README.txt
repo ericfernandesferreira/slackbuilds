@@ -1,15 +1,10 @@
-are made using/for Slackware 14.2
-highly recommended install "audio package" before any slackbuild.
+Are made using/for Slackware64 15.0
+Highly recommended install "audio package" before any slackbuild.
 
 -----------------------------------------------------
-First install QT5 package and your dependencies.
 
-List of programs are using QT5 to build:
-audacious
-citra
-imagewriter
-obs-studio
-qbittorent
-simplescreenrecorder
-smplayer
+List of programs are not working at the moment (2023-04-23)
 
+vita3k - problem with boost
+suyu - unknow problem
+vkquake - problem with shaders

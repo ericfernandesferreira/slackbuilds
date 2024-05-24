@@ -1,0 +1,21 @@
+diff -ruN virt-manager/setup.py virt-manager-patched/setup.py
+--- virt-manager/setup.py	2022-01-23 01:58:40.934094341 -0300
++++ virt-manager-patched/setup.py	2022-01-23 02:02:43.667096636 -0300
+@@ -177,7 +177,7 @@
+             open(newpath, "wb").write(out)
+ 
+             self.distribution.data_files.append(
+-                ('share/man/man1', (newpath,)))
++                ('man/man1', (newpath,)))
+ 
+     def _build_icons(self):
+         for size in glob.glob(os.path.join("data/icons", "*")):
+@@ -499,7 +499,7 @@
+          ["data/org.virt-manager.virt-manager.gschema.xml"]),
+         ("share/virt-manager/ui", glob.glob("ui/*.ui")),
+ 
+-        ("share/man/man1", [
++        ("man/man1", [
+             "man/virt-manager.1",
+             "man/virt-install.1",
+             "man/virt-clone.1",

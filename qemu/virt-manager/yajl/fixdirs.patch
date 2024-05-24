@@ -1,0 +1,18 @@
+diff -ruN yajl-2.1.0/src/CMakeLists.txt yajl-2.1.0-patched/src/CMakeLists.txt
+--- yajl-2.1.0/src/CMakeLists.txt	2014-03-19 01:58:29.000000000 -0300
++++ yajl-2.1.0-patched/src/CMakeLists.txt	2021-06-14 18:34:17.905088630 -0300
+@@ -30,7 +30,7 @@
+ # set up some paths
+ SET (libDir ${CMAKE_CURRENT_BINARY_DIR}/../${YAJL_DIST_NAME}/lib)
+ SET (incDir ${CMAKE_CURRENT_BINARY_DIR}/../${YAJL_DIST_NAME}/include/yajl)
+-SET (shareDir ${CMAKE_CURRENT_BINARY_DIR}/../${YAJL_DIST_NAME}/share/pkgconfig)
++SET (shareDir ${CMAKE_CURRENT_BINARY_DIR}/../${YAJL_DIST_NAME}/lib/pkgconfig)
+ 
+ # set the output path for libraries
+ SET(LIBRARY_OUTPUT_PATH ${libDir})
+@@ -84,4 +84,4 @@
+ INSTALL(TARGETS yajl_s ARCHIVE DESTINATION lib${LIB_SUFFIX})
+ INSTALL(FILES ${PUB_HDRS} DESTINATION include/yajl)
+ INSTALL(FILES ${incDir}/yajl_version.h DESTINATION include/yajl)
+-INSTALL(FILES ${shareDir}/yajl.pc DESTINATION share/pkgconfig)
++INSTALL(FILES ${shareDir}/yajl.pc DESTINATION lib${LIB_SUFFIX}/pkgconfig)

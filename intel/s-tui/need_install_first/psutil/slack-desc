@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+     |-----handy-ruler-------------------------------------------------------|
+psutil: psutil (process and system utilities) is a cross-platform library for
+psutil: retrieving information on running processes and system utilization
+psutil: (CPU, memory, disks, network, sensors) in Python. It is useful mainly
+psutil: for system monitoring, profiling and limiting process resources and
+psutil: management of running processes. It implements many functionalities
+psutil: offered by classic UNIX command line tools such as ps, top, iotop,
+psutil: lsof,netstat, ifconfig, free and others.
+psutil:
+psutil:
+psutil: Homepage : https://github.com/giampaolo/psutil
+psutil:
