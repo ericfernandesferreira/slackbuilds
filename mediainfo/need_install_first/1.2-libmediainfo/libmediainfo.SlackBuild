@@ -27,7 +27,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=libmediainfo
-VERSION=${VERSION:-24.04}
+VERSION=${VERSION:-24.06}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
