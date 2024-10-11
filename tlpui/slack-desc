@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+     |-----handy-ruler------------------------------------------------------|
+tlpui: The Python scripts in this project generate a GTK-UI to change TLP
+tlpui: configuration files easily. It has the aim to protect users from
+tlpui: setting bad configuration and to deliver a basic overview of all the
+tlpui: valid configuration values.
+tlpui:
+tlpui:
+tlpui:
+tlpui:
+tlpui:
+tlpui: Homepage : https://github.com/d4nj1/TLPUI
+tlpui:

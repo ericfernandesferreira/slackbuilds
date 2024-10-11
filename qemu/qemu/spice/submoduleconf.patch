@@ -1,0 +1,21 @@
+diff -ruN spice/subprojects/spice-common/meson_options.txt spice-patched/subprojects/spice-common/meson_options.txt
+--- spice/subprojects/spice-common/meson_options.txt	2021-06-13 23:27:12.910892521 -0300
++++ spice-patched/subprojects/spice-common/meson_options.txt	2021-06-13 23:28:03.977893980 -0300
+@@ -33,7 +33,7 @@
+ 
+ option('manual',
+     type : 'boolean',
+-    value : true,
++    value : false,
+     yield : true,
+     description : 'Build SPICE manual')
+ 
+@@ -44,7 +44,7 @@
+ 
+ option('tests',
+     type : 'boolean',
+-    value : true,
++    value : false,
+     yield : true,
+     description : 'Enable SPICE tests')
+ 

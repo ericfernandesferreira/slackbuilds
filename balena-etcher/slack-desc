@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+            |-----handy-ruler------------------------------------------------------|
+balenaEtcher: Etcher is a powerful OS image flasher built with web technologies to
+balenaEtcher: ensure flashing an SDCard or USB drive is a pleasant and safe
+balenaEtcher: experience. It protects you from accidentally writing to your
+balenaEtcher: hard-drives,  ensures every byte of data was written correctly and
+balenaEtcher: much more. It can also flash directly Raspberry Pi devices that
+balenaEtcher: support the usbboot protocol.
+balenaEtcher:
+balenaEtcher:
+balenaEtcher:
+balenaEtcher: Homepage : https://www.balena.io/etcher/
+balenaEtcher:

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=vkQuake
+GenericName=vkQuake
+Comment=One of the most popular Quake Clients for Linux/BSD/OSX/Win32
+Exec=vkquake
+Icon=vkquake
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Game

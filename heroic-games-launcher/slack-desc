@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+                     |-----handy-ruler------------------------------------------------------|
+heroic-games-launcher: Heroic is an Open Source Game Launcher for Linux, Windows (Beta) and
+heroic-games-launcher: MacOS (Limited to Windows games using Wine/Crossover). Right now it
+heroic-games-launcher: supports launching game from the Epic Games Store using Legendary, a
+heroic-games-launcher: CLI alternative to launch epic games. Heroic is built with Web
+heroic-games-launcher: Technologies like: TypeScript, React, NodeJS and Electron.
+heroic-games-launcher:
+heroic-games-launcher:
+heroic-games-launcher:
+heroic-games-launcher:
+heroic-games-launcher: Homepage : https://github.com/Heroic-Games-Launcher/
+heroic-games-launcher: HeroicGamesLauncher

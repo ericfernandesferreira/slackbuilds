@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+           |-----handy-ruler------------------------------------------------------|
+poetry-core: PEP 517 build backend implementation developed for Poetry. This
+poetry-core: project is intended to be a lightweight, fully compliant, self-contained
+poetry-core: package allowing PEP 517-compatible build frontends to build
+poetry-core: Poetry-managed projects.
+poetry-core:
+poetry-core:
+poetry-core:
+poetry-core:
+poetry-core:
+poetry-core: Homepage : https://pypi.org/project/poetry-core/
+poetry-core:

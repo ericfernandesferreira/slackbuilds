@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=yQuake2
+GenericName=yQuake2
+Comment=One of the most popular Quake2 Clients for Linux/BSD/OSX/Win32
+Exec=yquake2
+Icon=yquake2
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Game

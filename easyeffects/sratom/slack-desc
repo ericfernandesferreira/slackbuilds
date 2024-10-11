@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+sratom: Sratom is a small library for serializing LV2 atoms. Sratom
+sratom: reads/writes atoms from/to RDF, allowing them to be converted between
+sratom: binary and text or stored ina model.
+sratom:
+sratom:
+sratom:
+sratom:
+sratom:
+sratom:
+sratom: Homepage: https://gitlab.com/lv2/sratom
+sratom:

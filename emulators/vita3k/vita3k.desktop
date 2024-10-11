@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Vita3K
+GenericName=Vita Emulator
+Comment=Playstation Vita Emulador
+Exec=vita3k
+Icon=vita3k
+Categories=Game

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+             |-----handy-ruler------------------------------------------------------|
+igt-gpu-tools: IGT GPU Tools is a collection of tools for development and testing of
+igt-gpu-tools: the DRM drivers. There are many macro-level test suites that get used
+igt-gpu-tools: against the drivers, including xtest, rendercheck, piglit, and
+igt-gpu-tools: oglconform, but failures from those can be difficult to track down to
+igt-gpu-tools: kernel changes, and many require complicated build procedures or
+igt-gpu-tools: specific testing environments to get useful results. Therefore, IGT GPU
+igt-gpu-tools: Tools includes low-level tools and tests specifically for development
+igt-gpu-tools: and testing of the DRM Drivers.
+igt-gpu-tools:
+igt-gpu-tools: Homepage : https://gitlab.freedesktop.org/drm/igt-gpu-tools
+igt-gpu-tools:

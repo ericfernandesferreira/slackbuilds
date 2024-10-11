@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+     |-----handy-ruler------------------------------------------------------|
+qtemu: QtEmu is a graphical user interface for QEMU written in Qt4.  It has
+qtemu: the ability to run virtual operating systems on native systems. This
+qtemu: way you can easily test a new operating system or try a Live CD on
+qtemu: your system without any troubles and dangers.
+qtemu:
+qtemu: QtEmu has been tested on Linux, FreeBSD and Windows (2k, XP).
+qtemu:
+qtemu:
+qtemu:
+qtemu: Homepage : https://qtemu.org/
+qtemu:

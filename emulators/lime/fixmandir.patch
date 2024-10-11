@@ -1,0 +1,17 @@
+diff -ruN citra/CMakeLists.txt citra-patched/CMakeLists.txt
+--- citra/CMakeLists.txt	2021-05-21 00:13:18.763485193 -0300
++++ citra-patched/CMakeLists.txt	2021-05-21 00:14:04.795482790 -0300
+@@ -391,11 +391,11 @@
+ if(UNIX)
+     if(ENABLE_SDL2)
+         install(FILES "${PROJECT_SOURCE_DIR}/dist/citra.6"
+-                DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man6")
++                DESTINATION "${CMAKE_INSTALL_PREFIX}/man/man6")
+     endif()
+ 
+     if (ENABLE_QT)
+         install(FILES "${PROJECT_SOURCE_DIR}/dist/citra-qt.6"
+-                DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man6")
++                DESTINATION "${CMAKE_INSTALL_PREFIX}/man/man6")
+     endif()
+ endif()

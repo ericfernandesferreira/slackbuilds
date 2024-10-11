@@ -1,0 +1,38 @@
+This build already comes with flathub oficial repository, but for system. If you want install flathub for users you need type:
+
+flatpak remote-add --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+And for install apps like user:
+
+flatpak install --user appname
+
+Some basics commands:
+
+*Add new repository
+flatpak remote-add name localization
+
+*Remove repository
+flatpak remote-delete name
+
+*List repository
+flatpak remotes
+
+*Uninstall deps
+flatpak uninstall --unused
+
+*List installed apps
+flatpak list
+
+*Update specific app
+flatpak update name
+
+Changing local flatpak apps installation
+Create a file called extra.conf at /etc/flatpak/installations.d
+
+[Installation "custom"]
+Path=/home/backup/apps/flatpak/
+DisplayName=Custom Local Installation
+StorageType=harddisk
+
+flatpak --installation=custom remote-add flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak --installation=custom install appname

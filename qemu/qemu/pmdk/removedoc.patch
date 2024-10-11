@@ -1,0 +1,12 @@
+diff -ruN pmdk-1.13.0/Makefile pmdk-1.13-patched/Makefile
+--- pmdk-1.13.0/Makefile	2023-04-26 06:28:07.000000000 -0300
++++ pmdk-1.13-patched/Makefile	2023-04-28 20:41:31.256068315 -0300
+@@ -43,7 +43,7 @@
+ EXPERIMENTAL ?= n
+ BUILD_PACKAGE_CHECK ?= y
+ TEST_CONFIG_FILE ?= "$(CURDIR)"/src/test/testconfig.sh
+-DOC ?= y
++DOC ?= n
+ 
+ rpm : override DESTDIR="$(CURDIR)/$(RPM_BUILDDIR)"
+ dpkg: override DESTDIR="$(CURDIR)/$(DPKG_BUILDDIR)"

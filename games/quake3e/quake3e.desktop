@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Quake3e
+GenericName=Quake3e
+Comment=One of the most popular Quake3 Clients for Linux/BSD/OSX/Win32
+Exec=quake3e
+Icon=quake3e
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Game

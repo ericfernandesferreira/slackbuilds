@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+     |-----handy-ruler------------------------------------------------------|
+lzfse: This is a reference C implementation of the LZFSE compressor introduced
+lzfse: in the Compression library with OS X 10.11 and iOS 9.
+lzfse:
+lzfse: LZFSE is a Lempel-Ziv style data compression algorithm using Finite
+lzfse: State Entropy coding. It targets similar compression rates at higher
+lzfse: compression and decompression speed compared to deflate using zlib.
+lzfse:
+lzfse:
+lzfse:
+lzfse: Homepage: https://github.com/lzfse/lzfse
+lzfse:

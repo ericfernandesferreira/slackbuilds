@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Slackware build script for GParted
 #
-# Copyright 2009-2014  Erik W. Hanson, Minneapolis, MN, USA
+# Copyright 2009-2015  Erik W. Hanson, Minneapolis, MN, USA
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -25,7 +25,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=gparted
-VERSION=${VERSION:-0.31.0}
+VERSION=${VERSION:-1.6.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -73,8 +73,6 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-sed -i "s:@gksuprog@ @installdir@/gparted %f:@installdir@/gparted_polkit %f:g" gparted.desktop.in.in
-
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -83,16 +81,16 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var \
   --mandir=/usr/man \
   --disable-doc \
+  --disable-static \
   --enable-online-resize \
+  --enable-libparted-dmraid \
   --build=$ARCH-slackware-linux
 
-make
-make install-strip DESTDIR=$PKG
+make -j17
+make install DESTDIR=$PKG
 
-install -Dm0644 $CWD/com.slackware.pkexec.gparted.policy \
-  $PKG/usr/share/polkit-1/actions/com.slackware.pkexec.gparted.policy
-
-install -Dm0755 $CWD/gparted_polkit $PKG/usr/sbin/gparted_polkit
+find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+   |-----handy-ruler------------------------------------------------------|
+glm: OpenGL Mathematics (GLM) is a header only C++ mathematics library for
+glm: graphics software based on the OpenGL Shading Language (GLSL)
+glm: specifications.
+glm:
+glm: GLM provides classes and functions designed and implemented with the
+glm: same naming conventions and functionality than GLSL so that anyone
+glm: who knows GLSL, can use GLM as well in C++.
+glm:
+glm:
+glm: Homepage : https://github.com/g-truc/glm
+glm:

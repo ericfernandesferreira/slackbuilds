@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+   |-----handy-ruler------------------------------------------------------|
+peg: peg and leg are tools for generating recursive-descent parsers: programs
+peg: that perform pattern matching on text. They processes a Parsing
+peg: Expression Grammar (PEG) [Ford 2004] to produce a program that
+peg: recognises legal sentences of that grammar. peg processes PEGs written
+peg: using the original syntax described by Ford;
+peg:
+peg:
+peg:
+peg:
+peg: Homepage : https://www.piumarta.com/software/peg/
+peg:

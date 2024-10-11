@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=OpenJDK Java 24.13 Runtime
+Comment=OpenJDK Java 24.13 Runtime
+Exec=/usr/lib64/java/bin/java -jar
+Terminal=false
+Type=Application
+Icon=java
+MimeType=application/x-java-archive;application/java-archive;application/x-jar;
+NoDisplay=true

@@ -1,0 +1,12 @@
+diff -ruN nvtop-3.1.0/CMakeLists.txt nvtop-3.1.0-patched/CMakeLists.txt
+--- nvtop-3.1.0/CMakeLists.txt	2024-02-23 11:41:56.000000000 -0300
++++ nvtop-3.1.0-patched/CMakeLists.txt	2024-09-04 02:00:37.140856916 -0300
+@@ -116,7 +116,7 @@
+   IMMEDIATE @ONLY)
+ install(FILES
+   "${CMAKE_CURRENT_BINARY_DIR}/manpage/nvtop"
+-  DESTINATION share/man/man1/
++  DESTINATION man/man1/
+   PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
+   RENAME nvtop.1)
+ install(FILES

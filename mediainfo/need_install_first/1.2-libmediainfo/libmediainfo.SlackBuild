@@ -27,7 +27,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=libmediainfo
-VERSION=${VERSION:-18.05}
+VERSION=${VERSION:-24.04}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -39,7 +39,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://mediaarea.net/download/source/libmediainfo/$VERSION/${PRGNAM}_$VERSION.tar.bz2
+wget -c http://mediaarea.net/download/source/libmediainfo/$VERSION/${PRGNAM}_${VERSION}.tar.bz2
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -75,6 +75,8 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
+patch -p1 < $CWD/remove-internal-libzen-support.patch
+
 cd Project/GNU/Library
 ./autogen.sh
 
@@ -86,14 +88,14 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc \
   --localstatedir=/var \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
-  --localedir=/usr/share/locale \
   --disable-static \
+  --enable-shared \
   --enable-visibility \
   --with-libcurl \
   --without-libmms \
   --build=$ARCH-slackware-linux
 
-make
+make -j17
 make install DESTDIR=$PKG
 cd -
 
@@ -103,21 +105,13 @@ rm -f $PKG/usr/lib${LIBDIRSUFFIX}/*.la
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig
-cp -a Project/GNU/Library/libmediainfo.pc $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig
-sed -i "s/^Version: .*$/Version: $VERSION/" $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/libmediainfo.pc
-
 for i in MediaInfo MediaInfoDLL; do
-  mkdir -p $PKG/usr/include/$i
-  install -m 644 Source/$i/*.h $PKG/usr/include/$i
+  install -Dm644 Source/$i/*.h $PKG/usr/include/$i
 done
 
-# Create Documentation using doxygen
-( cd Source/Doc && doxygen Doxyfile )
-
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a LICENSE README.md *.txt *.html Doc/ Source/Doc/Documentation.html \
-$PKG/usr/doc/$PRGNAM-$VERSION
+cp -a Changes* History* LICENSE License* README* ReadMe* ToDo* \
+  $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install

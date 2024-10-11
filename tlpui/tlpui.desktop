@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=TLP UI
+Comment=A GTK user interface for TLP
+Icon=tlpui
+Exec=tlpui %u
+Terminal=false
+Type=Application
+Categories=System;

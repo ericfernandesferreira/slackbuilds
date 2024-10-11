@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=OpenJDK Java 24.13 Shell
+Comment=OpenJDK 24.13 Shell
+Keywords=java;shell
+Exec=/usr/lib64/java/bin/jshell
+Terminal=true
+Type=Application
+Icon=java
+Categories=Application;System;

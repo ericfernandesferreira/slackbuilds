@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+       |-----handy-ruler------------------------------------------------------|
+quake3e: This is a modern Quake III Arena engine aimed to be fast, secure and
+quake3e: compatible with all existing Q3A mods. It is based on last non-SDL
+quake3e: source dump of ioquake3 with latest upstream fixes applied.
+quake3e:
+quake3e:
+quake3e:
+quake3e:
+quake3e:
+quake3e:
+quake3e: Homepage: https://github.com/ec-/Quake3e
+quake3e:

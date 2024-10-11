@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=OpenJDK Java 24.13 Console
+Comment=OpenJDK 24.13 Console
+Keywords=java;console;monitoring
+Exec=/usr/lib64/java/bin/jconsole
+Terminal=false
+Type=Application
+Icon=java
+Categories=Application;System;

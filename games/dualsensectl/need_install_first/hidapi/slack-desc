@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+hidapi: HIDAPI is a multi-platform library which allows an application to
+hidapi: interface with USB and Bluetooth HID-Class devices on Windows, Linux,
+hidapi: FreeBSD, and macOS. HIDAPI can be either built as a shared library
+hidapi: (.so, .dll or .dylib) or can be embedded directly into a target
+hidapi: application by adding a single source file (per platform) and a single
+hidapi: header.
+hidapi:
+hidapi:
+hidapi:
+hidapi: Homepage: https://github.com/libusb/hidapi
+hidapi:

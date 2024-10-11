@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+gspell: gspell provides a flexible API to add spell-checking to a GTK
+gspell: application.
+gspell:
+gspell: The gspell library is free software and is released under the terms of
+gspell: the GNU LGPL version 2.1 or later. See the file 'COPYING' for more
+gspell: information.
+gspell:
+gspell:
+gspell:
+gspell: Homepage : https://wiki.gnome.org/Projects/gspell
+gspell:

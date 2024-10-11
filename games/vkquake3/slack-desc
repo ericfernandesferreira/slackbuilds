@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+vkquake3: The intent of this project is to provide a baseline Quake 3 which may
+vkquake3: be used for further development and baseq3 fun.
+vkquake3:
+vkquake3:
+vkquake3:
+vkquake3:
+vkquake3:
+vkquake3:
+vkquake3:
+vkquake3: Homepage: https://github.com/suijingfeng/vkQuake3
+vkquake3:

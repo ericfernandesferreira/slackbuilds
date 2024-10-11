@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=vkQuake3
+GenericName=vkQuake3
+Comment=One of the most popular Quake3 Clients for Linux/BSD/OSX/Win32
+Exec=vkquake3
+Icon=vkquake3
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Game
