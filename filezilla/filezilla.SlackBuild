@@ -38,8 +38,6 @@ fi
 
 wget -c --no-check-certificate 'https://docs.google.com/uc?export=download&id=1kj7EYEQs7PmG4cCFK5Osgdf0Gw4jpDO7' -O ${SRCNAM}_${VERSION}_src.tar.xz
 
-https://drive.google.com/file/d/1kj7EYEQs7PmG4cCFK5Osgdf0Gw4jpDO7/view?usp=sharing
-
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
