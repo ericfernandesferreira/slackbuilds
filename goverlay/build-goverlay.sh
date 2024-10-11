@@ -43,7 +43,6 @@ for dir in \
   libxnvctrl \
   glfw3 \
   vkbasalt \
-  replaysorcery \
   mangohud \
   libqt6pas \
   fpc \
