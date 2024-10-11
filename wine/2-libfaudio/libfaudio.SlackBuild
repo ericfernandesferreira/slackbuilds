@@ -24,7 +24,7 @@
 
 PRGNAM=libfaudio
 SRCNAM=FAudio
-VERSION=${VERSION:-22.08}
+VERSION=${VERSION:-24.10}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -80,7 +80,7 @@ cd build
     -DCMAKE_INSTALL_LIBDIR=lib${LIBDIRSUFFIX} \
     -DGSTREAMER=ON \
     -DCMAKE_BUILD_TYPE=Release ..
-  make -j9 VERBOSE=1
+  make -j17 VERBOSE=1
   make install DESTDIR=$PKG
 cd ..
 
