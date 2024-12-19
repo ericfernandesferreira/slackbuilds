@@ -36,3 +36,6 @@ StorageType=harddisk
 
 flatpak --installation=custom remote-add flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak --installation=custom install appname
+
+Change path for Steam default installation
+flatpak override --user --filesystem=/path/to/mountpoint com.valvesoftware.Steam

@@ -12,7 +12,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=mednaffe
-VERSION=${VERSION:-0.9.2}
+VERSION=${VERSION:-0.9.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 

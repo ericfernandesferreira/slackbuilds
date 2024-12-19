@@ -24,7 +24,7 @@
 
 PRGNAM=ezquake
 SRCNAM=ezquake-source
-VERSION=${VERSION:-3.6.1}
+VERSION=${VERSION:-3.6.5}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -66,6 +66,9 @@ rm -rf $SRCNAM-$VERSION
 tar xvf $CWD/$VERSION.tar.gz
 # git clone --recursive https://github.com/QW-Group/ezquake-source.git
 cd $SRCNAM-$VERSION
+cd src
+git clone https://github.com/QW-Group/qwprot.git
+cd ..
 # git checkout
 chown -R root:root .
 find -L . \
@@ -74,7 +77,15 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-make all -j17
+mkdir -p build
+cd build
+  cmake \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DENABLE_SANDBOX=OFF \
+    -DCMAKE_BUILD_TYPE=Release ..
+  make -j17
+cd ..
 
 install -Dm755 $CWD/$PRGNAM.sh $PKG/usr/bin/$PRGNAM
 install -Dm755 $PRGNAM-linux-x86_64 $PKG/opt/$PRGNAM/$PRGNAM-linux-x86_64

@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 # Slackware build script for dolphin emulator
 
-# Copyright 2015-2021 Eric Fernandes Ferreira <candelabrus@gmail.com>
+# Copyright 2015-2024 Eric Fernandes Ferreira <candelabrus@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 
 PRGNAM=dolphin-emu
 SRCNAM=dolphin
-VERSION=${VERSION:-5.0.19280}
+VERSION=${VERSION:-5.0.21460}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -82,10 +82,9 @@ cd build
     -DDISTRIBUTOR=slackware.com \
     -DDOLPHIN_WC_REVISION=Slackware \
     -DDOLPHIN_WC_BRANCH=$VERSION-master \
-    -DGDBSTUB=OFF \
     -DENABLE_TESTS=OFF \
-    -DUSE_SHARED_ENET=TRUE \
     -DENABLE_ANALYTICS=OFF \
+    -DENABLE_AUTOUPDATE=OFF \
     -DCMAKE_BUILD_TYPE=Release ..
   make -j17 VERBOSE=1
   make install DESTDIR=$PKG

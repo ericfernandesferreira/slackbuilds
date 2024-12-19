@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 # Slackware build script for ytnef
 
-# Copyright 2015-2020 Eric Fernandes Ferreira <candelabrus@gmail.com>
+# Copyright 2015-2024 Eric Fernandes Ferreira <candelabrus@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=ytnef
-VERSION=${VERSION:-1.9.3}
+VERSION=${VERSION:-2.1.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 

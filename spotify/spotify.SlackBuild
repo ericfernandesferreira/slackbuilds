@@ -29,7 +29,7 @@
 
 PRGNAM=spotify
 SRCNAM=spotify-client
-VERSION=${VERSION:-1.2.47.364.gf06e5cee}
+VERSION=${VERSION:-1.2.52.442.g01893f92}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -67,7 +67,7 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $PKG
-ar p $CWD/${SRCNAM}_${VERSION}_amd64.deb data.tar.xz | tar xJv
+ar p $CWD/${SRCNAM}_${VERSION}_amd64.deb data.tar.gz | tar -xz
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -105,7 +105,7 @@ mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 # Don't need these:
-rm -rf $PKG/usr/share/doc $PKG/opt/$PRGNAM/apt-keys/
+rm -rf $PKG/opt/$PRGNAM/apt-keys/
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc

@@ -1,0 +1,24 @@
+diff -ruN highlight-4.14/makefile highlight-4.14-patched/makefile
+--- highlight-4.14/makefile	2024-09-13 10:45:24.000000000 -0300
++++ highlight-4.14-patched/makefile	2024-10-22 22:06:48.360997593 -0300
+@@ -19,16 +19,16 @@
+ bin_dir = ${PREFIX}/bin/
+ 
+ # Location of the highlight library:
+-lib_dir = ${PREFIX}/lib/
++lib_dir = ${PREFIX}/lib64/
+ 
+ # Location of the highlight man pages:
+-man_dir = ${data_dir}man/
++man_dir = ${PREFIX}/man/
+ 
+ # Documentation directory
+-doc_dir = ${data_dir}doc/
++doc_dir = ${PREFIX}/doc/
+ 
+ # Location of the highlight documentation:
+-hl_doc_dir = ${doc_dir}highlight/
++hl_doc_dir = ${doc_dir}highlight-4.14/
+ 
+ # Location of the highlight extras:
+ examples_dir = ${hl_doc_dir}extras/

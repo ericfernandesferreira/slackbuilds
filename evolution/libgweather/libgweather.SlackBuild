@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 # Slackware build script for libgweather
 
-# Copyright 2015-2020 Eric Fernandes Ferreira <candelabrus@gmail.com>
+# Copyright 2015-2024 Eric Fernandes Ferreira <candelabrus@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=libgweather
-VERSION=${VERSION:-3.36.1}
+VERSION=${VERSION:-4.4.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -35,7 +35,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://download.gnome.org/sources/libgweather/3.36/$PRGNAM-$VERSION.tar.xz
+wget -c https://download.gnome.org/sources/libgweather/4.4/$PRGNAM-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -78,7 +78,8 @@ cd build
     --buildtype=release \
     --libdir=lib${LIBDIRSUFFIX} \
     --libexecdir=/usr/lib${LIBDIRSUFFIX} \
-    -Dgtk_doc=true \
+    -Dgtk_doc=false \
+    -Dsoup2=false \
     ..
 
   meson configure
@@ -90,11 +91,12 @@ find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | gr
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a AUTHORS COPYING HACKING MAINTAINERS NEWS README* $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a CONTRIBUTING* COPYING NEWS README* $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

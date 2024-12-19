@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 # Slackware build script for webkit2gtk
 
-# Copyright 2015-2020 Eric Fernandes Ferreira <candelabrus@gmail.com>
+# Copyright 2015-2024 Eric Fernandes Ferreira <candelabrus@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 
 PRGNAM=webkit2gtk
 SRCNAM=webkitgtk
-VERSION=${VERSION:-2.34.3}
+VERSION=${VERSION:-2.46.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -72,25 +72,31 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
+patch -p1 < $CWD/icu76.patch
+patch -p1 < $CWD/unhide-deprecated-api.patch
+patch -p1 < $CWD/3d5373575695b293b8559155431d0079a6153aff.patch
+patch -p1 < $CWD/gstreamer.patch
+
 mkdir -p build
 cd build
-  cmake \
-    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS -DU_DEFINE_FALSE_AND_TRUE=1" \
-    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS -DU_DEFINE_FALSE_AND_TRUE=1" \
+  cmake -GNinja \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_INSTALL_DIR=/usr/lib${LIBDIRSUFFIX} \
     -DLIBEXEC_INSTALL_DIR=/usr/lib${LIBDIRSUFFIX} \
     -DPORT=GTK \
-    -DUSE_SOUP2=ON \
-    -DUSE_SYSTEMD=OFF \
+    -DUSE_GTK4=OFF \
     -DCMAKE_SKIP_RPATH=ON \
-    -DENABLE_GAMEPAD=OFF \
+    -DUSE_SYSTEM_MALLOC=ON \
+    -DUSE_LIBBACKTRACE=OFF \
     -DENABLE_MINIBROWSER=ON \
-    -DENABLE_WAYLAND_TARGET=ON \
-    -DENABLE_ACCELERATED_2D_CANVAS=TRUE \
+    -DENABLE_JOURNALD_LOG=OFF \
+    -DENABLE_DOCUMENTATION=OFF \
+    -DUSE_SYSTEM_SYSPROF_CAPTURE=NO \
     -DCMAKE_BUILD_TYPE=Release ..
-  make -j9
-  make install DESTDIR=$PKG
+  ninja
+  DESTDIR=$PKG ninja -j1 install
 cd ..
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \

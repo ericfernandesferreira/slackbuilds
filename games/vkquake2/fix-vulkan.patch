@@ -1,0 +1,11 @@
+diff -ruN vkQuake2-1.5.9/ref_vk/vk_mem_alloc.h vkQuake2-1.5.9-patched/ref_vk/vk_mem_alloc.h
+--- vkQuake2-1.5.9/ref_vk/vk_mem_alloc.h	2023-07-08 09:04:08.000000000 -0300
++++ vkQuake2-1.5.9-patched/ref_vk/vk_mem_alloc.h	2024-10-16 07:11:12.349996356 -0300
+@@ -2648,6 +2648,7 @@
+     #include <cassert> // for assert
+     #include <algorithm> // for min, max
+     #include <mutex>
++    #include <cstdio>
+ #else
+     #include VMA_CONFIGURATION_USER_INCLUDES_H
+ #endif

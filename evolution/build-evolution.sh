@@ -45,21 +45,20 @@ for dir in \
   wpebackend-fdo \
   xdg-dbus-proxy \
   bubblewrap \
+  unifdef \
+  libmanette \
+  libyuv \
+  libavif \
+  gst-plugins-bad \
   webkit2gtk \
-  rest \
-  gnome-online-accounts \
   geocode-glib \
   libgweather \
-  uhttpmock \
   libgdata \
   gtest \
-  protobuf \
   libphonenumber \
   evolution-data-server \
   gnome-autoar \
   ytnef \
-  gspell \
-  lua53 \
   highlight \
   libpst \
   evolution \

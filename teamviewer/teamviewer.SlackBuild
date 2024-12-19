@@ -28,7 +28,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=teamviewer
-VERSION=${VERSION:-15.58.4}
+VERSION=${VERSION:-15.61.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 

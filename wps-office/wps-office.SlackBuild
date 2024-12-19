@@ -75,7 +75,7 @@ find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | gr
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 # Installing pt_BR dict
-unzip $CWD/pt_BR_dict.zip -d $PKG/opt/kingsoft/$PRGNAM/office6/dicts/spellcheck
+# unzip $CWD/pt_BR_dict.zip -d $PKG/opt/kingsoft/$PRGNAM/office6/dicts/spellcheck
 
 # Installing pt_BR ui
 # unzip $CWD/pt_BR_ui.zip -d $PKG/opt/kingsoft/$PRGNAM/office6/mui
@@ -89,7 +89,9 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 # Don't need these:
 rm -rf $PKG/etc $PKG/usr/share/desktop-directories $PKG/opt/kingsoft/$PRGNAM/desktops
-rm -rf $PKG/opt/kingsoft/wps-office/templates/ $PKG/usr/share/templates
+# rm -rf $PKG/opt/kingsoft/wps-office/templates/ $PKG/usr/share/templates
+rm $PKG/opt/kingsoft/wps-office/office6/libjpeg*
+rm $PKG/opt/kingsoft/wps-office/office6/libstdc++*
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc

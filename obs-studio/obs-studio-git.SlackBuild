@@ -28,7 +28,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=obs-studio
-VERSION=${VERSION:-30.2.3}
+VERSION=${VERSION:-31.0.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -86,10 +86,7 @@ cd build
     -DENABLE_AJA=OFF \
     -DENABLE_VLC=OFF \
     -DENABLE_LIBFDK=ON \
-    -DENABLE_WEBRTC=ON \
     -DENABLE_WEBRTC=OFF \
-    -DENABLE_BROWSER=OFF \
-    -DENABLE_WEBSOCKET=OFF \
     -DENABLE_NEW_MPEGTS_OUTPUT=OFF \
     -DCMAKE_BUILD_TYPE=Release ..
   make -j17

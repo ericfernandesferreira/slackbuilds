@@ -6,14 +6,14 @@
 # leave one space after the ':'.
 
        |-----handy-ruler------------------------------------------------------|
+mbedtls: Mbed TLS is a C library that implements cryptographic primitives,
+mbedtls: X.509 certificate manipulation and the SSL/TLS and DTLS protocols. Its
+mbedtls: small code footprint makes it suitable for embedded systems.
+mbedtls:
+mbedtls: Mbed TLS includes a reference implementation of the PSA Cryptography
+mbedtls: API. This is currently a preview for evaluation purposes only.
 mbedtls:
 mbedtls:
 mbedtls:
-mbedtls:
-mbedtls:
-mbedtls:
-mbedtls:
-mbedtls:
-mbedtls:
-mbedtls: Homepage : 
+mbedtls: Homepage : https://github.com/Mbed-TLS/mbedtls
 mbedtls:

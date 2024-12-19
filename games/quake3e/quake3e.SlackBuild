@@ -24,8 +24,8 @@
 
 PRGNAM=quake3e
 SRCNAM=Quake3e
-VERSION=${VERSION:-2023.10.14}
-SRCVERSION=${SRCVERSION:-2023-10-14}
+VERSION=${VERSION:-2024.10.14}
+SRCVERSION=${SRCVERSION:-2024-10-14}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -37,7 +37,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-# wget -c https://github.com/ec-/Quake3e/archive/refs/tags/$SRCVERSION.tar.gz
+wget -c https://github.com/ec-/Quake3e/archive/refs/tags/$SRCVERSION.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -63,11 +63,11 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $SRCNAM
-# tar xvf $CWD/$SRCVERSION.tar.gz
-git clone https://github.com/ec-/Quake3e.git
-cd $SRCNAM
-git checkout
+rm -rf $SRCNAM-$SRCVERSION
+tar xvf $CWD/$SRCVERSION.tar.gz
+# git clone https://github.com/ec-/Quake3e.git
+cd $SRCNAM-$SRCVERSION
+# git checkout
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \

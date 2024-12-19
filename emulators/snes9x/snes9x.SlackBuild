@@ -9,7 +9,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=snes9x
-VERSION=${VERSION:-1.62.3}
+VERSION=${VERSION:-1.63}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -71,28 +71,37 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-avx2 \
   --enable-sse41 \
   --enable-netplay \
-  --without-system-zip \
-  --build=$ARCH-slackware-linux
+  --with-system-zip \
+  --build=$ARCH-slackware-linux \
 
-make
+make -j17
 install -Dm755 $PRGNAM $PKG/usr/bin/$PRGNAM
 
 cd ../gtk
 mkdir -p build
 cd build
-  meson setup \
-    --prefix=/usr \
-    --libdir=lib${LIBDIRSUFFIX} \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --buildtype=release \
-    -Dslang=false \
-    -Ddebugger=false \
-    ..
+  cmake \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib${LIBDIRSUFFIX} \
+    -DDEBUGGER=OFF \
+    -DCMAKE_BUILD_TYPE=Release ..
+  make -j17 VERBOSE=1
+  make install DESTDIR=$PKG
 
-  meson configure
-  ninja
-  DESTDIR=$PKG ninja install
+cd ../../qt
+mkdir -p build
+cd build
+  cmake \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_INSTALL_DIR=lib${LIBDIRSUFFIX} \
+    -DDEBUGGER=OFF \
+    -DCMAKE_BUILD_TYPE=Release ..
+  make -j17 VERBOSE=1
+  make install DESTDIR=$PKG
 cd ../..
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \

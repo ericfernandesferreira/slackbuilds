@@ -1,0 +1,21 @@
+diff -ruN obs-studio-31.0.0-beta2/plugins/CMakeLists.txt obs-studio-31.0.0-beta2-patched/plugins/CMakeLists.txt
+--- obs-studio-31.0.0-beta2/plugins/CMakeLists.txt	2024-10-21 13:18:05.000000000 -0300
++++ obs-studio-31.0.0-beta2-patched/plugins/CMakeLists.txt	2024-10-23 12:46:57.211733258 -0300
+@@ -56,8 +56,6 @@
+ add_obs_plugin(mac-virtualcam PLATFORMS MACOS)
+ add_obs_plugin(nv-filters PLATFORMS WINDOWS)
+ 
+-check_obs_browser()
+-
+ add_obs_plugin(obs-ffmpeg)
+ add_obs_plugin(obs-filters)
+ add_obs_plugin(obs-libfdk)
+@@ -77,8 +75,6 @@
+ )
+ add_obs_plugin(obs-webrtc)
+ 
+-check_obs_websocket()
+-
+ add_obs_plugin(obs-x264)
+ add_obs_plugin(oss-audio PLATFORMS FREEBSD OPENBSD)
+ add_obs_plugin(rtmp-services)

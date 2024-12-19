@@ -5,15 +5,15 @@
 # exactly 11 lines for the formatting to be correct.  It's also customary to
 # leave one space after the ':'.
 
-     |-----handy-ruler------------------------------------------------------|
-citra: Citra is an experimental open-source Nintendo 3DS emulator/debugger
-citra: written in C++. It is written with portability in mind, with builds
-citra: actively maintained for Windows, Linux and OS X. Citra only emulates
-citra: a subset of 3DS hardware, and therefore is generally only useful for
-citra: running/debugging homebrew applications.
-citra:
-citra:
-citra:
-citra:
-citra: Homepage: https://citra-emu.org/
-citra:
+        |-----handy-ruler------------------------------------------------------|
+panda3ds: Panda3DS is an HLE, red-panda-themed Nintendo 3DS emulator written in
+panda3ds: C++ which started out as a fun project out of curiosity, but evolved
+panda3ds: into something that can sort of play games!
+panda3ds:
+panda3ds: Experimenting with new methods in emulation and unique features such
+panda3ds: as Lua scripting, we're here to make a difference!
+panda3ds:
+panda3ds:
+panda3ds:
+panda3ds: Homepage: https://github.com/wheremyfoodat/Panda3DS
+panda3ds:

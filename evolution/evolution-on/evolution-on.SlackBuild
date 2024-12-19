@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 # Slackware build script for evolution-on
 
-# Copyright 2015-2020 Eric Fernandes Ferreira <candelabrus@gmail.com>
+# Copyright 2015-2024 Eric Fernandes Ferreira <candelabrus@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -35,7 +35,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-# wget -c https://github.com/acidrain42/evolution-on/archive/v$VERSION.tar.gz
+wget -c https://github.com/acidrain42/evolution-on/archive/v$VERSION.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -61,11 +61,11 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM
-# tar xvf $CWD/v$VERSION.tar.gz
-git clone https://github.com/acidrain42/evolution-on
-cd $PRGNAM
-git checkout
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/v$VERSION.tar.gz
+# git clone https://github.com/acidrain42/evolution-on
+cd $PRGNAM-$VERSION
+# git checkout
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -73,10 +73,11 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-autoreconf -vif
+sed -i '/AM_GCONF_SOURCE_2/d' configure.ac
+NOCONFIGURE=1 autoreconf -vif
 
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
+CFLAGS="$SLKCFLAGS -Wimplicit-function-declaration" \
+CXXFLAGS="$SLKCFLAGS -Wimplicit-function-declaration" \
 ./configure \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
@@ -84,6 +85,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --localstatedir=/var \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --disable-static \
+  --with-libappindicator=yes \
   --build=$ARCH-slackware-linux
 
 make

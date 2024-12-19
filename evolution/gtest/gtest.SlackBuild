@@ -28,7 +28,7 @@
 
 PRGNAM=gtest
 SRCNAM=googletest
-VERSION=${VERSION:-1.10.0}
+VERSION=${VERSION:-1.15.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -40,7 +40,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://github.com/google/googletest/archive/release-$VERSION/$SRCNAM-release-$VERSION.tar.gz
+wget -c https://github.com/google/googletest/archive/refs/tags/v$VERSION.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -66,9 +66,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $SRCNAM-release-$VERSION
-tar -xvf $CWD/$SRCNAM-release-$VERSION.tar.gz
-cd $SRCNAM-release-$VERSION
+rm -rf $SRCNAM-$VERSION
+tar -xvf $CWD/v$VERSION.tar.gz
+cd $SRCNAM-$VERSION
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -76,10 +76,7 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-cp $CWD/gtest-1.10.0-libversion.patch gtest-1.10.0-libversion.patch
-sed "s|__GOOGLETEST_VERSION__|${VERSION}|g" -i gtest-1.10.0-libversion.patch
-patch -Np1 -i gtest-1.10.0-libversion.patch
-sed -E "s|(GOOGLETEST_VERSION) [0-9\\.]+|\\1 ${VERSION}|" -i CMakeLists.txt
+#sed -E "s|(GOOGLETEST_VERSION) [0-9\\.]+|\\1 ${VERSION}|" -i CMakeLists.txt
 
 mkdir -p build
 cd build
@@ -101,7 +98,7 @@ find "$PKG" -name '*.pump' -printf 'Removing %P\n' -delete
 
 # Installing Google Test
 cd googletest
-install -Dm 755 scripts/gtest-config.in -t $PKG/usr/bin
+#install -Dm 755 scripts/gtest-config.in -t $PKG/usr/bin
 install -Dm 644 cmake/* -t $PKG/usr/src/googletest/cmake
 install -Dm 644 src/* -t $PKG/usr/src/googletest/src
 install -Dm 644 CMakeLists.txt -t $PKG/usr/src/googletest
@@ -109,12 +106,12 @@ cd -
 
 # Installing Google Mock
 cd googlemock
-install -Dm 755 scripts/gmock-config.in -t $PKG/usr/bin
+#install -Dm 755 scripts/gmock-config.in -t $PKG/usr/bin
 install -Dm 644 cmake/* -t $PKG/usr/src/gmock/cmake
 install -Dm 644 src/* -t $PKG/usr/src/gmock/src
 install -Dm 644 CMakeLists.txt -t $PKG/usr/src/gmock
-install -Dm 644 scripts/generator/*.py -t $PKG/usr/share/gmock/generator
-install -Dm 644 scripts/generator/cpp/* -t $PKG/usr/share/gmock/generator/cpp
+#install -Dm 644 scripts/generator/*.py -t $PKG/usr/share/gmock/generator
+#install -Dm 644 scripts/generator/cpp/* -t $PKG/usr/share/gmock/generator/cpp
 sed -i 's|src/||' $PKG/usr/src/gmock/src/gmock-all.cc
 python3 -m compileall -d /usr/share/gmock $PKG/usr/share/gmock
 python3 -O -m compileall -d /usr/share/gmock $PKG/usr/share/gmock
@@ -122,10 +119,8 @@ cd -
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/{googletest,googlemock}
 cp -a BUILD* CONTRIBUTING* LICENSE README* WORKSPACE $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a googletest/{CONTRIBUTORS,LICENSE,README.md} googletest/docs/*  \
-  $PKG/usr/doc/$PRGNAM-$VERSION/googletest
-cp -a googlemock/{CONTRIBUTORS,LICENSE,README.md} googlemock/docs/*  \
-  $PKG/usr/doc/$PRGNAM-$VERSION/googlemock
+cp -a googletest/README* $PKG/usr/doc/$PRGNAM-$VERSION/googletest
+cp -a googlemock/README* $PKG/usr/doc/$PRGNAM-$VERSION/googlemock
 rm $PKG/usr/include/gmock/internal/custom/README.md
 rm $PKG/usr/include/gtest/internal/custom/README.md
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild

@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 # Slackware build script for evolution
 
-# Copyright 2015-2020 Eric Fernandes Ferreira <candelabrus@gmail.com>
+# Copyright 2015-2024 Eric Fernandes Ferreira <candelabrus@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=evolution
-VERSION=${VERSION:-3.38.3}
+VERSION=${VERSION:-3.54.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -35,7 +35,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c http://download.gnome.org/sources/evolution/3.38/$PRGNAM-$VERSION.tar.xz
+wget -c http://download.gnome.org/sources/evolution/3.54/$PRGNAM-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -82,10 +82,11 @@ cd build
     -DMAN_INSTALL_DIR=/usr/man \
     -DSYSCONF_INSTALL_DIR=/etc \
     -DENABLE_SMIME=ON \
+    -DENABLE_MARKDOWN=OFF \
     -DWITH_GLADE_CATALOG=ON \
     -DWITH_ENCHANT_VERSION=2 \
     -DCMAKE_BUILD_TYPE=Release ..
-  make -j9 VERBOSE=1
+  make -j17 VERBOSE=1
   make install DESTDIR=$PKG
 cd ..
 
