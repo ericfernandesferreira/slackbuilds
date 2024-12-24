@@ -3,13 +3,9 @@ Highly recommended install "audio package" before any slackbuild.
 
 -----------------------------------------------------
 
-List of programs are not working at the moment (2024-10-21)
+List of programs are not working at the moment (2024-12-20)
 
 anydesk/pangox-compat
-emulators/lime
-emulators/panda3ds
-emulators/ppsspp
+evolution/evolution-on
 emulators/vita3k
 games/vkquake
-games/vkquake3
-evolution/evolution-on
