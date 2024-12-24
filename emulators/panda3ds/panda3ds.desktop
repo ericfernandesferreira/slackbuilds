@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Panda3DS
+GenericName=Panda3DS
+Comment=Nintendo 3DS Emulador
+Exec=panda3ds-qt
+Icon=panda3ds
+Categories=Game
