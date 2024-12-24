@@ -73,12 +73,15 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
+# Don't force explicit ccache invocation.
+sed -i -e '/include(ccache)/d' CMakeLists.txt
+
 export LDFLAGS="-lEGL"
 
 # SDL2 BUILD
 mkdir -p build-sdl
 cd build-sdl
-  cmake \
+  cmake -GNinja \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -95,16 +98,15 @@ cd build-sdl
     -DUSING_X11_VULKAN=ON \
     -DCMAKE_SKIP_RPATH=ON \
     -DUSE_SYSTEM_LIBZIP=ON \
-    -DUSE_SYSTEM_FFMPEG=ON \
-    -DOpenGL_GL_PREFERENCE=GLVND \
+    -DUSE_SYSTEM_FFMPEG=OFF \
     -DCMAKE_BUILD_TYPE=Release ..
-  make -j17
+  ninja
 cd -
 
 # QT5 BUILD
 mkdir -p build-qt
 cd build-qt
-  cmake \
+  cmake -GNinja \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -121,10 +123,10 @@ cd build-qt
     -DUSING_X11_VULKAN=ON \
     -DCMAKE_SKIP_RPATH=ON \
     -DUSE_SYSTEM_LIBZIP=ON \
-    -DUSE_SYSTEM_FFMPEG=ON \
+    -DUSE_SYSTEM_FFMPEG=OFF \
     -DOpenGL_GL_PREFERENCE=GLVND \
     -DCMAKE_BUILD_TYPE=Release ..
-  make -j17
+  ninja
 cd -
 
 cd build-sdl
