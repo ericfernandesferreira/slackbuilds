@@ -73,7 +73,7 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-cmake --preset linux-ninja-clang -DUSE_VITA3K_UPDATE=OFF
+cmake --preset linux-ninja-clang -DUSE_VITA3K_UPDATE=OFF -DXXH_X86DISPATCH_ALLOW_AVX=ON
 cmake --build build/linux-ninja-clang --config Release
 
 mkdir -p $PKG/usr/bin
@@ -83,9 +83,6 @@ cp -r build/bin/* $PKG/opt/$PRGNAM
 ln -s /opt/$PRGNAM/$SRCNAM $PKG/usr/bin/$PRGNAM
 install -Dm0644 $CWD/$PRGNAM.svg $PKG/usr/share/pixmaps/$PRGNAM.svg
 install -Dm0644 $CWD/$PRGNAM.desktop $PKG/usr/share/applications/
-
-chmod 777 $PKG/opt/$PRGNAM
-chmod 777 $PKG/opt/$PRGNAM/data
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
