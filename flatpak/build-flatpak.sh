@@ -45,7 +45,6 @@ for dir in \
   xdg-dbus-proxy \
   bubblewrap \
   appstream \
-  appstream-glib \
   libportal \
   ostree \
   xdg-desktop-portal-gtk \

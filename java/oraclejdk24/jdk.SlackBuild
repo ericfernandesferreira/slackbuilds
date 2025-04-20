@@ -25,8 +25,8 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=jdk
-VERSION=${VERSION:-23.0}
-SRCVERSION=${SRCVERSION:-23}
+VERSION=${VERSION:-24.0}
+SRCVERSION=${SRCVERSION:-24}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 

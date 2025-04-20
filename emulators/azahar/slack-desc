@@ -6,14 +6,14 @@
 # leave one space after the ':'.
 
       |-----handy-ruler------------------------------------------------------|
-libyuv: libyuv is an open source project that includes YUV scaling and
-libyuv: conversion functionality.
-libyuv:
-libyuv:
-libyuv:
-libyuv:
-libyuv:
-libyuv:
-libyuv:
-libyuv: Homepage : https://chromium.googlesource.com/libyuv/libyuv/
-libyuv:
+azahar: Azahar is an open-source 3DS emulator project based on Citra.
+azahar:
+azahar: It was created from the merging of PabloMK7's Citra fork and the Lime3DS
+azahar: project, both of which emerged shortly after Citra was taken down.
+azahar:
+azahar: The goal of this project is to be the de-facto platform for future
+azahar: development.
+azahar:
+azahar:
+azahar:
+azahar: Homepage: https://github.com/azahar-emu/azahar

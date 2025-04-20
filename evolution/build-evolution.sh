@@ -47,14 +47,12 @@ for dir in \
   bubblewrap \
   unifdef \
   libmanette \
-  libyuv \
   libavif \
   gst-plugins-bad \
   webkit2gtk \
   geocode-glib \
   libgweather \
   libgdata \
-  gtest \
   libphonenumber \
   evolution-data-server \
   gnome-autoar \

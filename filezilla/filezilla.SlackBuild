@@ -24,7 +24,7 @@
 
 PRGNAM=filezilla
 SRCNAM=FileZilla
-VERSION=${VERSION:-3.68.1}
+VERSION=${VERSION:-3.69.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -36,7 +36,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c --no-check-certificate 'https://docs.google.com/uc?export=download&id=1kj7EYEQs7PmG4cCFK5Osgdf0Gw4jpDO7' -O ${SRCNAM}_${VERSION}_src.tar.xz
+wget -c --no-check-certificate 'https://docs.google.com/uc?export=download&id=171u_a8FfTzk45pRFU2l6YoBAIf17xnq-' -O ${SRCNAM}_${VERSION}_src.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}

@@ -2,7 +2,7 @@
 
 # Slackware build script for panda3ds
 
-# Copyright 2015-2024 Eric Fernandes Ferreira <candelabrus@gmail.com>
+# Copyright 2015-2025 Eric Fernandes Ferreira <candelabrus@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -74,6 +74,7 @@ find -L . \
 mkdir -p build
 cd build
   cmake -GNinja \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -82,6 +83,7 @@ cd build
     -DUSE_SYSTEM_SDL2=ON \
     -DENABLE_USER_BUILD=ON \
     -DENABLE_DISCORD_RPC=OFF \
+    -DIOS_SIMULATOR_BUILD=OFF \
     -DENABLE_RENDERDOC_API=OFF \
     -DCMAKE_BUILD_TYPE=Release ..
   ninja

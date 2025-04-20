@@ -28,7 +28,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=obs-studio
-VERSION=${VERSION:-31.0.0}
+VERSION=${VERSION:-31.0.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -84,7 +84,7 @@ cd build
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS -Werror=deprecated-declarations" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS -Werror=deprecated-declarations" \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DOBS_VERSION_OVERRIDE="$VERSION" \
+    -DOBS_VERSION_OVERRIDE=$VERSION \
     -DENABLE_VST=ON \
     -DENABLE_AJA=OFF \
     -DENABLE_VLC=OFF \

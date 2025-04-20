@@ -23,7 +23,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=gimp
-VERSION=${VERSION:-3.0.0}
+VERSION=${VERSION:-3.0.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -35,7 +35,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://download.gimp.org/gimp/v3.0/$PRGNAM-$VERSION-RC1.tar.xz
+wget -c https://download.gimp.org/gimp/v3.0/$PRGNAM-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -61,9 +61,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$VERSION-RC1
-tar xvf $CWD/$PRGNAM-$VERSION-RC1.tar.xz
-cd $PRGNAM-$VERSION-RC1
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tar.xz
+cd $PRGNAM-$VERSION
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \

@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
-# Slackware build script for appstream-glib
+# Slackware build script for qrcodegenerator
 
-# Copyright 2017 Andrew Clemons, Wellington New Zealand
+# Copyright 2015-2025 Eric Fernandes Ferreira <candelabrus@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -22,12 +22,9 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
-
-PRGNAM=appstream-glib
-SRCNAM=appstream_glib
-VERSION=${VERSION:-0.8.3}
-SRCVERSION=${SRCVERSION:-0_8_3}
+PRGNAM=qrcodegenerator
+SRCNAM=QR-Code-generator
+VERSION=${VERSION:-1.8.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -39,7 +36,8 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://github.com/hughsie/appstream-glib/archive/${SRCNAM}_$SRCVERSION.tar.gz
+wget -c https://github.com/nayuki/QR-Code-generator/archive/refs/tags/v$VERSION.tar.gz
+wget -c https://github.com/EasyCoding/qrcodegen-cmake/archive/refs/tags/v$VERSION-cmake3.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -65,9 +63,12 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-${SRCNAM}_$SRCVERSION
-tar xvf $CWD/${SRCNAM}_$SRCVERSION.tar.gz
-cd $PRGNAM-${SRCNAM}_$SRCVERSION
+rm -rf $SRCNAM-$VERSION
+rm -rf qrcodegen-cmake-$VERSION-cmake3
+tar xvf $CWD/v$VERSION.tar.gz
+tar xvf $CWD/v$VERSION-cmake3.tar.gz
+cp -a qrcodegen-cmake-$VERSION-cmake3/{cmake,CMakeLists.txt,LICENSE,README.md} $SRCNAM-$VERSION
+cd $SRCNAM-$VERSION
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -77,29 +78,21 @@ find -L . \
 
 mkdir -p build
 cd build
-  meson setup \
-    --prefix=/usr \
-    --libdir=lib${LIBDIRSUFFIX} \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --mandir=/usr/man \
-    --buildtype=release \
-    ..
-
-  meson configure
-  ninja
-  DESTDIR=$PKG ninja install
+  cmake \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib${LIBDIRSUFFIX} \
+    -DBUILD_SHARED_LIBS=ON \
+    -DCMAKE_BUILD_TYPE=Release ..
+  make -j17
+  make install DESTDIR=$PKG
 cd ..
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-find $PKG/usr/man -type f -exec gzip -9 {} \;
-for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
-
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a AUTHORS COMMITMENT COPYING MAINTAINERS NEWS README* RELEASE docs/Porting* \
-  $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a LICENSE README* $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
