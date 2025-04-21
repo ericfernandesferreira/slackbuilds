@@ -6,14 +6,14 @@
 # leave one space after the ':'.
 
        |-----handy-ruler------------------------------------------------------|
+asusctl: asusd is a utility for Linux to control many aspects of various ASUS
+asusctl: laptops but can also be used with non-asus laptops with reduced
+asusctl: features.
 asusctl:
 asusctl:
 asusctl:
 asusctl:
 asusctl:
 asusctl:
-asusctl:
-asusctl:
-asusctl:
-asusctl: Homepage : 
+asusctl: Homepage : https://gitlab.com/asus-linux/asusctl
 asusctl:
