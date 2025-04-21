@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+           |-----handy-ruler------------------------------------------------------|
+trompeloeil: Trompeloeil is a new mocking framework for C++, aimed at ease of use
+trompeloeil: without sacrificing expressive power.
+trompeloeil:
+trompeloeil: In arts, trompeloeil is intended to mock your mind, making you believe
+trompeloeil: you see something that isn't what it appears to be. In unit tests, we
+trompeloeil: use use mocks to fool the unit under test, so that we can break
+trompeloeil: dependencies and test small pieces in isolation.
+trompeloeil:
+trompeloeil:
+trompeloeil: Homepage : https://github.com/rollbear/trompeloeil
+trompeloeil:

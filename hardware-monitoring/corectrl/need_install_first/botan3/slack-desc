@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+botan3: Botan (Japanese for peony flower) is a cryptography library released
+botan3: under the permissive Simplified BSD license.
+botan3:
+botan3: Botan’s goal is to be the best option for production cryptography by
+botan3: offering the tools necessary to implement a range of practical systems,
+botan3: such as TLSv1.3, X.509 PKI, modern AEAD ciphers, support for PKCS#11
+botan3: and TPM hardware, memory-hard password hashing, and post quantum
+botan3: cryptography. All of this is covered by an extensive test suite,
+botan3: including an automated system for detecting side channels.
+botan3:
+botan3: Homepage : https://botan.randombit.net/
