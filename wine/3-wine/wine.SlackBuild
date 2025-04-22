@@ -27,7 +27,7 @@
 
 PRGNAM=wine
 SRCNAM=wine-staging
-VERSION=${VERSION:-10.0-rc2}
+VERSION=${VERSION:-10.6}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -39,7 +39,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://dl.winehq.org/wine/source/9.x/$PRGNAM-$VERSION.tar.xz
+wget -c https://dl.winehq.org/wine/source/10.x/$PRGNAM-$VERSION.tar.xz
 #wget -c https://github.com/wine-staging/wine-staging/archive/v$VERSION.tar.gz
 
 CWD=$(pwd)
@@ -124,7 +124,7 @@ CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ../configure \
   --prefix=/usr \
-  --libdir=/usr/lib \
+  --libdir=/usr/lib64 \
   --sysconfdir=/etc \
   --localstatedir=/var \
   --mandir=/usr/man \
