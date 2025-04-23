@@ -82,6 +82,7 @@ cd build
     -Dhtml=disabled \
     -Ddocs=disabled \
     -Dtests=disabled \
+    -Dbenchmarks=disabled \
     -Dsinglehtml=disabled \
     ..
 
