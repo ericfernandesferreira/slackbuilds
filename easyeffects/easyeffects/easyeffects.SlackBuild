@@ -79,6 +79,7 @@ cd build
     --sysconfdir=/etc \
     --localstatedir=/var \
     --buildtype=release \
+    -Denable-mold=true \
     -Denable-libportal=true \
     ..
 
