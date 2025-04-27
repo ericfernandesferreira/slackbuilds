@@ -80,8 +80,8 @@ make RENDERER_DEFAULT=vulkan USE_SYSTEM_JPEG=1 -j17
 install -Dm755 $CWD/$PRGNAM.sh $PKG/usr/bin/$PRGNAM
 install -Dm755 build/release-linux-x86_64/$PRGNAM.x64 $PKG/opt/$PRGNAM/$PRGNAM.x64
 install -Dm755 build/release-linux-x86_64/$PRGNAM.ded.x64 $PKG/opt/$PRGNAM/$PRGNAM.ded.x64
-install -Dm755 build/release-linux-x86_64/${PRGNAM}_opengl_x86_64.so $PKG/opt/$PRGNAM/${PRGNAM}_opengl_x86_64.so
-install -Dm755 build/release-linux-x86_64/${PRGNAM}_vulkan_x86_64.so $PKG/opt/$PRGNAM/${PRGNAM}_vulkan_x86_64.so
+install -Dm644 build/release-linux-x86_64/${PRGNAM}_opengl_x86_64.so $PKG/opt/$PRGNAM/${PRGNAM}_opengl_x86_64.so
+install -Dm644 build/release-linux-x86_64/${PRGNAM}_vulkan_x86_64.so $PKG/opt/$PRGNAM/${PRGNAM}_vulkan_x86_64.so
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
