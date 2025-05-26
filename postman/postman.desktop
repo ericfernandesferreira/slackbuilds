@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Postman
+GenericName=API platform software
+Comment=Build and working with APIs
+Icon=postman
+Exec=postman %U
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Development;
