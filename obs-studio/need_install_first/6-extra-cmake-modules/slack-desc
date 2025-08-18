@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+                   |-----handy-ruler------------------------------------------------------|
+extra-cmake-modules: The Extra CMake Modules package, or ECM, adds to the modules provided
+extra-cmake-modules: by CMake, ncluding ones used by find_package() to find common software,
+extra-cmake-modules: ones that can be used directly in CMakeLists.txt files to perform
+extra-cmake-modules: common tasks and toolchain files that must be specified on the commandline by the user.
+extra-cmake-modules:
+extra-cmake-modules:
+extra-cmake-modules:
+extra-cmake-modules:
+extra-cmake-modules:
+extra-cmake-modules: Homepage : https://invent.kde.org/frameworks/extra-cmake-modules
+extra-cmake-modules:
