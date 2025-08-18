@@ -30,8 +30,8 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=plexmediaserver
-VERSION=${VERSION:-1.41.6.9685}
-COMMIT=d301f511a
+VERSION=${VERSION:-1.42.1.10060}
+COMMIT=4e8b05daf
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
