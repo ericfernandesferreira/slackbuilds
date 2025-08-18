@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Pritunl Client
+Comment=Pritunl openvpn client
+Exec=pritunl --gtk-version=3
+Terminal=false
+Type=Application
+StartupNotify=false
+Icon=pritunl_client_electron
+Categories=Network;TrayIcon;
+StartupWMClass=pritunl
