@@ -24,7 +24,7 @@
 
 PRGNAM=libstemmer
 SRCNAM=snowball
-VERSION=${VERSION:-2.2.0}
+VERSION=${VERSION:-3.0.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -79,7 +79,7 @@ make
 install -Dm755 snowball $PKG/usr/bin/snowball
 install -Dm755 stemwords $PKG/usr/bin/stemwords
 install -Dm644 include/$PRGNAM.h $PKG/usr/include/$PRGNAM.h
-install -Dm644 $PRGNAM.so.0.0.0 $PKG/usr/lib${LIBDIRSUFFIX}/$PRGNAM.so.0.0.0
+install -Dm644 $PRGNAM.so.0 $PKG/usr/lib${LIBDIRSUFFIX}/$PRGNAM.so.0.0.0
 ln -sf $PRGNAM.so.0.0.0 $PKG/usr/lib${LIBDIRSUFFIX}/$PRGNAM.so.0
 ln -sf $PRGNAM.so.0 $PKG/usr/lib${LIBDIRSUFFIX}/$PRGNAM.so
 
