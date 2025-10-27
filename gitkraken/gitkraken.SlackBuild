@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=gitkraken
-VERSION=${VERSION:-11.3.0}
+VERSION=${VERSION:-11.5.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -35,7 +35,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://release.axocdn.com/linux/$PRGNAM-amd64.deb
+wget -c https://release.gitkraken.dev/gkd/production/normal/linux/x64/$VERSION/343UxUF5dl4QDTVXciZtq6H1ODp/$PRGNAM-amd64.deb
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
