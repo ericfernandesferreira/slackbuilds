@@ -44,7 +44,6 @@ for dir in \
   gnome-desktop \
   xdg-dbus-proxy \
   bubblewrap \
-  appstream \
   libportal \
   ostree \
   xdg-desktop-portal-gtk \
