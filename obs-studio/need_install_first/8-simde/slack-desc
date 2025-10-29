@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+     |-----handy-ruler------------------------------------------------------|
+simde: The SIMDe header-only library provides fast, portable implementations
+simde: of SIMD intrinsics on hardware which doesn't natively support them,
+simde: such as calling SSE functions on ARM. There is no performance penalty
+simde: if the hardware supports the native implementation (e.g., SSE/AVX runs
+simde: at full speed on x86, NEON on ARM, etc.).
+simde:
+simde:
+simde:
+simde:
+simde: Homepage : https://github.com/simd-everywhere/simde
+simde:
