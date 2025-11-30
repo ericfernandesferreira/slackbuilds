@@ -35,7 +35,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://release.gitkraken.dev/gkd/production/normal/linux/x64/$VERSION/343UxUF5dl4QDTVXciZtq6H1ODp/$PRGNAM-amd64.deb
+wget -c https://release.gitkraken.dev/gkd/production/normal/linux/x64/$VERSION/35IoraqLVxXPnPbR71FAj2XTDpC/$PRGNAM-amd64.deb
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
