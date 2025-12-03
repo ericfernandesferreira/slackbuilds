@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=easyeffects
-VERSION=${VERSION:-7.2.3}
+VERSION=${VERSION:-8.0.6}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -73,19 +73,15 @@ find -L . \
 
 mkdir -p build
 cd build
-  meson setup \
-    --prefix=/usr \
-    --libdir=lib${LIBDIRSUFFIX} \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --buildtype=release \
-    -Denable-mold=true \
-    -Denable-libportal=true \
-    ..
-
-  meson configure
-  ninja
-  DESTDIR=$PKG ninja install
+  cmake \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib${LIBDIRSUFFIX} \
+    -DBUILD_SHARED_LIBS=ON \
+    -DCMAKE_BUILD_TYPE=Release ..
+  make -j17
+  make install DESTDIR=$PKG
 cd ..
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
