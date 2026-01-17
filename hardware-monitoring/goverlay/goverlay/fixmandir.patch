@@ -1,21 +1,21 @@
-diff -ruN goverlay-0.6/Makefile goverlay-0.6-patched/Makefile
---- goverlay-0.6/Makefile	2021-07-22 19:20:50.000000000 -0300
-+++ goverlay-0.6-patched/Makefile	2021-07-27 02:05:45.316764989 -0300
-@@ -16,7 +16,7 @@
- 	install -D -m=755 goverlay $(DESTDIR)$(prefix)$(bindir)/goverlay
+diff -ruN goverlay-1.7.1/Makefile goverlay-1.7.1-patched/Makefile
+--- goverlay-1.7.1/Makefile	2026-01-14 14:47:17.000000000 -0300
++++ goverlay-1.7.1-patched/Makefile	2026-01-17 19:26:29.589905645 -0300
+@@ -29,7 +29,7 @@
+ 	install -D -m=755 data/goverlay.sh $(DESTDIR)$(prefix)$(bindir)/goverlay
  	install -D -m=644 data/io.github.benjamimgois.goverlay.desktop $(DESTDIR)$(prefix)$(datadir)/applications/io.github.benjamimgois.goverlay.desktop
  	install -D -m=644 data/io.github.benjamimgois.goverlay.metainfo.xml $(DESTDIR)$(prefix)$(datadir)/metainfo/io.github.benjamimgois.goverlay.metainfo.xml
 -	install -D -m=644 data/goverlay.1 $(DESTDIR)$(prefix)$(datadir)/man/man1/goverlay.1
 +	install -D -m=644 data/goverlay.1 $(DESTDIR)$(prefix)/man/man1/goverlay.1
- 	install -D -m=644 data/icons/128x128/goverlay.png $(DESTDIR)$(prefix)$(datadir)/icons/hicolor/128x128/apps/goverlay.png
- 	install -D -m=644 data/icons/256x256/goverlay.png $(DESTDIR)$(prefix)$(datadir)/icons/hicolor/256x256/apps/goverlay.png
- 	install -D -m=644 data/icons/512x512/goverlay.png $(DESTDIR)$(prefix)$(datadir)/icons/hicolor/512x512/apps/goverlay.png
-@@ -25,7 +25,7 @@
+ 	install -D -m=644 data/icons/128x128/goverlay.png $(DESTDIR)$(prefix)$(datadir)/icons/hicolor/128x128/apps/io.github.benjamimgois.goverlay.png
+ 	install -D -m=644 data/icons/256x256/goverlay.png $(DESTDIR)$(prefix)$(datadir)/icons/hicolor/256x256/apps/io.github.benjamimgois.goverlay.png
+ 	install -D -m=644 data/icons/512x512/goverlay.png $(DESTDIR)$(prefix)$(datadir)/icons/hicolor/512x512/apps/io.github.benjamimgois.goverlay.png
+@@ -39,7 +39,7 @@
  	rm -f $(DESTDIR)$(prefix)$(bindir)/goverlay
- 	rm -f $(DESTDIR)$(prefix)$(datadir)/applications/goverlay.desktop
- 	rm -f $(DESTDIR)$(prefix)$(datadir)/metainfo/goverlay.metainfo.xml
+ 	rm -f $(DESTDIR)$(prefix)$(datadir)/applications/io.github.benjamimgois.goverlay.desktop
+ 	rm -f $(DESTDIR)$(prefix)$(datadir)/metainfo/io.github.benjamimgois.goverlay.metainfo.xml
 -	rm -f $(DESTDIR)$(prefix)$(datadir)/man/man1/goverlay.1
 +	rm -f $(DESTDIR)$(prefix)/man/man1/goverlay.1
- 	rm -f $(DESTDIR)$(prefix)$(datadir)/icons/hicolor/128x128/apps/goverlay.png
- 	rm -f $(DESTDIR)$(prefix)$(datadir)/icons/hicolor/256x256/apps/goverlay.png
- 	rm -f $(DESTDIR)$(prefix)$(datadir)/icons/hicolor/512x512/apps/goverlay.png
+ 	rm -f $(DESTDIR)$(prefix)$(datadir)/icons/hicolor/128x128/apps/io.github.benjamimgois.goverlay.png
+ 	rm -f $(DESTDIR)$(prefix)$(datadir)/icons/hicolor/256x256/apps/io.github.benjamimgois.goverlay.png
+ 	rm -f $(DESTDIR)$(prefix)$(datadir)/icons/hicolor/512x512/apps/io.github.benjamimgois.goverlay.png

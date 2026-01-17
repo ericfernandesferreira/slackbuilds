@@ -72,11 +72,14 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 patch -p1 < $CWD/vkquake3-add-copy-vulkan-libs.patch
+find code/tools/lcc/ -type f -exec sed -i 's/\bconstexpr\b/q3_constexpr/g' {} +
 
 make -j17 \
    release \
    copyfiles \
-   CFLAGS="$SLKCFLAGS" \
+   CFLAGS="$SLKCFLAGS -std=gnu89 -fpermissive -Wno-error=implicit-function-declaration -Wno-error=stringop-overflow" \
+   HOST_CFLAGS="-std=gnu89 -fpermissive -Wno-error=implicit-function-declaration" \
+   TOOLS_CC="gcc -std=gnu89 -fpermissive -Wno-error=implicit-function-declaration" \
    BUILD_SERVER=1 \
    BUILD_CLIENT=1 \
    BUILD_BASEGAME=1 \

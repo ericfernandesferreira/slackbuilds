@@ -26,7 +26,7 @@
 
 PRGNAM=intel-microcode
 SRCNAM=microcode
-VERSION=${VERSION:-20240813}
+VERSION=${VERSION:-20251111}
 BLDNAM=Intel-Linux-Processor-Microcode-Data-Files
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}

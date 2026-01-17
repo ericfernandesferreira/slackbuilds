@@ -73,8 +73,27 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-cmake --preset linux-ninja-clang -DUSE_VITA3K_UPDATE=OFF -DXXH_X86DISPATCH_ALLOW_AVX=ON
-cmake --build build/linux-ninja-clang --config Release
+patch -p1 < $CWD/fixboost.patch
+
+export CC=gcc
+export CXX=g++
+export LD=ld.bfd
+
+mkdir -p build
+cd build
+  cmake -GNinja \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS -std=gnu++20 -include cstdint" \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBoost_DIR=/usr/lib64/cmake/Boost-1.90.0 \
+    -DBoost_USE_STATIC_LIBS=OFF \
+    -DBoost_USE_STATIC_RUNTIME=OFF \
+    -DVITA3K_FORCE_SYSTEM_BOOST=ON \
+    -DUSE_DISCORD_RICH_PRESENCE=ON \
+    -DCMAKE_BUILD_TYPE=Release ..
+  ninja
+  DESTDIR=$PKG ninja install
+cd ..
 
 mkdir -p $PKG/usr/bin
 mkdir -p $PKG/opt/$PRGNAM
@@ -88,7 +107,7 @@ find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | gr
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a CONTRIBUTING* COPYING* README* $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a COPYING* README* $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install

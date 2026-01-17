@@ -28,7 +28,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=uthash
-VERSION=${VERSION:-master}
+VERSION=${VERSION:-2.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 

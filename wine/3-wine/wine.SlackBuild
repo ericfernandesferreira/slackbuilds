@@ -27,7 +27,7 @@
 
 PRGNAM=wine
 SRCNAM=wine-staging
-VERSION=${VERSION:-10.20}
+VERSION=${VERSION:-11.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -39,7 +39,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://dl.winehq.org/wine/source/10.x/$PRGNAM-$VERSION.tar.xz
+wget -c https://dl.winehq.org/wine/source/11.x/$PRGNAM-$VERSION.tar.xz
 #wget -c https://github.com/wine-staging/wine-staging/archive/v$VERSION.tar.gz
 
 CWD=$(pwd)

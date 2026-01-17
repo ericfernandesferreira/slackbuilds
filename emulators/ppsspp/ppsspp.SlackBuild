@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=ppsspp
-VERSION=${VERSION:-1.18.1}
+VERSION=${VERSION:-1.19.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -92,13 +92,15 @@ cd build-sdl
     -DUSING_EGL=ON \
     -DUNITTEST=OFF \
     -DSIMULATOR=OFF \
+    -DUSE_DISCORD=ON \
     -DMOBILE_DEVICE=OFF \
     -DUSE_SYSTEM_ZSTD=ON \
     -DUSE_WAYLAND_WSI=ON \
     -DUSING_X11_VULKAN=ON \
     -DCMAKE_SKIP_RPATH=ON \
     -DUSE_SYSTEM_LIBZIP=ON \
-    -DUSE_SYSTEM_FFMPEG=OFF \
+    -DUSE_SYSTEM_FFMPEG=ON \
+    -DUSE_VULKAN_DISPLAY_KHR=ON \
     -DCMAKE_BUILD_TYPE=Release ..
   ninja
 cd -
@@ -116,6 +118,7 @@ cd build-qt
     -DUSING_EGL=ON \
     -DUNITTEST=OFF \
     -DSIMULATOR=OFF \
+    -DUSE_DISCORD=ON \
     -DUSING_QT_UI=ON \
     -DMOBILE_DEVICE=OFF \
     -DUSE_SYSTEM_ZSTD=ON \
@@ -123,32 +126,36 @@ cd build-qt
     -DUSING_X11_VULKAN=ON \
     -DCMAKE_SKIP_RPATH=ON \
     -DUSE_SYSTEM_LIBZIP=ON \
-    -DUSE_SYSTEM_FFMPEG=OFF \
+    -DUSE_SYSTEM_FFMPEG=ON \
+    -DUSE_VULKAN_DISPLAY_KHR=ON \
     -DOpenGL_GL_PREFERENCE=GLVND \
     -DCMAKE_BUILD_TYPE=Release ..
   ninja
 cd -
 
 cd build-sdl
-install -Dm755 PPSSPPSDL $PKG/opt/$PRGNAM/PPSSPPSDL
-install -Dm644 ../icons/icon.svg $PKG/usr/share/pixmaps/$PRGNAM.svg
+install -Dm755 PPSSPPSDL $PKG/usr/bin/PPSSPPSDL
 install -Dm755 $CWD/$PRGNAM-sdl.sh $PKG/usr/bin/$PRGNAM-sdl
 install -Dm644 $CWD/$PRGNAM-sdl.desktop $PKG/usr/share/applications/$PRGNAM-sdl.desktop
-mkdir -p $PKG/usr/share/$PRGNAM/assets
-cp -a assets $PKG/usr/share/$PRGNAM/
 
-install -Dm755 PPSSPPHeadless $PKG/opt/$PRGNAM/PPSSPPHeadless
+install -Dm755 PPSSPPHeadless $PKG/usr/bin/PPSSPPHeadless
 install -Dm755 $CWD/$PRGNAM-headless.sh $PKG/usr/bin/$PRGNAM-headless
 cd -
 
 cd build-qt
-install -Dm755 PPSSPPQt $PKG/opt/$PRGNAM/PPSSPPQt
+install -Dm755 PPSSPPQt $PKG/usr/bin/PPSSPPQt
 install -Dm755 $CWD/$PRGNAM-qt.sh $PKG/usr/bin/$PRGNAM-qt
 install -Dm644 $CWD/$PRGNAM-qt.desktop $PKG/usr/share/applications/$PRGNAM-qt.desktop
 cd ..
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+install -Dm644 icons/icon-512.svg $PKG/usr/share/pixmaps/$PRGNAM.svg
+mkdir -p $PKG/usr/share/icons/hicolor
+mkdir -p $PKG/usr/share/$PRGNAM/assets
+cp -a assets $PKG/usr/share/$PRGNAM/
+cp -a icons/hicolor/* $PKG/usr/share/icons/hicolor
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a LICENSE* README* history* $PKG/usr/doc/$PRGNAM-$VERSION

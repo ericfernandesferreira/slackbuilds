@@ -24,8 +24,8 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=lazarus
-VERSION=${VERSION:-4.2}
-SRCVERSION=${SRCVERSION:-4.2-0}
+VERSION=${VERSION:-4.4}
+SRCVERSION=${SRCVERSION:-4.4-0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -37,7 +37,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://freefr.dl.sourceforge.net/project/lazarus/Lazarus%20Zip%20_%20GZip/Lazarus%204.2/$PRGNAM-$SRCVERSION.tar.gz
+wget -c https://freefr.dl.sourceforge.net/project/lazarus/Lazarus%20Zip%20_%20GZip/Lazarus%204.4/$PRGNAM-$SRCVERSION.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}

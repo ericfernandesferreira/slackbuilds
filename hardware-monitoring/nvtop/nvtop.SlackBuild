@@ -2,7 +2,7 @@
 
 # Slackware build script for nvtop
 
-# Copyright 2015-2025 Eric Fernandes Ferreira <candelabrus@gmail.com>
+# Copyright 2015-2026 Eric Fernandes Ferreira <candelabrus@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=nvtop
-VERSION=${VERSION:-3.2.0}
+VERSION=${VERSION:-3.3.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 

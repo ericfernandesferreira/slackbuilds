@@ -79,7 +79,7 @@ make install prefix=/usr DESTDIR=$PKG
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-install -Dm755 $CWD/rc.supergfxd $PKG/etc/rc.d/rc.supergfxd.new
+install -Dm755 $CWD/rc.$PRGNAM $PKG/etc/rc.d/rc.$PRGNAM.new
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a CHANGELOG* LICENSE README* $PKG/usr/doc/$PRGNAM-$VERSION

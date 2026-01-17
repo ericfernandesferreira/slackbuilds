@@ -8,11 +8,12 @@ a) initrd
 b) kernel
 é necessário habilitar uma opção no kernel e então recompilar
 Drive Drivers -> Generic Driver Options e então adicionar o caminho do microcode
-/lib/firmware/"intel-ucode/06-8e-0a"
+/lib/firmware/"intel-ucode/06-8c-01"
 
 # Para verificar a versão do seu microcode
 dmesg | grep -e 'microcode'
 grep microcode /proc/cpuinfo
+journalctl -k | grep microcode
 
 echo 1 > /sys/devices/system/cpu/microcode/reload
 

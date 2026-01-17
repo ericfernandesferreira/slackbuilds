@@ -1,35 +1,76 @@
 #!/bin/sh
-# Start/stop/restart the system logging daemon.
-#
-# Written for Slackware Linux by Patrick J. Volkerding <volkerdi@slackware.com>.
+# rc.pritunl
+# Slackware BSD-style init script for Pritunl Client
 
-pritunl_start() {
-  if [ -x /opt/pritunl/pritunl-client-service ]; then
-    echo "Starting pritunl service:"
-    /opt/pritunl/pritunl-client-service
+PRITUNL_BIN="/opt/pritunl/pritunl-client-service"
+PIDFILE="/run/pritunl-client-service.pid"
+LOGFILE="/var/log/pritunl-client.log"
+
+start() {
+  if [ ! -x "$PRITUNL_BIN" ]; then
+    echo "Pritunl client binary not found or not executable."
+    return 1
+  fi
+
+  if [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+    echo "Pritunl client is already running."
+    return 0
+  fi
+
+  echo "Starting Pritunl client service..."
+  "$PRITUNL_BIN" >> "$LOGFILE" 2>&1 &
+  echo $! > "$PIDFILE"
+}
+
+stop() {
+  if [ ! -f "$PIDFILE" ]; then
+    echo "Pritunl client is not running."
+    return 0
+  fi
+
+  PID=$(cat "$PIDFILE")
+
+  echo "Stopping Pritunl client service..."
+  kill -TERM "$PID" 2>/dev/null
+
+  # Aguarda término limpo
+  for i in 1 2 3 4 5; do
+    if kill -0 "$PID" 2>/dev/null; then
+      sleep 1
+    else
+      break
+    fi
+  done
+
+  if kill -0 "$PID" 2>/dev/null; then
+    echo "Force killing Pritunl client."
+    kill -KILL "$PID" 2>/dev/null
+  fi
+
+  rm -f "$PIDFILE"
+}
+
+restart() {
+  stop
+  sleep 1
+  start
+}
+
+status() {
+  if [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+    echo "Pritunl client is running (PID $(cat "$PIDFILE"))."
+  else
+    echo "Pritunl client is not running."
   fi
 }
 
-pritunl_stop() {
-  killall --ns $$ -TERM pritunl-client-service 2> /dev/null
-}
-
-pritunl_restart() {
-  pritunl_stop
-  timeout 1 pwait --ns $$ -U root -P 1 pritunl-client-service
-  pritunl_start
-}
-
 case "$1" in
-'start')
-  pritunl_start
-  ;;
-'stop')
-  pritunl_stop
-  ;;
-'restart')
-  pritunl_restart
-  ;;
-*)
-  echo "usage $0 start|stop|restart"
+  start) start ;;
+  stop) stop ;;
+  restart) restart ;;
+  status) status ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|status}"
+    exit 1
 esac
+

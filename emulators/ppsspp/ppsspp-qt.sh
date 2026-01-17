@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cd /opt/ppsspp
+cd /usr/bin
 exec ./PPSSPPQt "$@"
