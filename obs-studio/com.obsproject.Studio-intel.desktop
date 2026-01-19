@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=1.0
+Name=OBS Studio
+GenericName=Streaming/Recording Software
+Comment=Free and Open Source Streaming/Recording Software
+Exec=env __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/intel_icd.x86_64.json obs
+Icon=com.obsproject.Studio
+Terminal=false
+Type=Application
+Categories=AudioVideo;Recorder;
+StartupNotify=true
+StartupWMClass=obs
+
+GenericName[pt_BR]=Software de gravação e transmissão de vídeo
+Comment[pt_BR]=Software livre e de código aberto para gravação e transmissão de vídeo
+Name[pt_BR]=com.obsproject.Studio-intel.desktop
