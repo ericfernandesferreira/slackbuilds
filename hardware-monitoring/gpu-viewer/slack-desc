@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+          |-----handy-ruler------------------------------------------------------|
+gpu-viewer: This project aims to capture all the important details of glxinfo,
+gpu-viewer: vulkaninfo and clinfo in a GUI. The project is being developed using
+gpu-viewer: python 3 pygobject with GTK4. All the important details are extracted
+gpu-viewer: using glxinfo/vulkaninfo/clinfo with the combination of grep, CAT, AWK
+gpu-viewer: ommands and displayed in the front-end. There is no hard OpenGL
+gpu-viewer: Programming involved, until glxinfo, vulkaninfo and clinfo works the
+gpu-viewer: GPU-viewer will also work.
+gpu-viewer:
+gpu-viewer:
+gpu-viewer: Homepage: https://github.com/arunsivaramanneo/GPU-Viewer
+gpu-viewer:
