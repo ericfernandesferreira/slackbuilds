@@ -1,0 +1,12 @@
+diff -ruN clpeak-1.1.5/CMakeLists.txt clpeak-1.1.5-patched/CMakeLists.txt
+--- clpeak-1.1.5/CMakeLists.txt	2025-06-13 06:42:54.000000000 -0300
++++ clpeak-1.1.5-patched/CMakeLists.txt	2026-02-02 00:21:41.018122133 -0300
+@@ -68,7 +68,7 @@
+ endif()
+ 
+ install(TARGETS clpeak RUNTIME DESTINATION bin)
+-install(FILES LICENSE DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/clpeak")
++install(FILES LICENSE DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}")
+ 
+ enable_testing()
+ add_test(clpeak_test_run clpeak)
