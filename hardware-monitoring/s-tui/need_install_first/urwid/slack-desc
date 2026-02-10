@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+     |-----handy-ruler------------------------------------------------------|
+urwid: Urwid is a console user interface library for Python on Linux, OSX,
+urwid: Cygwin or other unix-like OS and partially supports Windows OS
+urwid: (see below).
+urwid:
+urwid:
+urwid:
+urwid:
+urwid:
+urwid:
+urwid: Homepage : https://github.com/urwid/urwid
+urwid:
