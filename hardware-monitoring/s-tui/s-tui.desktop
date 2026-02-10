@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=s-tui
+GenericName=Performance Monitor
+GenericName[pt_BR]=Monitor de performance
+Comment=Resource monitor that shows usage and stats for processor, memory, disks, network and processes
+Comment[pt_BR]=Monitoramente de atividades com estatisticas e graficos por CPU, disco, rede e processos
+Icon=s-tui
+Exec=s-tui
+Terminal=true
+Categories=System;Monitor;
+Name[pt_BR]=s-tui
