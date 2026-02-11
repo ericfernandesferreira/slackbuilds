@@ -36,6 +36,7 @@ if [ -z "$ARCH" ]; then
 fi
 
 wget -c https://github.com/ihhub/fheroes2/archive/refs/tags/$VERSION.tar.gz
+wget -c --no-check-certificate 'https://docs.google.com/uc?export=download&id=1swnzucDRL1BKHDBO2wM3ip5_vyg2k1gT' -O $PRGNAM-data.7z
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -88,8 +89,8 @@ cd ..
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-#install -Dm644 files/images/platform/switch/icon.png $PKG/usr/share/pixmaps/$PRGNAM.png
-#install -Dm644 script/packaging/common/$PRGNAM.desktop $PKG/usr/share/applications/$PRGNAM.desktop
+# Installing fheroes2 Data
+7z x $CWD/$PRGNAM-data.7z -o$PKG/usr/share/$PRGNAM
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a CONTRIBUTING* LICENSE README* changelog* $PKG/usr/doc/$PRGNAM-$VERSION
