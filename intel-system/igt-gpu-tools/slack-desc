@@ -6,14 +6,14 @@
 # leave one space after the ':'.
 
              |-----handy-ruler------------------------------------------------------|
+igt-gpu-tools: IGT GPU Tools is a collection of tools for development and testing of
+igt-gpu-tools: the DRM drivers. There are many macro-level test suites that get used
+igt-gpu-tools: against the drivers, including xtest, rendercheck, piglit, and
+igt-gpu-tools: oglconform, but failures from those can be difficult to track down
+igt-gpu-tools: to kernel changes, and many require complicated build procedures or
+igt-gpu-tools: specific testing environments to get useful results.
 igt-gpu-tools:
 igt-gpu-tools:
 igt-gpu-tools:
-igt-gpu-tools:
-igt-gpu-tools:
-igt-gpu-tools:
-igt-gpu-tools:
-igt-gpu-tools:
-igt-gpu-tools:
-igt-gpu-tools: Homepage : 
+igt-gpu-tools: Homepage : https://gitlab.freedesktop.org/drm/igt-gpu-tools
 igt-gpu-tools:

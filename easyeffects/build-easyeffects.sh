@@ -51,7 +51,25 @@ for dir in \
   sratom \
   lilv \
   soundtouch \
-  nlohmann-json \
+  kcoreaddons \
+  kcodecs \
+  kguiaddons \
+  ki18n \
+  kwidgetsaddons \
+  kcolorscheme \
+  kconfig \
+  kconfigwidgets \
+  kirigami \
+  karchive \
+  breeze-icons \
+  kiconthemes \
+  kcrash \
+  kglobalaccel \
+  kitemmodels \
+  ksvg \
+  sonnet \
+  kirigami-addons \
+  qqc2-desktop-style \
   easyeffects \
   ; do
   # Get the package name
