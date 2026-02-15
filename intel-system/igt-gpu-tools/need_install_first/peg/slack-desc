@@ -6,13 +6,13 @@
 # leave one space after the ':'.
 
    |-----handy-ruler------------------------------------------------------|
-peg:
-peg:
-peg:
-peg:
-peg:
-peg:
-peg:
+peg: peg and leg are tools for generating recursive-descent parsers:
+peg: programs that perform pattern matching on text. They processes a
+peg: Parsing Expression Grammar (PEG) [Ford 2004] to produce a program that
+peg: recognises legal sentences of that grammar. peg processes PEGs written
+peg: using the original syntax described by Ford; leg processes PEGs written
+peg: using slightly different syntax and conventions that are intended to
+peg: make it an attractive replacement for parsers built with lex and yacc.
 peg:
 peg:
 peg: Homepage : https://piumarta.com/software/peg/
