@@ -1,0 +1,12 @@
+diff -ruN Cemu-2.6/src/gui/TitleManager.cpp Cemu-2.6-patched/src/gui/TitleManager.cpp
+--- Cemu-2.6/src/gui/TitleManager.cpp	2025-02-04 06:56:33.000000000 -0300
++++ Cemu-2.6-patched/src/gui/TitleManager.cpp	2026-02-15 15:50:18.021165777 -0300
+@@ -380,7 +380,7 @@
+ 	if (openFileDialog.ShowModal() == wxID_CANCEL || openFileDialog.GetPath().IsEmpty())
+ 		return;
+ 
+-	fs::path filePath(openFileDialog.GetPath().wc_str());
++	fs::path filePath(std::wstring(openFileDialog.GetPath().wc_str()));
+ 	try
+ 	{
+ 		filePath = filePath.parent_path();

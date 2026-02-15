@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+zarchive: ZArchive is yet another file archive format. Think of zip, tar, 7z,
+zarchive: etc. But with the requirement of allowing random-access reads and
+zarchive: supporting compression.
+zarchive:
+zarchive:
+zarchive:
+zarchive:
+zarchive:
+zarchive:
+zarchive: Homepage: https://github.com/Exzap/ZArchive
+zarchive:

@@ -1,0 +1,12 @@
+diff -ruN rapidjson-1.1.0/include/rapidjson/document.h rapidjson-1.1.0-patched/include/rapidjson/document.h
+--- rapidjson-1.1.0/include/rapidjson/document.h	2016-08-25 04:59:05.000000000 -0300
++++ rapidjson-1.1.0-patched/include/rapidjson/document.h	2026-02-15 16:10:12.038847494 -0300
+@@ -316,7 +316,7 @@
+ 
+     GenericStringRef(const GenericStringRef& rhs) : s(rhs.s), length(rhs.length) {}
+ 
+-    GenericStringRef& operator=(const GenericStringRef& rhs) { s = rhs.s; length = rhs.length; }
++    GenericStringRef& operator=(const GenericStringRef& rhs) { s = rhs.s; const_cast<SizeType&>(length) = rhs.length; return *this; }
+ 
+     //! implicit conversion to plain CharType pointer
+     operator const Ch *() const { return s; }
