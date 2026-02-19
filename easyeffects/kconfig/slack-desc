@@ -5,15 +5,15 @@
 # exactly 11 lines for the formatting to be correct.  It's also customary to
 # leave one space after the ':'.
 
-          |-----handy-ruler------------------------------------------------------|
-libebur128: libebur128 (library implementing the EBU R128 loudness standard)
-libebur128:
-libebur128: A library that implements the EBU R 128 standard for loudness
-libebur128: normalisation. Libebur128 is MIT licensed.
-libebur128:
-libebur128: https://github.com/jiixyj/libebur128
-libebur128:
-libebur128:
-libebur128:
-libebur128:
-libebur128:
+       |-----handy-ruler------------------------------------------------------|
+kconfig:
+kconfig:
+kconfig:
+kconfig:
+kconfig:
+kconfig:
+kconfig:
+kconfig:
+kconfig:
+kconfig:
+kconfig:
