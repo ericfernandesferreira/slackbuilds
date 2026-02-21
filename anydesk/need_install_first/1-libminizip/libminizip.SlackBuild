@@ -38,7 +38,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://freefr.dl.sourceforge.net/project/libpng/$SRCNAM/$VERSION/$SRCNAM-$VERSION.tar.xz
+wget -c --no-check-certificate https://freefr.dl.sourceforge.net/project/libpng/$SRCNAM/$VERSION/$SRCNAM-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}

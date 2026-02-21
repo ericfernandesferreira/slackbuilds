@@ -37,7 +37,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://freefr.dl.sourceforge.net/project/qbittorrent/qbittorrent/$PRGNAM-$VERSION/$PRGNAM-$VERSION.tar.xz
+wget -c --no-check-certificate https://freefr.dl.sourceforge.net/project/qbittorrent/qbittorrent/$PRGNAM-$VERSION/$PRGNAM-$VERSION.tar.xz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
