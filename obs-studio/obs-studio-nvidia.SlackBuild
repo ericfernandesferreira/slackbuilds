@@ -28,7 +28,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=obs-studio
-VERSION=${VERSION:-32.0.4}
+VERSION=${VERSION:-32.1.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
