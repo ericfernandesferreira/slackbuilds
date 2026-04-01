@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Ventoy
+Comment=Ventoy is tool to create bootable USB drive
+Exec=/opt/ventoy/VentoyGUI.x86_64
+Icon=ventoy
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=System;Utility;
