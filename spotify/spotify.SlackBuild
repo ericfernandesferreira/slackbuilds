@@ -29,7 +29,7 @@
 
 PRGNAM=spotify
 SRCNAM=spotify-client
-VERSION=${VERSION:-1.2.84.476.ga1ff6607}
+VERSION=${VERSION:-1.2.92.147.g5b8f9367}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
