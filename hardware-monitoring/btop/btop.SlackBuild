@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=btop
-VERSION=${VERSION:-1.4.6}
+VERSION=${VERSION:-1.4.7}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -35,7 +35,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-# wget -c https://github.com/aristocratos/btop/archive/refs/tags/v$VERSION.tar.gz
+wget -c https://github.com/aristocratos/btop/archive/refs/tags/v$VERSION.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -61,11 +61,11 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM
-# tar xvf $CWD/v$VERSION.tar.gz
-git clone https://github.com/aristocratos/btop.git
-cd $PRGNAM
-git checkout
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/v$VERSION.tar.gz
+#git clone https://github.com/aristocratos/btop.git
+cd $PRGNAM-$VERSION
+#git checkout
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -73,17 +73,11 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-mkdir -p build
-cd build
-  cmake \
-    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DBTOP_GPU=ON \
-    -DCMAKE_BUILD_TYPE=Release ..
-  make
-  make install DESTDIR=$PKG
-cd ..
+patch -p1 < $CWD/fixdoc.patch
+
+make all
+make DESTDIR=$PKG PREFIX=/usr DOCDIR=/usr/doc/$PRGNAM-$VERSION install
+make DESTDIR=$PKG PREFIX=/usr DOCDIR=/usr/doc/$PRGNAM-$VERSION setcap
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
