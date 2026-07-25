@@ -27,7 +27,7 @@
 
 PRGNAM=wine
 SRCNAM=wine-staging
-VERSION=${VERSION:-11.0}
+VERSION=${VERSION:-11.14}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
