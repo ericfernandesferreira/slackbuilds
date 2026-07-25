@@ -24,7 +24,7 @@
 
 PRGNAM=hardinfo2
 SRCNAM=release
-VERSION=${VERSION:-2.2.16}
+VERSION=${VERSION:-2.3.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
