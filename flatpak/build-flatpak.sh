@@ -45,7 +45,6 @@ for dir in \
   xdg-dbus-proxy \
   bubblewrap \
   ostree \
-  xdg-desktop-portal-gtk \
   flatpak \
   ; do
   # Get the package name
