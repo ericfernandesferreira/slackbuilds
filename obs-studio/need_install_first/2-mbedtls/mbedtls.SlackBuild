@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=mbedtls
-VERSION=${VERSION:-4.2.0}
+VERSION=${VERSION:-3.6.7}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -65,6 +65,7 @@ rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/v$VERSION.tar.gz
 cd $PRGNAM-$VERSION
 git clone https://github.com/Mbed-TLS/mbedtls-framework.git framework
+#git clone --recursive https://github.com/Mbed-TLS/TF-PSA-Crypto.git tf-psa-crypto
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -74,16 +75,16 @@ find -L . \
 
 mkdir -p build
 cd build
-  cmake \
+  cmake -GNinja \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib${LIBDIRSUFFIX} \
+    -DENABLE_TESTING=OFF \
     -DUSE_SHARED_MBEDTLS_LIBRARY=ON \
     -DUSE_STATIC_MBEDTLS_LIBRARY=OFF \
-    -DENABLE_TESTING=OFF \
     -DCMAKE_BUILD_TYPE=Release ..
-  make -j17
-  make install DESTDIR=$PKG
+  ninja
+  DESTDIR=$PKG ninja install
 cd ..
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
