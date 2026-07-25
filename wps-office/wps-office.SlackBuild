@@ -25,7 +25,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=wps-office
-VERSION=${VERSION:-11.1.0.11723.XA}
+VERSION=${VERSION:-11.1.0.11733.XA}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -37,7 +37,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11723/${PRGNAM}_${VERSION}_amd64.deb
+wget -c https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11733/${PRGNAM}_${VERSION}_amd64.deb
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
