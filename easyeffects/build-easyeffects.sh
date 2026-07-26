@@ -42,7 +42,6 @@ EASYEFFECTS=$(pwd)
 for dir in \
   zita-convolver \
   libebur128 \
-  rnnoise \
   onetbb \
   zix \
   serd \
