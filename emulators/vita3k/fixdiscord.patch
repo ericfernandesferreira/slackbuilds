@@ -1,0 +1,17 @@
+diff -ruN Vita3K/vita3k/CMakeLists.txt Vita3K-patched/vita3k/CMakeLists.txt
+--- Vita3K/vita3k/CMakeLists.txt	2026-07-25 20:22:20.388961645 -0300
++++ Vita3K-patched/vita3k/CMakeLists.txt	2026-07-25 20:29:58.143653606 -0300
+@@ -390,9 +390,10 @@
+ 			DESTINATION "${CMAKE_INSTALL_DOCDIR}/")
+ 
+ 		if(USE_DISCORD_RICH_PRESENCE AND ARCHITECTURE STREQUAL "x86_64")
+-			install(LIBRARY
+-				${CMAKE_BINARY_DIR}/external/discord_game_sdk/lib/x86_64/libdiscord_game_sdk.so
+-				PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ WORLD_READ)
++    		install(FILES
++        		${CMAKE_BINARY_DIR}/external/discord_game_sdk/lib/x86_64/libdiscord_game_sdk.so
++                PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ WORLD_READ
++                DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+ 		endif()
+ 	endif()
+ 	add_custom_command(

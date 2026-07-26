@@ -74,6 +74,7 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 patch -p1 < $CWD/fixboost.patch
+patch -p1 < $CWD/fixdiscord.patch
 
 export CC=gcc
 export CXX=g++
@@ -90,8 +91,10 @@ cd build
     -DBoost_USE_STATIC_RUNTIME=OFF \
     -DVITA3K_FORCE_SYSTEM_BOOST=ON \
     -DUSE_DISCORD_RICH_PRESENCE=ON \
+    -DFMT_MODULE=OFF \
+    -DFMT_INSTALL=OFF \
     -DCMAKE_BUILD_TYPE=Release ..
-  ninja
+  ninja -j1
   DESTDIR=$PKG ninja install
 cd ..
 
