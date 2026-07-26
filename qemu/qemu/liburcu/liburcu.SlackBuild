@@ -26,7 +26,7 @@
 
 PRGNAM=liburcu
 SRCNAM=userspace-rcu
-VERSION=${VERSION:-0.14.0}
+VERSION=${VERSION:-0.15.6}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -95,7 +95,7 @@ find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | gr
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a ChangeLog CodingStyle LICENSE README* *.txt $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a ChangeLog CodingStyle* LICENSE* README* lgpl* $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
