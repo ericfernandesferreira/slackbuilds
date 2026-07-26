@@ -44,7 +44,10 @@ for dir in \
   virt-manager/libvirt \
   virt-manager/libvirt-glib \
   virt-manager/libvirt-python \
+  virt-manager/gtksourceview5 \
+  virt-manager/rest \
   virt-manager/libgovirt \
+  virt-manager/pylint \
   virt-manager/virt-manager \
   ; do
   # Get the package name
