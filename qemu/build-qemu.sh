@@ -38,25 +38,19 @@ TMP=${TMP:-/tmp}
 # This is the original directory where you started this script
 QEMU=$(pwd)
 
+#   qemu/libosinfo \
+#   qemu/pcsclite \
+
 # Loop for all packages
 for dir in \
-  qemu/libsoup3 \
   qemu/lzfse \
   qemu/rdma \
   qemu/pmdk \
-  qemu/virglrenderer \
-  qemu/libosinfo \
   qemu/gtk-vnc \
-  qemu/usbredir \
-  qemu/pcsclite \
-  qemu/libcacard \
-  qemu/spice-protocol \
-  qemu/spice \
   qemu/phodav \
   qemu/spice-gtk \
   qemu/liburcu \
   qemu/multipath-tools \
-  qemu/vde2 \
   qemu/snappy \
   qemu/libnfs \
   qemu/numactl \
