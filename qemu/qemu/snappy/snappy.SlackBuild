@@ -6,7 +6,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=snappy
-VERSION=${VERSION:-1.1.10}
+VERSION=${VERSION:-1.2.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
