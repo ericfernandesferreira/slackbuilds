@@ -26,7 +26,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=qemu
-VERSION=${VERSION:-8.0.0}
+VERSION=${VERSION:-10.0.12}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -81,6 +81,8 @@ targets="--target-list=arm-softmmu,aarch64-softmmu,i386-softmmu,x86_64-softmmu,i
 #  --enable-nvmm \ NVMM acceleration support
 #  --enable-xen \ Xen backend support
 #  --enable-xen-pci-passthrough \ Xen PCI passthrough support
+#  --enable-avx512f \
+#  --enable-hax \
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -104,7 +106,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-system \
   --enable-modules \
   --enable-avx2 \
-  --enable-avx512f \
   --enable-opengl \
   --enable-virglrenderer \
   --enable-tools \
@@ -114,7 +115,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-libudev \
   --enable-vde \
   --enable-vte \
-  --enable-hax \
   --enable-tpm \
   --enable-virtfs \
   --enable-sdl \
