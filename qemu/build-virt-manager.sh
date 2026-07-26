@@ -44,7 +44,6 @@ for dir in \
   virt-manager/libvirt \
   virt-manager/libvirt-glib \
   virt-manager/libvirt-python \
-  virt-manager/rest \
   virt-manager/libgovirt \
   virt-manager/virt-manager \
   ; do
