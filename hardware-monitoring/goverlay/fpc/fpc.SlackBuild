@@ -39,8 +39,8 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://freefr.dl.sourceforge.net/project/freepascal/Linux/$VERSION/$PRGNAM-$VERSION.x86_64-linux.tar
-wget -c https://freefr.dl.sourceforge.net/project/freepascal/Source/$VERSION/fpcbuild-$VERSION.tar.gz
+wget -c https://sitsa.dl.sourceforge.net/project/freepascal/Linux/$VERSION/$PRGNAM-$VERSION.x86_64-linux.tar
+wget -c https://sitsa.dl.sourceforge.net/project/freepascal/Source/$VERSION/fpcbuild-$VERSION.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
