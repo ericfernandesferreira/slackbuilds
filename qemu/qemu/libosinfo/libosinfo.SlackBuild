@@ -73,6 +73,8 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
+patch -p1 < $CWD/fixlibxml2.patch
+
 mkdir -p build
 cd build
   meson setup \
@@ -82,11 +84,13 @@ cd build
     --localstatedir=/var \
     --mandir=/usr/man \
     --buildtype=release \
+    -Dlibsoup-abi=3.0 \
     -Denable-tests=false \
+    -Denable-vala=enabled \
     -Denable-gtk-doc=false \
     -Denable-introspection=enabled \
-    -D with-usb-ids-path=/usr/share/hwdata/usb.ids \
-    -D with-pci-ids-path=/usr/share/hwdata/pci.ids \
+    -Dwith-usb-ids-path=/usr/share/hwdata/usb.ids \
+    -Dwith-pci-ids-path=/usr/share/hwdata/pci.ids \
     ..
 
   meson configure
