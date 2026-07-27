@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 # Slackware build script for libgovirt
 
-# Copyright 2015-2021 Eric Fernandes Ferreira <candelabrus@gmail.com>
+# Copyright 2015-2026 Eric Fernandes Ferreira <candelabrus@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=libgovirt
-VERSION=${VERSION:-0.3.9}
+VERSION=${VERSION:-0.3.11}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
