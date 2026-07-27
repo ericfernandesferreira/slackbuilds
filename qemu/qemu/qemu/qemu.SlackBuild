@@ -26,7 +26,7 @@
 # Modified again by Eric Fernandes Ferreira <candelabrus@gmail.com> for my personal use
 
 PRGNAM=qemu
-VERSION=${VERSION:-10.0.12}
+VERSION=${VERSION:-11.0.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -83,6 +83,7 @@ targets="--target-list=arm-softmmu,aarch64-softmmu,i386-softmmu,x86_64-softmmu,i
 #  --enable-xen-pci-passthrough \ Xen PCI passthrough support
 #  --enable-avx512f \
 #  --enable-hax \
+#  --enable-avx2 \
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -99,13 +100,13 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-linux-aio \
   --enable-linux-io-uring \
   --enable-spice \
+  --enable-spice-protocol \
   --enable-usb-redir \
   --enable-gtk \
   --enable-user \
   --enable-linux-user \
   --enable-system \
   --enable-modules \
-  --enable-avx2 \
   --enable-opengl \
   --enable-virglrenderer \
   --enable-tools \
@@ -140,13 +141,14 @@ CXXFLAGS="$SLKCFLAGS" \
   --enable-snappy \
   --enable-libnfs \
   --enable-numa \
+  --enable-slirp \
   --enable-malloc-trim \
   --enable-malloc=system \
   --disable-debug-info \
-  --disable-guest-agent \
+  --enable-guest-agent \
   --enable-vfio-user-server \
   --disable-tcg-interpreter \
-  --audio-drv-list=pa,alsa,oss,sdl,jack,sndio \
+  --audio-drv-list=pa,alsa,oss,sdl,jack,sndio,pipewire \
   $targets
 
 make -j17
@@ -157,8 +159,7 @@ find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | gr
 
 rm -rf $PKG/var/run
 chmod u+s $PKG/usr/libexec/qemu-bridge-helper
-ln -sf qemu-system-$ARCH $PKG/usr/bin/qemu-kvm
-install -Dm644 $CWD/65-kvm.rules $PKG/lib/udev/65-kvm.rules
+ln -s qemu-system-$ARCH $PKG/usr/bin/qemu-kvm
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a COPYING* LICENSE MAINTAINERS README* docs/* $PKG/usr/doc/$PRGNAM-$VERSION
