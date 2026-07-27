@@ -84,6 +84,7 @@ cd build
     --mandir=/usr/man \
     --buildtype=release \
     -Dsasl=enabled \
+    -Dgi-docs=disabled \
     -Dwith-vala=enabled \
     -Dpulseaudio=enabled \
     -Dintrospection=enabled \
