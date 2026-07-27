@@ -37,7 +37,7 @@ if [ -z "$ARCH" ]; then
   esac
 fi
 
-wget -c https://freefr.dl.sourceforge.net/project/lazarus/Lazarus%20Zip%20_%20GZip/Lazarus%204.4/$PRGNAM-$SRCVERSION.tar.gz
+wget -c https://sitsa.dl.sourceforge.net/project/$PRGNAM/Lazarus%20Zip%20_%20GZip/Lazarus%204.8/$PRGNAM-$SRCVERSION.tar.gz
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -78,8 +78,7 @@ sed -i -e 's:share/man:man:' install/man/Makefile
 make clean
 make -j1 all \
   PREFIX=/usr \
-  LCL_PLATFORM=qt6 bigide \
-  OPT=${OPT}
+  LCL_PLATFORM=qt6 bigide
 make install \
   INSTALL_PREFIX=$PKG/usr \
   INSTALL_MAN_DIR=$PKG/usr/man
