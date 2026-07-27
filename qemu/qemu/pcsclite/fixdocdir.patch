@@ -1,0 +1,21 @@
+diff -ruN pcsc-lite-2.5.1/meson.build pcsc-lite-2.5.1-patched/meson.build
+--- pcsc-lite-2.5.1/meson.build	2026-06-10 09:17:31.000000000 -0300
++++ pcsc-lite-2.5.1-patched/meson.build	2026-07-26 14:10:57.011329975 -0300
+@@ -210,7 +210,7 @@
+   'src/winscard_msg.c'
+   ]
+ 
+-# libpcsclite library
++# libpcsclite library
+ libpcsclite_src = [
+   'src/error.c',
+   'src/g_defines.c',
+@@ -245,7 +245,7 @@
+     install_dir : get_option('bindir'))
+ 
+   install_data('src/spy/setup_spy.sh',
+-    install_dir : 'share/doc/pcsc-lite')
++    install_dir : 'doc/pcsclite-2.5.1')
+ 
+   run_command('pod2man',
+     ['--date=2024-01-01', 'src/spy/pcsc-spy.pod', 'pcsc-spy.1'],
