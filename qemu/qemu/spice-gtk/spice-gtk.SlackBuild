@@ -85,8 +85,17 @@ cd build
     --localstatedir=/var \
     --mandir=/usr/man \
     --buildtype=release \
+    -Degl=enabled \
+    -Dgtk=enabled \
+    -Dsasl=enabled \
+    -Drecorder=true \
+    -Dpolkit=enabled \
+    -Dusbredir=enabled \
     -Dgtk_doc=disabled \
+    -Dsmartcard=enabled \
     -Dbuiltin-mjpeg=false \
+    -Dintrospection=enabled \
+    -Dwayland-protocols=enabled \
     -Dusb-ids-path=/usr/share/hwdata/usb.ids \
     ..
 
