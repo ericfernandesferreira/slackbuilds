@@ -50,6 +50,7 @@ for dir in \
   sratom \
   lilv \
   soundtouch \
+  gst-plugins-bad \
   kcoreaddons \
   kcodecs \
   kguiaddons \
