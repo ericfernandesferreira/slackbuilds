@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+      |-----handy-ruler------------------------------------------------------|
+pylint: Pylint is a static code analyser for Python 2 or 3. The latest
+pylint: version supports Python 3.10.0 and above.
+pylint:
+pylint: Pylint analyses your code without actually running it. It checks for
+pylint: errors, enforces a coding standard, looks for code smells, and can make
+pylint: suggestions about how the code could be refactored.
+pylint:
+pylint:
+pylint:
+pylint: Homepage : https://github.com/pylint-dev/pylint
+pylint:
