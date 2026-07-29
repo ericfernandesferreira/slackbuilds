@@ -38,6 +38,11 @@ TMP=${TMP:-/tmp}
 # This is the original directory where you started this script
 EASYEFFECTS=$(pwd)
 
+slackpkg install breeze-icons karchive kcodecs kcolorscheme kconfig \
+  kconfigwidgets kcoreaddons kcrash kglobalaccel kguiaddons ki18n \
+  kiconthemes kirigami kirigami-addons kitemmodels ksvg kwidgetsaddons \
+  qqc2-desktop-style sonnet
+
 # Loop for all packages
 for dir in \
   zita-convolver \
@@ -51,25 +56,6 @@ for dir in \
   lilv \
   soundtouch \
   gst-plugins-bad \
-  kcoreaddons \
-  kcodecs \
-  kguiaddons \
-  ki18n \
-  kwidgetsaddons \
-  kcolorscheme \
-  kconfig \
-  kconfigwidgets \
-  kirigami \
-  karchive \
-  breeze-icons \
-  kiconthemes \
-  kcrash \
-  kglobalaccel \
-  kitemmodels \
-  ksvg \
-  sonnet \
-  kirigami-addons \
-  qqc2-desktop-style \
   easyeffects \
   ; do
   # Get the package name
@@ -98,3 +84,5 @@ for dir in \
   # back to original directory
   cd $EASYEFFECTS
 done
+
+echo "gst-plugins-bad" >> /etc/slackpkg/blacklist
