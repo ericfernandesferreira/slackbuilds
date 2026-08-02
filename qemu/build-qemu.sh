@@ -55,6 +55,8 @@ for dir in \
   qemu/numactl \
   qemu/sndio \
   qemu/cmocka \
+  qemu/libtpms \
+  qemu/swtpm \
   qemu/qemu \
   ; do
   # Get the package name
