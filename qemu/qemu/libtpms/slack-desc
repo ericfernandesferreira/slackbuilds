@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+       |-----handy-ruler------------------------------------------------------|
+libtpms: Libtpms is a library that targets the integration of TPM functionality
+libtpms: into hypervisors, primarily into Qemu. Libtpms provides a very narrow
+libtpms: public API for this purpose so that integration is possible. Only the
+libtpms: minimum of necessary APIs are made publicly available.
+libtpms:
+libtpms:
+libtpms:
+libtpms:
+libtpms:
+libtpms: Homepage : https://github.com/stefanberger/libtpms
+libtpms:
