@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+             |-----handy-ruler------------------------------------------------------|
+looking-glass: Looking Glass is an open source application that allows the use of a
+looking-glass: KVM (Kernel-based Virtual Machine) configured for VGA PCI Pass-through
+looking-glass: without an attached physical monitor, keyboard or mouse. This is the
+looking-glass: final step required to move away from dual booting with other operating
+looking-glass: systems for legacy programs that require high performance graphics.
+looking-glass:
+looking-glass:
+looking-glass:
+looking-glass:
+looking-glass: Homepage : https://looking-glass.io/
+looking-glass:
